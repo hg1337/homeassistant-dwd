@@ -1,0 +1,10 @@
+{
+  "domain": "dwd",
+  "name": "Deutscher Wetterdienst",
+  "config_flow": true,
+  "documentation": "https://github.com/hg1337/homeassistant-custom-dwd",
+  "requirements": [],
+  "codeowners": [
+    "@hg1337"
+  ]
+}

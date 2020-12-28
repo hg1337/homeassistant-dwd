@@ -1,0 +1,101 @@
+"""Constants for Met component."""
+from datetime import timedelta
+import logging
+
+from homeassistant.components.weather import (
+    ATTR_CONDITION_CLEAR_NIGHT,
+    ATTR_CONDITION_CLOUDY,
+    ATTR_CONDITION_EXCEPTIONAL,
+    ATTR_CONDITION_FOG,
+    ATTR_CONDITION_HAIL,
+    ATTR_CONDITION_LIGHTNING,
+    ATTR_CONDITION_LIGHTNING_RAINY,
+    ATTR_CONDITION_PARTLYCLOUDY,
+    ATTR_CONDITION_POURING,
+    ATTR_CONDITION_RAINY,
+    ATTR_CONDITION_SNOWY,
+    ATTR_CONDITION_SNOWY_RAINY,
+    ATTR_CONDITION_SUNNY,
+    ATTR_CONDITION_WINDY,
+    ATTR_CONDITION_WINDY_VARIANT,
+)
+
+DOMAIN = "dwd"
+
+ATTRIBUTION = "Quelle: Deutscher Wetterdienst"
+
+CONF_STATION_ID = "station_id"
+
+URL_MEASUREMENT = (
+    "https://opendata.dwd.de/weather/weather_reports/poi/{station_id}-BEOB.csv"
+)
+URL_FORECAST = "https://opendata.dwd.de/weather/local_forecasts/mos/MOSMIX_L/single_stations/{station_id}/kml/MOSMIX_L_LATEST_{station_id}.kmz"
+
+UPDATE_INTERVAL = timedelta(seconds=610)
+
+CONDITION_PARTLYCLOUDY_THRESHOLD = 25
+CONDITION_CLOUDY_THRESHOLD = 75
+
+MEASUREMENTS_MAX_AGE = 3
+
+FORECAST_MODE_DAILY = 0
+FORECAST_MODE_HOURLY = 1
+
+DWD_MEASUREMENT = 0
+DWD_FORECAST = 1
+
+DWD_MEASUREMENT_DATETIME = "datetime"
+
+# Mapping see https://www.dwd.de/DE/leistungen/opendata/help/schluessel_datenformate/bufr/poi_present_weather_zuordnung_pdf.pdf (German)
+CONDITIONS_MAP = {
+    1: ATTR_CONDITION_SUNNY,
+    2: ATTR_CONDITION_PARTLYCLOUDY,
+    3: ATTR_CONDITION_PARTLYCLOUDY,
+    4: ATTR_CONDITION_CLOUDY,
+    5: ATTR_CONDITION_FOG,
+    6: ATTR_CONDITION_FOG,
+    7: ATTR_CONDITION_RAINY,
+    8: ATTR_CONDITION_RAINY,
+    9: ATTR_CONDITION_POURING,
+    10: ATTR_CONDITION_SNOWY_RAINY,
+    11: ATTR_CONDITION_SNOWY_RAINY,
+    12: ATTR_CONDITION_SNOWY_RAINY,
+    13: ATTR_CONDITION_SNOWY_RAINY,
+    14: ATTR_CONDITION_SNOWY,
+    15: ATTR_CONDITION_SNOWY,
+    16: ATTR_CONDITION_SNOWY,
+    17: ATTR_CONDITION_HAIL,
+    18: ATTR_CONDITION_RAINY,
+    19: ATTR_CONDITION_POURING,
+    20: ATTR_CONDITION_SNOWY_RAINY,
+    21: ATTR_CONDITION_SNOWY_RAINY,
+    22: ATTR_CONDITION_SNOWY,
+    23: ATTR_CONDITION_SNOWY,
+    24: ATTR_CONDITION_SNOWY,
+    25: ATTR_CONDITION_SNOWY,
+    26: ATTR_CONDITION_LIGHTNING,
+    27: ATTR_CONDITION_LIGHTNING_RAINY,
+    28: ATTR_CONDITION_LIGHTNING_RAINY,
+    29: ATTR_CONDITION_LIGHTNING_RAINY,
+    30: ATTR_CONDITION_LIGHTNING_RAINY,
+    31: ATTR_CONDITION_WINDY,
+}
+
+DWD_MEASUREMENT_PRESENT_WEATHER = "present_weather"
+DWD_MEASUREMENT_TEMPERATURE = "dry_bulb_temperature_at_2_meter_above_ground"
+DWD_MEASUREMENT_PRESSURE = "pressure_reduced_to_mean_sea_level"
+DWD_MEASUREMENT_HUMIDITY = "relative_humidity"
+DWD_MEASUREMENT_VISIBILITY = "horizontal_visibility"
+DWD_MEASUREMENT_MEANWIND_SPEED = (
+    "mean_wind_speed_during last_10_min_at_10_meters_above_ground"
+)
+DWD_MEASUREMENT_MEANWIND_DIRECTION = (
+    "mean_wind_direction_during_last_10 min_at_10_meters_above_ground"
+)
+
+DWD_FORECAST_TIMESTAMP = "timestamp"
+
+ATTR_FORECAST_CLOUD_COVER = "cloud_cover"
+ATTR_FORECAST_CUSTOM_DWD_WW = "custom_dwd_ww"
+
+_LOGGER = logging.getLogger(".")

@@ -1,0 +1,21 @@
+{
+  "config": {
+    "abort": {
+      "already_configured": "Station is already configured."
+    },
+    "error": {
+      "no_measurement": "Couldn't get measurement for the selected station. Either you selected an invalid station or the station does not provide measurements.",
+      "no_forecast": "Couldn't get forecast for the selected station. Either you selected an invalid station or the station does not provide forecasts."
+    },
+    "step": {
+      "user": {
+        "data": {
+          "station_id": "Station ID",
+          "name": "Name"
+        },
+        "description": "This integration fetches weather data from the Open Data server of Deutscher Wetterdienst. By using this integration, you agree to the terms at https://opendata.dwd.de/README.txt (German only).\n\nBased on your Home Assistant configuration, the nearest station  that should provide measurement and forecast data was preselected below.\n\nFor a list of all stations see https://www.dwd.de/DE/leistungen/met_verfahren_mosmix/mosmix_stationskatalog.cfg (German only). Please notice that not all stations provide measurement and/or forecast data.",
+        "title": "Deutscher Wetterdienst"
+      }
+    }
+  }
+}
