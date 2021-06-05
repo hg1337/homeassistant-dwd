@@ -51,9 +51,9 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 10954    | Altenstadt                  | 47.8342     | 10.8667     | 756.0    
 10520    | Andernach                   | 50.4237     | 7.4202      | 75.0     
 10291    | Angermünde                  | 53.0316     | 13.9908     | 54.0     
-10091    | Arkona                      | 54.6792     | 13.4343     | 42.0     
-03005    | Arkona                      | 54.6792     | 13.4343     | 42.0     
-10460    | Artern                      | 51.3745     | 11.292      | 164.0    
+03005    | Arkona                      | 54.6791     | 13.4344     | 42.0     
+10091    | Arkona                      | 54.6791     | 13.4344     | 42.0     
+10460    | Artern                      | 51.3744     | 11.292      | 164.0    
 10852    | Augsburg                    | 48.4253     | 10.9417     | 462.0    
 15150    | BACAU                       | 46.32       | 26.55       | 184.0    
 08330    | BADAJOZ/TALAVERA            | 38.53       | -6.49       | 185.0    
@@ -68,7 +68,7 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 13274    | BELGRAD                     | 44.48       | 20.28       | 132.0    
 13272    | BEOGRAD/SURCIN              | 44.49       | 20.17       | 96.0     
 01311    | BERGEN                      | 60.18       | 5.13        | 50.0     
-10384    | BERLIN-TEMPELHOF            | 52.28       | 13.24       | 50.0     
+10382    | BERLIN-TEGEL                | 52.34       | 13.19       | 37.0     
 12295    | BIALYSTOK                   | 53.06       | 23.1        | 148.0    
 14528    | BIHAC                       | 44.49       | 15.53       | 250.0    
 14652    | BJELASNICA                  | 43.43       | 18.16       | 2067.0   
@@ -82,7 +82,7 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 16088    | BRESCIA/GHEDI               | 45.25       | 10.17       | 102.0    
 07110    | BREST                       | 48.27       | -4.25       | 99.0     
 33008    | BREST                       | 52.07       | 23.41       | 142.0    
-03292    | BRIDLINGTON                 | 54.06       | -0.1        | 15.0     
+03292    | BRIDLINGTON                 | 54.05       | -0.11       | 15.0     
 16320    | BRINDISI                    | 40.39       | 17.57       | 15.0     
 03628    | BRISTOL/FILTON              | 51.31       | -2.35       | 59.0     
 11723    | BRUENN                      | 49.09       | 16.42       | 238.0    
@@ -92,24 +92,24 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 08075    | BURGOS-VILLAFRIA            | 42.22       | -3.38       | 894.0    
 17116    | BURSA                       | 40.11       | 29.04       | 100.0    
 10675    | Bamberg                     | 49.8743     | 10.9206     | 240.0    
-10180    | Barth                       | 54.3406     | 12.7108     | 3.0      
-10376    | Baruth                      | 52.0614     | 13.4996     | 55.0     
+10180    | Barth                       | 54.3405     | 12.7108     | 3.0      
+10376    | Baruth                      | 52.0613     | 13.4997     | 55.0     
 10312    | Belm                        | 52.317      | 8.1694      | 103.0    
 10238    | Bergen                      | 52.8152     | 9.9248      | 70.0     
 10385    | Berlin Brandenburg          | 52.3807     | 13.5306     | 46.0     
 10381    | Berlin-Dahlem (FU)          | 52.4537     | 13.3017     | 51.0     
-10382    | Berlin-Tegel                | 52.5644     | 13.3088     | 36.0     
+10384    | Berlin-Tempelhof            | 52.4675     | 13.4021     | 48.0     
 10704    | Berus                       | 49.2641     | 6.6868      | 363.0    
 10249    | Boizenburg                  | 53.3911     | 10.6878     | 45.0     
-10161    | Boltenhagen                 | 54.0028     | 11.1908     | 15.0     
-03026    | Boltenhagen                 | 54.0028     | 11.1908     | 15.0     
+03026    | Boltenhagen                 | 54.0027     | 11.1908     | 15.0     
+10161    | Boltenhagen                 | 54.0027     | 11.1908     | 15.0     
 01180    | Borken in Westfalen         | 51.873      | 6.886       | 47.0     
 10452    | Braunlage                   | 51.7234     | 10.6021     | 607.0    
 10348    | Braunschweig                | 52.2915     | 10.4464     | 81.0     
 10224    | Bremen                      | 53.045      | 8.7979      | 4.0      
 10129    | Bremerhaven                 | 53.5332     | 8.5761      | 7.0      
 10139    | Bremervörde                 | 53.4451     | 9.139       | 11.0     
-10453    | Brocken                     | 51.799      | 10.618      | 1134.0   
+10453    | Brocken                     | 51.799      | 10.618      | 1135.0   
 10613    | Büchel (Flugplatz)          | 50.1746     | 7.0595      | 477.0    
 10335    | Bückeburg                   | 52.2817     | 9.0889      | 68.0     
 07027    | CAEN                        | 49.11       | -0.27       | 67.0     
@@ -118,7 +118,7 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 16550    | CAPO BELLAVISTA             | 39.56       | 9.43        | 138.0    
 16294    | CAPRI                       | 40.33       | 14.12       | 160.0    
 03220    | CARLISLE                    | 54.56       | -2.58       | 28.0     
-17031    | CARSAMBA/SAMSUN             | 41.15       | 36.33       | 5.0      
+17031    | CARSAMBA/SAMSUN             | 41.15       | 36.34       | 5.0      
 27113    | CEREPOVEC                   | 59.15       | 37.58       | 114.0    
 03158    | CHARTERHALL                 | 55.43       | -2.23       | 112.0    
 12235    | CHOJNICE                    | 53.42       | 17.33       | 172.0    
@@ -129,9 +129,9 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 15480    | CONSTANTA                   | 44.13       | 28.39       | 13.0     
 08410    | CORDOBA                     | 37.51       | -4.51       | 90.0     
 03955    | CORK AIRPORT                | 51.51       | -8.29       | 153.0    
-10574    | Carlsfeld                   | 50.4313     | 12.6114     | 897.0    
+10574    | Carlsfeld                   | 50.4313     | 12.6114     | 895.0    
 10343    | Celle                       | 52.5959     | 10.0296     | 39.0     
-10577    | Chemnitz                    | 50.7913     | 12.872      | 418.0    
+10577    | Chemnitz                    | 50.7913     | 12.872      | 416.0    
 10982    | Chieming                    | 47.8843     | 12.5404     | 551.0    
 10496    | Cottbus                     | 51.776      | 14.3168     | 69.0     
 10131    | Cuxhaven                    | 53.8713     | 8.7058      | 5.0      
@@ -152,7 +152,7 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 10150    | Dörnick                     | 54.1654     | 10.3519     | 27.0     
 10400    | Düsseldorf                  | 51.296      | 6.7686      | 37.0     
 17050    | EDIRNE                      | 41.4        | 26.34       | 48.0     
-11406    | EGER                        | 50.04       | 12.24       | 483.0    
+11406    | EGER                        | 50.04       | 12.23       | 483.0    
 40199    | EILAT                       | 29.33       | 34.57       | 12.0     
 06370    | EINDHOVEN                   | 51.27       | 5.25        | 23.0     
 11190    | EISENSTADT                  | 47.51       | 16.32       | 184.0    
@@ -177,7 +177,7 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 10282    | Feldberg/Mecklenburg        | 53.3175     | 13.4175     | 116.0    
 10908    | Feldberg/Schwarzwald        | 47.8749     | 8.0038      | 1490.0   
 10756    | Feuchtwangen-Heilbronn      | 49.1623     | 10.3661     | 475.0    
-10578    | Fichtelberg                 | 50.4283     | 12.9535     | 1213.0   
+10578    | Fichtelberg                 | 50.4283     | 12.9536     | 1213.0   
 10637    | Frankfurt/Main              | 50.0259     | 8.5213      | 100.0    
 10803    | Freiburg                    | 48.0232     | 7.8343      | 237.0    
 01452    | Freiburg/Elbe               | 53.828      | 9.249       | 2.0      
@@ -186,7 +186,6 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 10439    | Fritzlar (Flugplatz)        | 51.119      | 9.2799      | 172.0    
 10895    | Fürstenzell                 | 48.5451     | 13.3532     | 476.0    
 17260    | GAZIANTEP                   | 37.05       | 37.22       | 705.0    
-10500    | GEILENKIRCHEN               | 50.58       | 6.03        | 90.0     
 06700    | GENF                        | 46.15       | 6.08        | 420.0    
 16120    | GENUA                       | 44.25       | 8.51        | 2.0      
 08184    | GERONA/COST.BRAVA           | 41.54       | 2.46        | 143.0    
@@ -199,17 +198,18 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 11240    | GRAZ FL.                    | 47.0        | 15.26       | 340.0    
 16206    | GROSSETO                    | 42.45       | 11.04       | 5.0      
 12822    | GYOR                        | 47.43       | 17.41       | 116.0    
-10359    | Gardelegen                  | 52.5129     | 11.3941     | 47.0     
+10359    | Gardelegen                  | 52.5129     | 11.3942     | 47.0     
 10963    | Garmisch-Partenkirchen      | 47.483      | 11.0621     | 719.0    
+10500    | Geilenkirchen (Flugplatz)   | 50.9593     | 6.0392      | 80.0     
 10628    | Geisenheim                  | 49.9859     | 7.9548      | 110.0    
 10777    | Gelbelsee                   | 48.9481     | 11.4289     | 536.0    
-10365    | Genthin                     | 52.3875     | 12.1601     | 35.0     
-10567    | Gera-Leumnitz               | 50.8813     | 12.1289     | 311.0    
+10365    | Genthin                     | 52.3875     | 12.1602     | 35.0     
+10567    | Gera-Leumnitz               | 50.8812     | 12.1289     | 311.0    
 01152    | Gevelsberg-Oberbröking      | 51.333      | 7.341       | 205.0    
 10532    | Gießen/Wettenberg           | 50.6017     | 8.6439      | 203.0    
-10033    | Glücksburg-Meierwik         | 54.8273     | 9.5058      | 12.0     
 01415    | Glücksburg-Meierwik         | 54.8273     | 9.5058      | 12.0     
-10168    | Goldberg                    | 53.606      | 12.1033     | 58.0     
+10033    | Glücksburg-Meierwik         | 54.8273     | 9.5058      | 12.0     
+10168    | Goldberg                    | 53.6058     | 12.1034     | 58.0     
 10872    | Gottfrieding                | 48.6595     | 12.5388     | 351.0    
 10184    | Greifswald                  | 54.0967     | 13.4056     | 2.0      
 10097    | Greifswalder Oie            | 54.2437     | 13.9102     | 12.0     
@@ -220,12 +220,12 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 40155    | HAIFA                       | 32.48       | 35.02       | 8.0      
 01385    | HAMAR-STAVSBERG             | 60.49       | 11.04       | 221.0    
 01052    | HAMMERFEST                  | 70.4        | 23.4        | 81.0     
-02982    | HANKO                       | 59.46       | 22.57       | 6.0      
+02982    | HANKO                       | 59.46       | 22.57       | 5.0      
 03321    | HAWARDEN                    | 53.1        | -2.59       | 10.0     
 02974    | HELSINKI/VANTAA             | 60.19       | 24.58       | 51.0     
 16754    | HERAKLION                   | 35.2        | 25.11       | 37.0     
 11774    | HOLESOV                     | 49.19       | 17.34       | 224.0    
-10616    | Hahn                        | 49.9462     | 7.2645      | 497.0    
+10616    | Hahn                        | 49.9463     | 7.2645      | 497.0    
 10147    | Hamburg-Fuhlsbüttel         | 53.6332     | 9.9881      | 14.0     
 10338    | Hannover                    | 52.4644     | 9.6779      | 59.0     
 10850    | Harburg                     | 48.7918     | 10.7062     | 501.0    
@@ -234,12 +234,12 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 10542    | Hersfeld, Bad               | 50.852      | 9.7377      | 272.0    
 10685    | Hof                         | 50.3123     | 11.876      | 565.0    
 10962    | Hohenpeißenberg             | 47.801      | 11.011      | 977.0    
-10534    | Hoherodskopf/Vogelsberg     | 50.5084     | 9.2247      | 743.0    
+10534    | Hoherodskopf/Vogelsberg     | 50.5084     | 9.2246      | 743.0    
 10038    | Hohn                        | 54.3146     | 9.539       | 10.0     
 10476    | Holzdorf (Flugplatz)        | 51.7657     | 13.1666     | 81.0     
 10495    | Hoyerswerda                 | 51.4493     | 14.2533     | 116.0    
 08373    | IBIZA                       | 38.52       | 1.23        | 17.0     
-17024    | INEBOLU                     | 41.59       | 33.47       | 64.0     
+17024    | INEBOLU                     | 41.59       | 33.46       | 64.0     
 11120    | INNSBRUCK FL.               | 47.16       | 11.21       | 581.0    
 03204    | ISLE OF MAN/ROUAL.          | 54.05       | -4.38       | 17.0     
 17060    | ISTANBUL                    | 40.58       | 28.49       | 48.0     
@@ -281,12 +281,12 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 06180    | KOPENHAGEN                  | 55.38       | 12.4        | 5.0      
 16641    | KORFU                       | 39.37       | 19.55       | 2.0      
 11968    | KOSICE                      | 48.4        | 21.13       | 230.0    
-12105    | KOSZALIN                    | 54.12       | 16.09       | 33.0     
+12105    | KOSZALIN                    | 54.12       | 16.1        | 33.0     
 13278    | KRAGUJEVAC                  | 44.02       | 20.56       | 185.0    
 12566    | KRAKOW                      | 50.05       | 19.48       | 237.0    
 13376    | KRALJEVO                    | 43.42       | 20.42       | 217.0    
 01223    | KRISTIANSUND                | 63.07       | 7.5         | 44.0     
-33791    | KRYVYI RIH                  | 48.02       | 33.13       | 123.0    
+33791    | KRYVYI RIH                  | 48.03       | 33.13       | 123.0    
 02355    | KUGGOEREN AMOS              | 61.42       | 17.31       | 9.0      
 13610    | KUKES                       | 42.02       | 20.25       | 354.0    
 02917    | KUOPIO                      | 63.01       | 27.48       | 98.0     
@@ -308,7 +308,7 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 08509    | LAJES/AZOREN                | 38.46       | -27.06      | 52.0     
 60040    | LANZAROTE                   | 28.57       | -13.36      | 14.0     
 16648    | LARISSA                     | 39.38       | 22.25       | 74.0     
-03743    | LARKHILL                    | 51.12       | -1.48       | 132.0    
+03743    | LARKHILL                    | 51.12       | -1.49       | 132.0    
 17609    | LARNAKA                     | 34.53       | 33.38       | 2.0      
 60030    | LAS PALMAS                  | 27.56       | -15.23      | 24.0     
 03257    | LEEMING                     | 54.18       | -1.32       | 40.0     
@@ -366,7 +366,7 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 14026    | MARIBOR/SLIVNICA            | 46.29       | 15.41       | 264.0    
 16325    | MARINA DI GINOSA            | 40.25       | 16.53       | 1.0      
 07650    | MARSEILLE                   | 43.27       | 5.13        | 5.0      
-60338    | MELILLA                     | 35.17       | -2.57       | 47.0     
+60338    | MELILLA                     | 35.17       | -2.58       | 47.0     
 08314    | MENORCA                     | 39.52       | 4.14        | 87.0     
 16420    | MESSINA                     | 38.12       | 15.33       | 59.0     
 12280    | MIKOLAJKI                   | 53.47       | 21.35       | 127.0    
@@ -392,10 +392,10 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 10579    | Marienberg                  | 50.651      | 13.1469     | 639.0    
 10526    | Marienberg, Bad             | 50.6621     | 7.9603      | 547.0    
 10264    | Marnitz                     | 53.3223     | 11.9319     | 81.0     
-10548    | Meiningen                   | 50.5612     | 10.3771     | 450.0    
+10548    | Meiningen                   | 50.5611     | 10.3771     | 450.0    
 10827    | Meßstetten-Appental         | 48.1694     | 8.9433      | 900.0    
-10648    | Michelstadt-Vielbrunn       | 49.7176     | 9.0997      | 453.0    
-10736    | Mühlacker                   | 48.9721     | 8.8734      | 244.0    
+10648    | Michelstadt-Vielbrunn       | 49.7177     | 9.0997      | 453.0    
+10736    | Mühlacker                   | 48.9721     | 8.8735      | 243.0    
 10875    | Mühldorf                    | 48.279      | 12.5024     | 406.0    
 10870    | München-Flughafen           | 48.3477     | 11.8134     | 446.0    
 10865    | München-Stadt               | 48.1632     | 11.5429     | 515.0    
@@ -408,7 +408,7 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 17610    | NICOSIA                     | 35.09       | 33.17       | 224.0    
 13388    | NIS                         | 43.2        | 21.54       | 202.0    
 07690    | NIZZA                       | 43.39       | 7.12        | 4.0      
-02500    | NORDKOSTER                  | 58.54       | 11.0        | 33.0     
+02500    | NORDKOSTER                  | 58.53       | 11.0        | 33.0     
 03354    | NOTTINGHAM/MET              | 53.0        | -1.15       | 117.0    
 13168    | NOVI SAD                    | 45.2        | 19.51       | 86.0     
 10537    | Neu-Ulrichstein             | 50.7513     | 9.0224      | 350.0    
@@ -430,14 +430,14 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 12530    | OPOLE                       | 50.4        | 17.58       | 163.0    
 01241    | ORLAND                      | 63.42       | 9.36        | 7.0      
 14280    | OSIJEK-CEPIN                | 45.3        | 18.34       | 89.0     
-01492    | OSLO-BLINDERN               | 59.57       | 10.43       | 94.0     
+01492    | OSLO-BLINDERN               | 59.56       | 10.43       | 94.0     
 01384    | OSLO/GARDERMOEN             | 60.12       | 11.06       | 201.0    
 11782    | OSTRAVA/MOSNOV              | 49.41       | 18.07       | 257.0    
 08015    | OVIEDO                      | 43.21       | -5.52       | 335.0    
 10948    | Oberstdorf                  | 47.3984     | 10.2759     | 806.0    
-10641    | Offenbach-Wetterpark        | 50.09       | 8.7862      | 119.0    
-10480    | Oschatz                     | 51.296      | 13.0928     | 150.0    
+10641    | Offenbach-Wetterpark        | 50.0899     | 8.7862      | 119.0    
 03377    | Oschatz                     | 51.296      | 13.0928     | 150.0    
+10480    | Oschatz                     | 51.296      | 13.0928     | 150.0    
 10565    | Osterfeld                   | 51.0873     | 11.9292     | 246.0    
 16022    | PAGANELLA                   | 46.09       | 11.02       | 2125.0   
 08306    | PALMA                       | 39.33       | 2.44        | 4.0      
@@ -445,7 +445,7 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 07149    | PARIS                       | 48.44       | 2.24        | 89.0     
 16741    | PAROS                       | 37.01       | 25.08       | 76.0     
 16021    | PASSO ROLLE                 | 46.18       | 11.47       | 2004.0   
-06610    | PAYERNE                     | 46.49       | 6.57        | 490.0    
+06610    | PAYERNE                     | 46.49       | 6.56        | 490.0    
 13473    | PEC                         | 42.4        | 20.18       | 498.0    
 12942    | PECS/POGANY                 | 46.0        | 18.14       | 201.0    
 07747    | PERPIGNAN                   | 42.44       | 2.52        | 43.0     
@@ -454,7 +454,6 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 16084    | PIACENZA                    | 44.55       | 9.44        | 134.0    
 11826    | PIESTANY                    | 48.37       | 17.5        | 164.0    
 16158    | PISA-S.GIUSTO               | 43.41       | 10.23       | 2.0      
-10569    | PLAUEN                      | 50.29       | 12.08       | 386.0    
 03827    | PLYMOUTH                    | 50.21       | -4.07       | 50.0     
 13462    | PODGORICA/GOLUBOBCI         | 42.22       | 19.15       | 33.0     
 07335    | POITIERS                    | 46.35       | 0.18        | 120.0    
@@ -468,12 +467,13 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 16245    | PRATICA DI MARE             | 41.39       | 12.26       | 6.0      
 03136    | PRESTWICK/RNAS              | 55.31       | -4.35       | 26.0     
 11659    | PRIBYSLAW                   | 49.35       | 15.46       | 533.0    
-11423    | PRIMDA                      | 49.4        | 12.41       | 742.0    
+11423    | PRIMDA                      | 49.4        | 12.41       | 743.0    
 13481    | PRISTINA                    | 42.39       | 21.09       | 573.0    
 13477    | PRIZREN                     | 42.13       | 20.44       | 402.0    
 16434    | PRIZZI                      | 37.43       | 13.26       | 1034.0   
 14307    | PULA                        | 44.54       | 13.55       | 63.0     
 10152    | Pelzerhaken                 | 54.0893     | 10.8773     | 2.0      
+10569    | Plauen                      | 50.4819     | 12.13       | 386.0    
 10379    | Potsdam                     | 52.381      | 13.062      | 81.0     
 10093    | Putbus                      | 54.3643     | 13.4771     | 40.0     
 10146    | Quickborn                   | 53.7331     | 9.8776      | 11.0     
@@ -492,13 +492,13 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 10731    | Rheinstetten                | 48.9726     | 8.3301      | 116.0    
 10170    | Rostock-Warnemünde          | 54.1803     | 12.0808     | 4.0      
 10765    | Roth                        | 49.2162     | 11.1035     | 386.0    
-06680    | SAENTIS                     | 47.15       | 9.21        | 2502.0   
+06680    | SAENTIS                     | 47.15       | 9.2         | 2502.0   
 08202    | SALAMANCA/MATACAN           | 40.57       | -5.3        | 793.0    
 11150    | SALZBURG FL.                | 47.48       | 13.0        | 430.0    
 28807    | SAMARA                      | 53.15       | 50.27       | 40.0     
 16723    | SAMOS                       | 37.42       | 26.55       | 2.0      
 08027    | SAN SEBASTIAN/IGUEL.        | 43.18       | -2.03       | 258.0    
-60020    | SANTA CRUZ DE TENE.         | 28.27       | -16.15      | 35.0     
+60020    | SANTA CRUZ DE TENE.         | 28.28       | -16.16      | 35.0     
 08515    | SANTA MARIA                 | 36.58       | -25.1       | 100.0    
 08023    | SANTANDER                   | 43.29       | -3.48       | 52.0     
 14654    | SARAJEVO-BEJELAVE           | 43.52       | 18.26       | 630.0    
@@ -524,7 +524,7 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 22802    | SORTAVALA                   | 61.43       | 30.43       | 19.0     
 37171    | SOTSCHI                     | 43.27       | 39.54       | 16.0     
 16746    | SOUDA/AIRPORT               | 35.29       | 24.07       | 146.0    
-14445    | SPLIT/MARJAN                | 43.3        | 16.26       | 122.0    
+14445    | SPLIT/MARJAN                | 43.31       | 16.26       | 122.0    
 14444    | SPLIT/RESNIK                | 43.32       | 16.18       | 21.0     
 11357    | ST. WOLFGANG                | 47.44       | 13.27       | 537.0    
 07120    | ST.BRIEUC                   | 48.32       | -2.51       | 136.0    
@@ -548,8 +548,8 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 10552    | Schmücke                    | 50.6546     | 10.7693     | 937.0    
 10162    | Schwerin                    | 53.6425     | 11.3872     | 59.0     
 10042    | Schönhagen (Ostseebad)      | 54.641      | 10.0238     | 1.0      
-10261    | Seehausen                   | 52.8911     | 11.7297     | 21.0     
 03162    | Seehausen                   | 52.8911     | 11.7297     | 21.0     
+10261    | Seehausen                   | 52.8911     | 11.7297     | 21.0     
 03976    | Seesen                      | 51.904      | 10.189      | 186.0    
 10235    | Soltau                      | 52.9604     | 9.793       | 75.0     
 10788    | Straubing                   | 48.8275     | 12.5597     | 351.0    
@@ -589,19 +589,19 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 10706    | Tholey                      | 49.4737     | 7.0385      | 386.0    
 10609    | Trier-Petrisberg            | 49.7479     | 6.6583      | 265.0    
 10281    | Trollenhagen                | 53.5997     | 13.3039     | 69.0     
-10007    | UFS DEUTSCHE BUCHT          | 54.1        | 7.27        | 0.0      
-10004    | UFS TW EMS                  | 54.1        | 6.21        | 0.0      
-11679    | USTI NAD ORLICI             | 49.59       | 16.26       | 402.0    
-01403    | UTSIRA FYR                  | 59.18       | 4.52        | 55.0     
+10007    | UFS Deutsche Bucht          | 54.1796     | 7.4587      | 0.0      
+10004    | UFS TW Ems                  | 54.1651     | 6.346       | 0.0      
+11679    | USTI NAD ORLICI             | 49.59       | 16.25       | 402.0    
+01403    | UTSIRA FYR                  | 59.19       | 4.52        | 55.0     
 10193    | Ueckermünde                 | 53.7444     | 14.0697     | 1.0      
 10840    | Ulm-Mähringen               | 48.4418     | 9.9216      | 593.0    
 10356    | Ummendorf                   | 52.1601     | 11.1759     | 162.0    
 06990    | VADUZ FL.                   | 47.08       | 9.31        | 460.0    
 08284    | VALENCIA                    | 39.3        | -0.28       | 69.0     
-03953    | VALENTIA                    | 51.56       | -10.15      | 25.0     
+03953    | VALENTIA                    | 51.56       | -10.14      | 25.0     
 13269    | VALJEVO                     | 44.19       | 19.55       | 176.0    
 06210    | VALKENBURG                  | 52.11       | 4.25        | 0.0      
-08141    | VALLADOLID                  | 41.39       | -4.46       | 735.0    
+08141    | VALLADOLID                  | 41.38       | -4.45       | 735.0    
 03302    | VALLEY                      | 53.15       | -4.32       | 11.0     
 17170    | VAN                         | 38.27       | 43.19       | 1669.0   
 01338    | VANGSNES                    | 61.1        | 6.39        | 51.0     
@@ -629,13 +629,13 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 10733    | Waibstadt                   | 49.2943     | 8.9053      | 237.0    
 10782    | Waldmünchen                 | 49.391      | 12.6838     | 499.0    
 10435    | Warburg                     | 51.5039     | 9.1118      | 236.0    
-10268    | Waren (Müritz)              | 53.5196     | 12.6654     | 73.0     
 03044    | Waren (Müritz)              | 53.5196     | 12.6654     | 73.0     
+10268    | Waren (Müritz)              | 53.5196     | 12.6654     | 73.0     
 10544    | Wasserkuppe                 | 50.4973     | 9.9427      | 921.0    
-10688    | Weiden                      | 49.6663     | 12.1845     | 440.0    
+10688    | Weiden                      | 49.6662     | 12.1844     | 440.0    
 10863    | Weihenstephan-Dürnast       | 48.4024     | 11.6946     | 477.0    
 02226    | Weilerswist-Lommersum       | 50.712      | 6.791       | 147.0    
-10724    | Weinbiet                    | 49.3758     | 8.1213      | 553.0    
+10724    | Weinbiet                    | 49.3758     | 8.1212      | 553.0    
 10761    | Weißenburg-Emetzheim        | 49.0115     | 10.9308     | 439.0    
 03894    | Wendisch Evern              | 53.214      | 10.47       | 62.0     
 10424    | Werl                        | 51.5763     | 7.8879      | 85.0     
@@ -648,7 +648,7 @@ ID       | Name                        | Latitude    | Longitude   | Altitude
 10686    | Wunsiedel-Schönbrunn        | 50.0315     | 11.9745     | 622.0    
 10334    | Wunstorf                    | 52.4605     | 9.4311      | 57.0     
 10655    | Würzburg                    | 49.7704     | 9.9576      | 268.0    
-03853    | YEOVILTON                   | 51.0        | -2.39       | 23.0     
+03853    | YEOVILTON                   | 51.01       | -2.38       | 23.0     
 14241    | ZAGREB/PLESO                | 45.44       | 16.04       | 106.0    
 08160    | ZARAGOZA                    | 41.4        | -1.01       | 263.0    
 11144    | ZELL A.SEE                  | 47.2        | 12.48       | 766.0    
