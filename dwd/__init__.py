@@ -61,10 +61,10 @@ async def async_unload_entry(hass, config_entry):
 
 
 class DwdDataUpdateCoordinator(DataUpdateCoordinator):
-    """Class to manage fetching Met data."""
+    """Class to manage fetching DWD data."""
 
     def __init__(self, hass, config_entry):
-        """Initialize global Met data updater."""
+        """Initialize global DWD data updater."""
 
         self._config_entry = config_entry
         self._clientsession = async_get_clientsession(hass)

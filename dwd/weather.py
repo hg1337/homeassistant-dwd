@@ -1,4 +1,4 @@
-"""Support for Met.no weather service."""
+"""Support for DWD weather service."""
 from datetime import date, datetime, time, timedelta, timezone
 import sys
 from typing import Optional
@@ -97,7 +97,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
 
 
 class DwdWeather(CoordinatorEntity, WeatherEntity):
-    """Implementation of a Met.no weather condition."""
+    """Implementation of a DWD weather condition."""
 
     def __init__(self, hass, coordinator, unique_id, config, is_metric, forecast_mode):
         """Initialise the platform with a data instance and site."""
@@ -304,12 +304,12 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
                     # There are actually two sources for the mapping of the "ww" field. The primary description seems to be
                     # https://www.dwd.de/DE/leistungen/opendata/help/schluessel_datenformate/kml/mosmix_element_weather_xls.xlsx
                     # However, at first I found
-                    # https://dwd.de/DE/leistungen/opendata/help/schluessel_datenformate/bufr/codetables_vub2_de_pdf.pdf
-                    # ("Aktuelles Wetter" on page 207) and started the implementation based on that. The first link basically
+                    # https://www.dwd.de/DE/leistungen/pbfb_verlag_vub/pdf_einzelbaende/vub_2_binaer_barrierefrei.pdf
+                    # ("Aktuelles Wetter" on page 229) and started the implementation based on that. The first link basically
                     # seems to be a subset of the second link. I still have some doubts regarding the values 0-3. There seems
                     # to be a slight difference between the two documentations, and the value does no behave exactly as descibed.
                     # For exmaple, the documentation says that 3 is for effective cloud coverage of at least 7/8 and 2 for
-                    # effective cloud coverage 4.6/8 to 6/8, but I could observe 3 even for 78% wich wich much below 6/8.
+                    # effective cloud coverage 4.6/8 to 6/8, but I could observe 3 even for 78% which is much below 6/8.
                     # Still using it for now, the behavior at least seems to be the same as in the WarnWetter app so far.
                     if i < len(dwd_forecast_ww):
                         raw_weather_value = dwd_forecast_ww[i]

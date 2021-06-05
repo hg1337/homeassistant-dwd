@@ -3,7 +3,7 @@
   "name": "Deutscher Wetterdienst",
   "version": "2021.6.1",
   "config_flow": true,
-  "documentation": "https://github.com/hg1337/homeassistant-custom-dwd",
+  "documentation": "https://github.com/hg1337/homeassistant-dwd",
   "requirements": [],
   "codeowners": [
     "@hg1337"
