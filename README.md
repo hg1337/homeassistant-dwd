@@ -78,7 +78,7 @@ Additionally, I can really recommend the custom weather card at https://github.c
   - Most of the code deals with Home Assistant specific logic like integrating with the DataUpdateCoordinator of Home Assistant or mapping the data to values and structures Home Assistant expects (especially regarding the "condition" state attribute), which cannot be part of a generic component outside Home Assistant.
   - Even the part where we calculate the daily forecast from the hourly forecast is actually Home Assistant specific, because it works on the Home Assissant specific representation, not the source values from DWD. So if this is moved somewhere to be reused, it should rather be moved to some shared logic within Home Assistant, not to an external DWD library. 
   - What's really left that could be part of a separate component is only fetching the data itself, which are only simple HTTP Requests. The scheduling of the updates should however again be part of the Home Assistant component, because it needs close integration with the DataUpdateCoordinator.
-- Because of the previous point, this component is not integrated as a native component yet. As I'm not using HACS myself, it's also not available via HACS. The only installation method is as described above.
+- Because of the previous point, this component is not integrated as a core component yet. As I'm not using HACS myself, it's also not available via HACS. The only installation method is as described above.
 
 ## Bug Reports
 I cannot promise anything regarding fixing bugs, but it's always worth reporting them, if they haven't been reported yet and if they are not in the list of known issues above. When reporting a bug, please follow these guidelines.
