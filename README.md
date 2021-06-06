@@ -42,7 +42,7 @@ The conditions from Deutscher Wetterdienst (DWD) for using their data and access
 
 ## Installation and Configuration
 
-If you have access to your config folder of Home Assistant (e.g. if you have the Samba share add-on install in Supervisor), the installation is quite easy:
+If you have access to your config folder of Home Assistant (e.g. if you have the Samba share add-on installed in Supervisor), the installation is quite easy:
 
 1. Create a folder named "custom_components" within the config folder, if it doesn't already exist.
 2. Optional: If you have Python installed and if you like, you may run [tools/generate_stations/generate_stations.py](tools/generate_stations/generate_stations.py) to update the station list. However, it shouldn't change too often, that's why it is "pre-compiled".
