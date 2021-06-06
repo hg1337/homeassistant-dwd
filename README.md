@@ -40,11 +40,11 @@ The conditions from Deutscher Wetterdienst (DWD) for using their data and access
   - wind_speed
 - Daily forecast data calculated by the component from the hourly forecast data. This is the most tricky part. I have compared the result of this with what the official Warnwetter app displays and the results seems to be very close.
   - datetime
-  - temperature
-  - templow
-  - precipitation
-  - cloud_cover
   - condition
+  - temperature (the maximum temperature for the day)
+  - templow (the minimum temperature for the day)
+  - cloud_cover
+  - precipitation
 - Uses the [HTTP ETag](https://en.wikipedia.org/wiki/HTTP_ETag) mechanism to only download new data if the data has changed. This allows more frequent polling (currently about every 10 minutes) while still keeping the load low.
 - Configuration via UI
 
