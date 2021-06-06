@@ -4,6 +4,7 @@
 - [Main Features](#main-features)
 - [Installation and Configuration](#installation-and-configuration)
 - [Limitations and Known Issues](#limitations-and-known-issues)
+- [Bug Reports](#bug-reports)
 - [References](#references)
 
 ## Introduction
@@ -21,6 +22,7 @@ The conditions from Deutscher Wetterdienst (DWD) for using their data and access
 
 ## Main Features
 - Current measurement data from the weather stations from https://opendata.dwd.de/weather/weather_reports/poi/ as state attributes of a weather entity.
+  - condition
   - temperature
   - humidity
   - pressure
@@ -29,8 +31,8 @@ The conditions from Deutscher Wetterdienst (DWD) for using their data and access
   - visibility
 - Hourly forecast data from the weather stations from https://opendata.dwd.de/weather/local_forecasts/mos/MOSMIX_L/single_stations/ in the forecast list of a weather entity.
   - datetime
-  - temperature
   - condition
+  - temperature
   - cloud_cover
   - precipitation
   - precipitation_probability
@@ -77,6 +79,28 @@ Additionally, I can really recommend the custom weather card at https://github.c
   - Even the part where we calculate the daily forecast from the hourly forecast is actually Home Assistant specific, because it works on the Home Assissant specific representation, not the source values from DWD. So if this is moved somewhere to be reused, it should rather be moved to some shared logic within Home Assistant, not to an external DWD library. 
   - What's really left that could be part of a separate component is only fetching the data itself, which are only simple HTTP Requests. The scheduling of the updates should however again be part of the Home Assistant component, because it needs close integration with the DataUpdateCoordinator.
 - Because of the previous point, this component is not integrated as a native component yet. As I'm not using HACS myself, it's also not available via HACS. The only installation method is as described above.
+
+## Bug Reports
+I cannot promise anything regarding fixing bugs, but it's always worth reporting them, if they haven't been reported yet and if they are not in the list of known issues above. When reporting a bug, please follow these guidelines.
+
+### Issues with Measurements
+For issues with measurement data (current condition, current temperature, ...), please include the following items in your bug report.
+- Always include the station ID.
+- When the problem occurs, go to the Developer Tools and copy immediately the state value + all state attributes (YAML) of entity where the issue occurs. You could skip the forecast part, but to be safe, just copy the whole YAML.
+- When the problem occurs, download immediately `https://opendata.dwd.de/weather/weather_reports/poi/{station_id}-BEOB.csv`. Replace `{station_id}` with your actual station ID.
+
+### Issues with Hourly Forecasts
+For issues with hourly forecasts (i.e. the forecasts of the entity ending with "\_hourly"), please include the following items in your bug report.
+- Always include the station ID.
+- When the problem occurs, go to the Developer Tools and copy immediately all state attributes (YAML) of the hourly entity (the entity ending with "\_hourly").
+- When the problem occurs, download immediately `https://opendata.dwd.de/weather/local_forecasts/mos/MOSMIX_L/single_stations/{station_id}/kml/MOSMIX_L_LATEST_{station_id}.kmz`. Replace `{station_id}` with your actual station ID.
+
+### Issues with Daily Forecasts
+For issues with daily forecasts (i.e. the forecasts of the entity ending with "\_daily"), please include the following items in your bug report.
+- Always include the station ID.
+- When the problem occurs, go to the Developer Tools and copy immediately all state attributes (YAML) of the hourly entity (the entity ending with "\_hourly"). This is important, because the daily forecasts are calculated from hourly forecasts.
+- When the problem occurs, go to the Developer Tools and copy immediately all state attributes (YAML) of the daily entity (the entity ending with "\_daily").
+- When the problem occurs, download immediately `https://opendata.dwd.de/weather/local_forecasts/mos/MOSMIX_L/single_stations/{station_id}/kml/MOSMIX_L_LATEST_{station_id}.kmz`. Replace `{station_id}` with your actual station ID.
 
 ## References
 Unfortunately, most of the following documentation is only available in German.
