@@ -46,7 +46,7 @@ DWD_FORECAST = 1
 
 DWD_MEASUREMENT_DATETIME = "datetime"
 
-# Mapping see https://www.dwd.de/DE/leistungen/opendata/help/schluessel_datenformate/bufr/poi_present_weather_zuordnung_pdf.pdf (German)
+# Mapping see https://www.dwd.de/DE/leistungen/opendata/help/schluessel_datenformate/csv/poi_present_weather_zuordnung_pdf.pdf (German)
 CONDITIONS_MAP = {
     1: ATTR_CONDITION_SUNNY,
     2: ATTR_CONDITION_PARTLYCLOUDY,
