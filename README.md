@@ -1,10 +1,17 @@
 # Deutscher Wetterdienst (DWD) Integration for Home Assistant
 
-## Disclaimer
-Deutscher Wetterdienst (DWD) is not affiliated in any way with this project.
-
 ## Introduction
 This custom component for [Home Assistant](https://www.home-assistant.io/) integrates weather data from the [Deutscher Wetterdienst Open Data](https://www.dwd.de/DE/leistungen/opendata/opendata.html) server into Home Assistant via weather entities.
+
+### Legal Information
+
+**Deutscher Wetterdienst (DWD) is not affiliated in any way with this project.**
+
+The conditions from Deutscher Wetterdienst (DWD) for using their data and accessing their servers apply.
+- https://www.dwd.de/EN/service/copyright/copyright_artikel.html
+- https://opendata.dwd.de/README.txt
+
+[stations.md](stations.md) and [dwd/stations.json](dwd/stations.json) are generated from data from Deutscher Wetterdienst (DWD) with the Python script at [tools/generate_stations/generate_stations.py](tools/generate_stations/generate_stations.py).
 
 ## Main Features
 - Current measurement data from the weather stations from https://opendata.dwd.de/weather/weather_reports/poi/ as state attributes of a weather entity.
