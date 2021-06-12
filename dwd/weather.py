@@ -664,7 +664,7 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
                 result.append(daily_list[0].values)
                 # Only add other days of they are complete
                 for i in range(1, len(daily_list)):
-                    if daily_list[i].is_complete:
+                    if daily_list[i].has_enough_hours:
                         result.append(daily_list[i].values)
             return result
         if self._forecast_mode == FORECAST_MODE_HOURLY:
@@ -684,8 +684,11 @@ class DwdWeatherDay:
         return self._day
 
     @property
-    def is_complete(self) -> bool:
-        return len(self._hours) == 24
+    def has_enough_hours(self) -> bool:
+        # We do not insist on 24 hours,
+        # 1. because the day might have 23 or 25 hours on DST changes.
+        # 2. to be a bit robust in case data is missing for very few hours (although we didn't observe this yet).
+        return len(self._hours) > 20
 
     @property
     def values(self) -> dict:
