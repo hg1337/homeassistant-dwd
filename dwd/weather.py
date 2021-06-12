@@ -1,6 +1,5 @@
 """Support for DWD weather service."""
-from datetime import date, datetime, time, timedelta, timezone
-import sys
+from datetime import date, datetime, time, timedelta
 from typing import Optional
 from homeassistant.util import dt
 from homeassistant.helpers import sun
@@ -33,7 +32,6 @@ from homeassistant.components.weather import (
     WeatherEntity,
 )
 from homeassistant.const import (
-    CONF_NAME,
     LENGTH_INCHES,
     LENGTH_KILOMETERS,
     LENGTH_MILES,
@@ -740,7 +738,10 @@ class DwdWeatherDay:
                 condition = hour.get(ATTR_FORECAST_CONDITION, None)
                 if condition is not None:
                     condition_stats[condition] = condition_stats.get(condition, 0) + 1
-            if condition_stats.get(ATTR_CONDITION_LIGHTNING_RAINY, 0) > 0:
+            if len(condition_stats) == 1:
+                for condition in condition_stats.keys():
+                    result[ATTR_FORECAST_CONDITION] = condition
+            elif condition_stats.get(ATTR_CONDITION_LIGHTNING_RAINY, 0) > 0:
                 result[ATTR_FORECAST_CONDITION] = ATTR_CONDITION_LIGHTNING_RAINY
             elif condition_stats.get(ATTR_CONDITION_LIGHTNING, 0) > 0:
                 result[ATTR_FORECAST_CONDITION] = ATTR_CONDITION_LIGHTNING
