@@ -1,5 +1,7 @@
 # Deutscher Wetterdienst (DWD) Integration for Home Assistant
 
+![Screenshot](./images/screenshot_weather-forecast.png)
+
 - [Introduction](#introduction)
 - [Main Features](#main-features)
 - [Installation and Configuration](#installation-and-configuration)
@@ -21,6 +23,12 @@ The conditions from Deutscher Wetterdienst (DWD) for using their data and access
 [stations.md](stations.md) and [dwd/stations.json](dwd/stations.json) are generated from data from Deutscher Wetterdienst (DWD) with the Python script at [tools/generate_stations/generate_stations.py](tools/generate_stations/generate_stations.py).
 
 ## Main Features
+
+<div style="float: right;" >
+  <img style="display: block; margin-left: auto; margin-right: 0" srcset="./images/screenshot_hourly.png 1.5x" />
+  <img style="display: block; margin-left: auto; margin-right: 0" srcset="./images/screenshot_daily.png 1.5x" />
+</div>
+
 - Current measurement data from the weather stations from https://opendata.dwd.de/weather/weather_reports/poi/ as state attributes of a weather entity.
   - condition
   - temperature
@@ -67,7 +75,9 @@ To add the actual weather entities, just add a new instance of the "Deutscher We
 
 After that, you should have two new weather entities, one with hourly forecast and one with daily forceast. Both have the same measurement data. You may repeat these steps if you want to add more stations.
 
-Additionally, I can really recommend the custom weather card at https://github.com/bramkragten/weather-card, I started using that a long time ago, because it allows more customizations.
+Additionally, I can really recommend the custom weather card at https://github.com/bramkragten/weather-card, I started using that a long time ago, because it allows more customizations:
+
+![Screenshot](./images/screenshot_bramkragten-weather-card.png)
 
 ## Limitations and Known Issues
 - This component has no icon in the integrations list yet, because there is no brand image in the brands repository (https://github.com/home-assistant/brands) yet.
