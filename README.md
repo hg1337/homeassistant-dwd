@@ -1,6 +1,6 @@
 # Deutscher Wetterdienst (DWD) Integration for Home Assistant
 
-![Screenshot](./images/screenshot_weather-forecast.png)
+![Screenshot Weather Forecast](./images/screenshot_weather-forecast.png)
 
 - [Introduction](#introduction)
 - [Main Features](#main-features)
@@ -23,11 +23,6 @@ The conditions from Deutscher Wetterdienst (DWD) for using their data and access
 [stations.md](stations.md) and [dwd/stations.json](dwd/stations.json) are generated from data from Deutscher Wetterdienst (DWD) with the Python script at [tools/generate_stations/generate_stations.py](tools/generate_stations/generate_stations.py).
 
 ## Main Features
-
-<div style="float: right;" >
-  <img style="display: block; margin-left: auto; margin-right: 0" srcset="./images/screenshot_hourly.png 1.5x" />
-  <img style="display: block; margin-left: auto; margin-right: 0" srcset="./images/screenshot_daily.png 1.5x" />
-</div>
 
 - Current measurement data from the weather stations from https://opendata.dwd.de/weather/weather_reports/poi/ as state attributes of a weather entity.
   - condition
@@ -56,6 +51,8 @@ The conditions from Deutscher Wetterdienst (DWD) for using their data and access
 - Uses the [HTTP ETag](https://en.wikipedia.org/wiki/HTTP_ETag) mechanism to only download new data if the data has changed. This allows more frequent polling (currently about every 10 minutes) while still keeping the load low.
 - Configuration via UI
 
+![Screenshot Hourly](./images/screenshot_hourly.png) ![Screenshot Daily](./images/screenshot_daily.png)
+
 ## Installation and Configuration
 
 If you have access to your config folder of Home Assistant (e.g. if you have the Samba share add-on installed in Supervisor), the installation is quite easy:
@@ -77,7 +74,7 @@ After that, you should have two new weather entities, one with hourly forecast a
 
 Additionally, I can really recommend the custom weather card at https://github.com/bramkragten/weather-card, I started using that a long time ago, because it allows more customizations:
 
-![Screenshot](./images/screenshot_bramkragten-weather-card.png)
+![Screenshot Weather Card](./images/screenshot_bramkragten-weather-card.png)
 
 ## Limitations and Known Issues
 - This component has no icon in the integrations list yet, because there is no brand image in the brands repository (https://github.com/home-assistant/brands) yet.
