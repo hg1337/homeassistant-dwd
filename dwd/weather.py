@@ -206,7 +206,9 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
             if self._is_metric or visibility_km is None:
                 return visibility_km
             else:
-                return round(convert_distance(visibility_km, LENGTH_MILES), 1)
+                return round(
+                    convert_distance(visibility_km, LENGTH_KILOMETERS, LENGTH_MILES), 1
+                )
 
     @property
     def wind_speed(self):

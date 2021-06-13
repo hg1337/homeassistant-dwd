@@ -1,7 +1,7 @@
 {
   "domain": "dwd",
   "name": "Deutscher Wetterdienst",
-  "version": "2021.6.3",
+  "version": "2021.6.4",
   "config_flow": true,
   "documentation": "https://github.com/hg1337/homeassistant-dwd",
   "requirements": [],
