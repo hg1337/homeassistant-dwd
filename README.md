@@ -64,6 +64,7 @@ If you have access to your config folder of Home Assistant (e.g. if you have the
 1. Create a folder named "custom_components" within the config folder, if it doesn't already exist.
 2. Optional: If you have Python installed and if you like, you may run [tools/generate_stations/generate_stations.py](tools/generate_stations/generate_stations.py) to update the station list. However, it shouldn't change too often, that's why it is "pre-compiled".
 3. Copy the whole dwd folder of this repository into the custom_components folder. I.e. your structure should in the end be /config/custom_components/dwd.
+![Screenshot Installation Folder](./images/screenshot_installation-folder.png)
 4. Restart Home Assistant. If you see a warning "You are using a custom integration dwd which has not been tested by Home Assistant." (and no errors of course) in the log, everything went well.
 
 To add the actual weather entities, just add a new instance of the "Deutscher Wetterdienst" integration in the Home Assistant configuration menu:
@@ -72,6 +73,7 @@ To add the actual weather entities, just add a new instance of the "Deutscher We
 2. Open "Integrations" from the main menu.
 3. Select "Add Integration"
 4. Search for "Deutscher Wetterdienst" and open it.
+![Screenshot Search Integration](./images/screenshot_search-integration.png)
 5. Read the instructions, change the name and station ID if needed, and select "Submit".
 
 After that, you should have two new weather entities, one with hourly forecast and one with daily forceast. Both have the same measurement data. You may repeat these steps if you want to add more stations.
