@@ -1,10 +1,7 @@
 """Support for DWD weather service."""
-from datetime import date, datetime, time, timedelta
-from typing import Optional
-from homeassistant.util import dt
-from homeassistant.helpers import sun
+from datetime import date, datetime, time, timedelta, timezone
 import logging
-import pytz
+from typing import Optional
 
 from homeassistant.components.weather import (
     ATTR_CONDITION_CLEAR_NIGHT,
@@ -40,28 +37,30 @@ from homeassistant.const import (
     PRESSURE_INHG,
     TEMP_CELSIUS,
 )
+from homeassistant.helpers import sun
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from homeassistant.util import dt
 from homeassistant.util.distance import convert as convert_distance
 from homeassistant.util.pressure import convert as convert_pressure
 
 from .const import (
-    ATTRIBUTION,
     ATTR_FORECAST_CLOUD_COVER,
     ATTR_FORECAST_CUSTOM_DWD_WW,
-    CONDITIONS_MAP,
+    ATTRIBUTION,
     CONDITION_CLOUDY_THRESHOLD,
     CONDITION_PARTLYCLOUDY_THRESHOLD,
+    CONDITIONS_MAP,
     DOMAIN,
     DWD_FORECAST,
     DWD_FORECAST_TIMESTAMP,
     DWD_MEASUREMENT,
     DWD_MEASUREMENT_HUMIDITY,
+    DWD_MEASUREMENT_MEANWIND_DIRECTION,
     DWD_MEASUREMENT_MEANWIND_SPEED,
     DWD_MEASUREMENT_PRESENT_WEATHER,
     DWD_MEASUREMENT_PRESSURE,
     DWD_MEASUREMENT_TEMPERATURE,
     DWD_MEASUREMENT_VISIBILITY,
-    DWD_MEASUREMENT_MEANWIND_DIRECTION,
     FORECAST_MODE_DAILY,
     FORECAST_MODE_HOURLY,
 )
@@ -279,7 +278,7 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
             # The forcast contains data from a few hour back. However, the earlist we want to return
             # is from the current hour (i.e. at most one hour back), because that's what other
             # Home Assistant components like UI elements expect. They use just everything we give them.
-            if timestamp > pytz.utc.localize(datetime.utcnow()) - timedelta(hours=1):
+            if timestamp > datetime.now(timezone.utc) - timedelta(hours=1):
                 hourly_item = {}
 
                 hourly_item[ATTR_FORECAST_TIME] = timestamp.isoformat()

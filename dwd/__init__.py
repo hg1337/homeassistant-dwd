@@ -1,12 +1,12 @@
 """The DWD component."""
-from datetime import datetime
+import codecs
+from datetime import datetime, timezone
 from io import BytesIO
-from defusedxml import ElementTree
-import pytz
 import logging
 import zipfile
-import codecs
-from random import randrange
+
+from defusedxml import ElementTree
+
 from homeassistant.core import Config, HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
@@ -21,8 +21,8 @@ from .const import (
     DWD_MEASUREMENT_DATETIME,
     MEASUREMENTS_MAX_AGE,
     UPDATE_INTERVAL,
-    URL_MEASUREMENT,
     URL_FORECAST,
+    URL_MEASUREMENT,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -123,11 +123,9 @@ class DwdDataUpdateCoordinator(DataUpdateCoordinator):
                     fields = line.split(";")
                     measurement.setdefault(
                         DWD_MEASUREMENT_DATETIME,
-                        pytz.utc.localize(
-                            datetime.strptime(
-                                f"{fields[0]} {fields[1]}", r"%d.%m.%y %H:%M"
-                            )
-                        ),
+                        datetime.strptime(
+                            f"{fields[0]} {fields[1]}", r"%d.%m.%y %H:%M"
+                        ).replace(tzinfo=timezone.utc),
                     )
                     for i in range(2, min(len(column_names), len(fields))):
                         if fields[i] and fields[i] != "---":
@@ -176,10 +174,8 @@ class DwdDataUpdateCoordinator(DataUpdateCoordinator):
                                 elementTree = ElementTree.parse(kml_file)
                                 timestamps = list(
                                     map(
-                                        lambda x: pytz.utc.localize(
-                                            datetime.strptime(
-                                                x.text, r"%Y-%m-%dT%H:%M:%S.%fZ"
-                                            )
+                                        lambda x: datetime.strptime(
+                                            x.text, "%Y-%m-%dT%H:%M:%S.%f%z"
                                         ),
                                         elementTree.findall(
                                             "./kml:Document/kml:ExtendedData/dwd:ProductDefinition/dwd:ForecastTimeSteps/dwd:TimeStep",
