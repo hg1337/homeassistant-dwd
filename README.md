@@ -80,7 +80,7 @@ After that, you should have two new weather entities, one with hourly forecast a
 
 ![Screenshot Entities](./images/screenshot_entities.png)
 
-You may use these entities will any component that supports weather entities, e.g. the standard Weather Forecast Card:
+You may use these entities with any component that supports weather entities, e.g. the standard Weather Forecast Card:
 
 ![Screenshot Entities](./images/screenshot_weather-forecast-card-configuration.png)
 
