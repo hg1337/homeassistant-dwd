@@ -53,6 +53,10 @@ The conditions from Deutscher Wetterdienst (DWD) for using their data and access
 
 ![Screenshot Hourly](./images/screenshot_hourly.png) ![Screenshot Daily](./images/screenshot_daily.png)
 
+Please notice that as usual, the "9 hours ago" in the screenshot refers to the last change of the state value of the entity, in this case when it changes from "Party Cloudy" to "Sunny". Of course the values are updated much more often, but that's not reflected there. This has nothing to do with this integration but this is how it generally works, because only the state value is currently reflected in the entity history.
+
+![Screenshot History](./images/screenshot_history.png)
+
 ## Installation and Configuration
 
 If you have access to your config folder of Home Assistant (e.g. if you have the Samba share add-on installed in Supervisor), the installation is quite easy:
