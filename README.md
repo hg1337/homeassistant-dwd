@@ -72,7 +72,13 @@ To add the actual weather entities, just add a new instance of the "Deutscher We
 
 After that, you should have two new weather entities, one with hourly forecast and one with daily forceast. Both have the same measurement data. You may repeat these steps if you want to add more stations.
 
-Additionally, I can really recommend the custom weather card at https://github.com/bramkragten/weather-card, I started using that a long time ago, because it allows more customizations:
+![Screenshot Entities](./images/screenshot_entities.png)
+
+You may use these entities will any component that supports weather entities, e.g. the standard Weather Forecast Card:
+
+![Screenshot Entities](./images/screenshot_weather-forecast-card-configuration.png)
+
+I can really recommend the custom weather card at https://github.com/bramkragten/weather-card, I started using that a long time ago, because it allows more customizations than the standard weather forecast card:
 
 ![Screenshot Weather Card](./images/screenshot_bramkragten-weather-card.png)
 
