@@ -88,8 +88,7 @@ I can really recommend the custom weather card at https://github.com/bramkragten
 
 ![Screenshot Weather Card](./images/screenshot_bramkragten-weather-card.png)
 
-## Limitations and Known Issues
-- This component has no icon in the integrations list yet, because there is no brand image in the brands repository (https://github.com/home-assistant/brands) yet.
+## Limitations
 - This component only creates weather entities, no sensors. The main reason is that I didn't need it. ;) However, I also believe that this is actually the correct design, because all data is available via the weather entity. Additionally adding sensors with the same data to me seems like a workaround for limitations that are actually somewhere else.
 - The daily forecast only takes the future into account, which is a deviation from how e.g. the Warnwetter app behaves. There are two reasons for that:
   - This was the easier and straight forward way during implementation. ;)
