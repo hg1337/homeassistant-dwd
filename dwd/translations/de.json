@@ -13,7 +13,7 @@
                     "station_id": "Stations-ID",
                     "name": "Name"
                 },
-                "description": "Diese Integration bezieht Wetterdaten from Open Data Server des Deutschen Wetterdienstes. Wenn du diese Integration verwendest, stimmst du den Bedingungen unter https://opendata.dwd.de/README.txt zu.\n\nBasierend auf der aktuellen Home Assistant Konfiguration wurde die am nächsten gelegene Wetterstation unten vorausgewählt, die sowohl Messdaten als auch Vorhersagen liefern sollte.\n\nFür eine Liste der Wetterstationen siehe https://www.dwd.de/DE/leistungen/met_verfahren_mosmix/mosmix_stationskatalog.cfg. Bitte beachte, dass nicht alle Wetterstationen Messdaten und/oder Vorhersagen liefern.",
+                "description": "Diese Integration bezieht Wetterdaten from Open Data Server des Deutschen Wetterdienstes. Wenn du diese Integration verwendest, stimmst du den Bedingungen unter https://opendata.dwd.de/README.txt zu.\n\nBasierend auf der aktuellen Home Assistant Konfiguration wurde die am nächsten gelegene Wetterstation unten vorausgewählt, die sowohl Messdaten als auch Vorhersagen liefern sollte.\n\nFür eine Liste der Wetterstationen siehe https://github.com/hg1337/homeassistant-dwd/blob/main/stations.md.",
                 "title": "Deutscher Wetterdienst"
             }
         }
