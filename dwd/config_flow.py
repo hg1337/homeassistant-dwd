@@ -36,7 +36,7 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             name = user_input[CONF_NAME]
             station_id = user_input[CONF_STATION_ID]
 
-            await self.async_set_unique_id(f"dwd{station_id}")
+            await self.async_set_unique_id(station_id)
             self._abort_if_unique_id_configured()
 
             clientsession = async_get_clientsession(self.hass)

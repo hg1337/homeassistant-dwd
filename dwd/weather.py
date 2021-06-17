@@ -71,6 +71,15 @@ _LOGGER = logging.getLogger(__name__)
 async def async_setup_entry(hass, config_entry, async_add_entities):
     """Add a weather entity from a config_entry."""
     coordinator = hass.data[DOMAIN][config_entry.entry_id]
+
+    device = {
+        "identifiers": {(DOMAIN, config_entry.unique_id)},
+        "name": config_entry.title,
+        "manufacturer": "Deutscher Wetterdienst",
+        "model": f"Station {config_entry.unique_id}",
+        "entry_type": "service",
+    }
+
     async_add_entities(
         [
             DwdWeather(
@@ -80,6 +89,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
                 config_entry,
                 hass.config.units.is_metric,
                 FORECAST_MODE_DAILY,
+                device,
             ),
             DwdWeather(
                 hass,
@@ -88,6 +98,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
                 config_entry,
                 hass.config.units.is_metric,
                 FORECAST_MODE_HOURLY,
+                device,
             ),
         ]
     )
@@ -96,7 +107,9 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
 class DwdWeather(CoordinatorEntity, WeatherEntity):
     """Implementation of a DWD weather condition."""
 
-    def __init__(self, hass, coordinator, unique_id, config, is_metric, forecast_mode):
+    def __init__(
+        self, hass, coordinator, unique_id, config, is_metric, forecast_mode, device
+    ):
         """Initialise the platform with a data instance and site."""
         super().__init__(coordinator)
         self._hass = hass
@@ -104,6 +117,7 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
         self._config = config
         self._is_metric = is_metric
         self._forecast_mode = forecast_mode
+        self._device = device
 
     @property
     def unique_id(self):
@@ -134,6 +148,11 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
     def available(self):
         """Return True if entity is available."""
         return self.coordinator.last_update_success
+
+    @property
+    def device_info(self):
+        """Device info."""
+        return self._device
 
     @property
     def condition(self):
