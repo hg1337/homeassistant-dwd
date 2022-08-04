@@ -38,6 +38,7 @@ from homeassistant.const import (
     TEMP_CELSIUS,
 )
 from homeassistant.helpers import sun
+from homeassistant.helpers.device_registry import DeviceEntryType
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.util import dt
 from homeassistant.util.distance import convert as convert_distance
@@ -77,7 +78,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
         "name": config_entry.title,
         "manufacturer": "Deutscher Wetterdienst",
         "model": f"Station {config_entry.unique_id}",
-        "entry_type": "service",
+        "entry_type": DeviceEntryType.SERVICE,
     }
 
     async_add_entities(
