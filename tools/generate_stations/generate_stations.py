@@ -15,7 +15,7 @@ from html.parser import HTMLParser
 
 if __name__ == "__main__":
 
-    measurement_href_pattern = re.compile(r"^(.+)-BEOB\.csv$")
+    measurement_href_pattern = re.compile(r"^(.*[^_])_*-BEOB\.csv$")
     forecast_href_pattern = re.compile(r"^(.+)/$")
 
     class HtmlStationListParser(HTMLParser):
