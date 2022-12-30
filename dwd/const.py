@@ -27,7 +27,7 @@ ATTRIBUTION = "Quelle: Deutscher Wetterdienst"
 CONF_STATION_ID = "station_id"
 
 URL_MEASUREMENT = (
-    "https://opendata.dwd.de/weather/weather_reports/poi/{station_id}-BEOB.csv"
+    "https://opendata.dwd.de/weather/weather_reports/poi/{station_id:_<5}-BEOB.csv"
 )
 URL_FORECAST = "https://opendata.dwd.de/weather/local_forecasts/mos/MOSMIX_L/single_stations/{station_id}/kml/MOSMIX_L_LATEST_{station_id}.kmz"
 
