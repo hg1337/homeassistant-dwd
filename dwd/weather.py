@@ -43,6 +43,7 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.util import dt
 from homeassistant.util.distance import convert as convert_distance
 from homeassistant.util.pressure import convert as convert_pressure
+from homeassistant.util.unit_system import METRIC_SYSTEM
 
 from .const import (
     ATTR_FORECAST_CLOUD_COVER,
@@ -88,7 +89,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
                 coordinator,
                 f"{config_entry.unique_id}-daily",
                 config_entry,
-                hass.config.units.is_metric,
+                hass.config.units is METRIC_SYSTEM,
                 FORECAST_MODE_DAILY,
                 device,
             ),
@@ -97,7 +98,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
                 coordinator,
                 f"{config_entry.unique_id}-hourly",
                 config_entry,
-                hass.config.units.is_metric,
+                hass.config.units is METRIC_SYSTEM,
                 FORECAST_MODE_HOURLY,
                 device,
             ),
