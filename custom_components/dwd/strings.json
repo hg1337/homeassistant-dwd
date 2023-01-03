@@ -13,8 +13,7 @@
           "station_id": "Station ID",
           "name": "Name"
         },
-        "description": "This integration fetches weather data from the Open Data server of Deutscher Wetterdienst. By using this integration, you agree to the terms at https://opendata.dwd.de/README.txt (German only).\n\nBased on your Home Assistant configuration, the nearest station  that should provide measurement and forecast data was preselected below.\n\nFor a list of stations see https://github.com/hg1337/homeassistant-dwd/blob/main/stations.md.",
-        "title": "Deutscher Wetterdienst"
+        "description": "This integration fetches weather data from the Open Data server of Deutscher Wetterdienst. By using this integration, you agree to the terms at https://opendata.dwd.de/README.txt (German only).\n\nBased on your Home Assistant configuration, the nearest station  that should provide measurement and forecast data was preselected below.\n\nFor a list of stations see https://github.com/hg1337/homeassistant-dwd/blob/main/stations.md."
       }
     }
   }
