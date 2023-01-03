@@ -10,7 +10,7 @@
 - [References](#references)
 
 ## Introduction
-This custom component for [Home Assistant](https://www.home-assistant.io/) integrates weather data from the [Deutscher Wetterdienst Open Data](https://www.dwd.de/DE/leistungen/opendata/opendata.html) server into Home Assistant via weather entities.
+This custom component for [Home Assistant](https://www.home-assistant.io/) integrates weather data (measurements and forecasts) from the [Deutscher Wetterdienst Open Data](https://www.dwd.de/DE/leistungen/opendata/opendata.html) server into Home Assistant via weather entities.
 
 ### Legal Information
 
