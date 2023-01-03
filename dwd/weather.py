@@ -19,31 +19,25 @@ from homeassistant.components.weather import (
     ATTR_CONDITION_WINDY,
     ATTR_CONDITION_WINDY_VARIANT,
     ATTR_FORECAST_CONDITION,
-    ATTR_FORECAST_PRECIPITATION,
+    ATTR_FORECAST_NATIVE_PRECIPITATION,
     ATTR_FORECAST_PRECIPITATION_PROBABILITY,
-    ATTR_FORECAST_TEMP,
-    ATTR_FORECAST_TEMP_LOW,
+    ATTR_FORECAST_NATIVE_TEMP,
+    ATTR_FORECAST_NATIVE_TEMP_LOW,
     ATTR_FORECAST_TIME,
     ATTR_FORECAST_WIND_BEARING,
-    ATTR_FORECAST_WIND_SPEED,
+    ATTR_FORECAST_NATIVE_WIND_SPEED,
     WeatherEntity,
 )
 from homeassistant.const import (
-    LENGTH_INCHES,
-    LENGTH_KILOMETERS,
-    LENGTH_MILES,
-    LENGTH_MILLIMETERS,
-    PRESSURE_HPA,
-    PRESSURE_INHG,
-    TEMP_CELSIUS,
+    UnitOfTemperature,
+    UnitOfLength,
+    UnitOfSpeed,
+    UnitOfPressure,
 )
 from homeassistant.helpers import sun
 from homeassistant.helpers.device_registry import DeviceEntryType
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.util import dt
-from homeassistant.util.distance import convert as convert_distance
-from homeassistant.util.pressure import convert as convert_pressure
-from homeassistant.util.unit_system import METRIC_SYSTEM
 
 from .const import (
     ATTR_FORECAST_CLOUD_COVER,
@@ -89,7 +83,6 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
                 coordinator,
                 f"{config_entry.unique_id}-daily",
                 config_entry,
-                hass.config.units is METRIC_SYSTEM,
                 FORECAST_MODE_DAILY,
                 device,
             ),
@@ -98,7 +91,6 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
                 coordinator,
                 f"{config_entry.unique_id}-hourly",
                 config_entry,
-                hass.config.units is METRIC_SYSTEM,
                 FORECAST_MODE_HOURLY,
                 device,
             ),
@@ -109,15 +101,12 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
 class DwdWeather(CoordinatorEntity, WeatherEntity):
     """Implementation of a DWD weather condition."""
 
-    def __init__(
-        self, hass, coordinator, unique_id, config, is_metric, forecast_mode, device
-    ):
+    def __init__(self, hass, coordinator, unique_id, config, forecast_mode, device):
         """Initialise the platform with a data instance and site."""
         super().__init__(coordinator)
         self._hass = hass
         self._unique_id = unique_id
         self._config = config
-        self._is_metric = is_metric
         self._forecast_mode = forecast_mode
         self._device = device
 
@@ -171,7 +160,7 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
             return condition
 
     @property
-    def temperature(self):
+    def native_temperature(self):
         """Return the temperature."""
         str_value = self.coordinator.data[DWD_MEASUREMENT].get(
             DWD_MEASUREMENT_TEMPERATURE, None
@@ -182,12 +171,12 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
             return DwdWeather._str_to_float(str_value)
 
     @property
-    def temperature_unit(self):
+    def native_temperature_unit(self) -> str:
         """Return the unit of measurement."""
-        return TEMP_CELSIUS
+        return UnitOfTemperature.CELSIUS
 
     @property
-    def pressure(self):
+    def native_pressure(self):
         """Return the pressure."""
         str_value = self.coordinator.data[DWD_MEASUREMENT].get(
             DWD_MEASUREMENT_PRESSURE, None
@@ -195,13 +184,11 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
         if str_value is None:
             return None
         else:
-            pressure_hpa = DwdWeather._str_to_float(str_value)
-            if self._is_metric or pressure_hpa is None:
-                return pressure_hpa
-            else:
-                return round(
-                    convert_pressure(pressure_hpa, PRESSURE_HPA, PRESSURE_INHG), 1
-                )
+            return DwdWeather._str_to_float(str_value)
+
+    @property
+    def native_pressure_unit(self) -> str:
+        return UnitOfPressure.HPA
 
     @property
     def humidity(self):
@@ -215,7 +202,7 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
             return DwdWeather._str_to_float(str_value)
 
     @property
-    def visibility(self):
+    def native_visibility(self):
         """Return the humidity."""
         str_value = self.coordinator.data[DWD_MEASUREMENT].get(
             DWD_MEASUREMENT_VISIBILITY, None
@@ -223,16 +210,14 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
         if str_value is None:
             return None
         else:
-            visibility_km = DwdWeather._str_to_float(str_value)
-            if self._is_metric or visibility_km is None:
-                return visibility_km
-            else:
-                return round(
-                    convert_distance(visibility_km, LENGTH_KILOMETERS, LENGTH_MILES), 1
-                )
+            return DwdWeather._str_to_float(str_value)
 
     @property
-    def wind_speed(self):
+    def native_visibility_unit(self) -> str:
+        return UnitOfLength.KILOMETERS
+
+    @property
+    def native_wind_speed(self):
         """Return the wind speed."""
         str_value = self.coordinator.data[DWD_MEASUREMENT].get(
             DWD_MEASUREMENT_MEANWIND_SPEED, None
@@ -240,13 +225,15 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
         if str_value is None:
             return None
         else:
-            speed_km_h = DwdWeather._str_to_float(str_value)
-            if self._is_metric or speed_km_h is None:
-                return speed_km_h
-            else:
-                return round(
-                    convert_distance(speed_km_h, LENGTH_KILOMETERS, LENGTH_MILES), 1
-                )
+            return DwdWeather._str_to_float(str_value)
+
+    @property
+    def native_wind_speed_unit(self) -> str:
+        return UnitOfSpeed.KILOMETERS_PER_HOUR
+
+    @property
+    def native_precipitation_unit(self) -> str:
+        return UnitOfLength.MILLIMETERS
 
     @property
     def wind_bearing(self):
@@ -317,7 +304,7 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
                 raw_temperature_value = dwd_forecast_TTT[i]
                 if raw_temperature_value != "-":
                     temperature_celcius = float(raw_temperature_value) - 273.15
-                    hourly_item[ATTR_FORECAST_TEMP] = temperature_celcius
+                    hourly_item[ATTR_FORECAST_NATIVE_TEMP] = temperature_celcius
 
                     # If there is no temperature, we skip this entry, because it's a mandatory attribute!
 
@@ -627,19 +614,9 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
                         raw_value = dwd_forecast_RR1c[i]
                         if raw_value != "-":
                             precipitation_mm = float(raw_value)
-                            if self._is_metric:
-                                hourly_item[
-                                    ATTR_FORECAST_PRECIPITATION
-                                ] = precipitation_mm
-                            else:
-                                hourly_item[ATTR_FORECAST_PRECIPITATION] = round(
-                                    convert_distance(
-                                        precipitation_mm,
-                                        LENGTH_MILLIMETERS,
-                                        LENGTH_INCHES,
-                                    ),
-                                    2,
-                                )
+                            hourly_item[
+                                ATTR_FORECAST_NATIVE_PRECIPITATION
+                            ] = precipitation_mm
 
                     # wwP is in %
                     if i < len(dwd_forecast_wwP):
@@ -661,21 +638,9 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
                         raw_value = dwd_forecast_FF[i]
                         if raw_value != "-":
                             wind_speed_kmh = float(raw_value) * 3.6
-                            if self._is_metric:
-                                hourly_item[ATTR_FORECAST_WIND_SPEED] = int(
-                                    round(wind_speed_kmh, 0)
-                                )
-                            else:
-                                hourly_item[ATTR_FORECAST_WIND_SPEED] = int(
-                                    round(
-                                        convert_distance(
-                                            wind_speed_kmh,
-                                            LENGTH_KILOMETERS,
-                                            LENGTH_MILES,
-                                        ),
-                                        0,
-                                    )
-                                )
+                            hourly_item[ATTR_FORECAST_NATIVE_WIND_SPEED] = int(
+                                round(wind_speed_kmh, 0)
+                            )
 
                     hourly_list.append(hourly_item)
 
@@ -722,12 +687,12 @@ class DwdWeatherDay:
         values = list(
             filter(
                 lambda x: x is not None,
-                map(lambda x: x.get(ATTR_FORECAST_TEMP, None), self._hours),
+                map(lambda x: x.get(ATTR_FORECAST_NATIVE_TEMP, None), self._hours),
             )
         )
         if len(values) > 0:
-            result[ATTR_FORECAST_TEMP] = max(values)
-            result[ATTR_FORECAST_TEMP_LOW] = min(values)
+            result[ATTR_FORECAST_NATIVE_TEMP] = max(values)
+            result[ATTR_FORECAST_NATIVE_TEMP_LOW] = min(values)
 
         # Danger: The following has a slight ruonding error. You can easily see that because if you
         # sum up RR1c ("Total precipitation during the last hour consistent with significant weather"),
@@ -738,12 +703,15 @@ class DwdWeatherDay:
         values = list(
             filter(
                 lambda x: x is not None,
-                map(lambda x: x.get(ATTR_FORECAST_PRECIPITATION, None), self._hours),
+                map(
+                    lambda x: x.get(ATTR_FORECAST_NATIVE_PRECIPITATION, None),
+                    self._hours,
+                ),
             )
         )
         if len(values) > 0:
             precipitation = sum(values)
-            result[ATTR_FORECAST_PRECIPITATION] = round(precipitation, 2)
+            result[ATTR_FORECAST_NATIVE_PRECIPITATION] = round(precipitation, 2)
 
         cloud_cover_sum = 0
         cloud_cover_items = 0
@@ -807,12 +775,12 @@ class DwdWeatherDay:
 
         return result
 
-    def __init__(self, day: date, dwd_forecast: dict):
+    def __init__(self, day: date, dwd_forecast: dict) -> None:
         self._day = day
         self._dwd_forecast = dwd_forecast
         self._hours = []
         self._hour_indices = []
 
-    def add_hour(self, hour_item: dict, index: int):
+    def add_hour(self, hour_item: dict, index: int) -> None:
         self._hours.append(hour_item)
         self._hour_indices.append(index)
