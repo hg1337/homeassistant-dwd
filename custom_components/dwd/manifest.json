@@ -8,5 +8,6 @@
   "requirements": [],
   "codeowners": [
     "@hg1337"
-  ]
+  ],
+  "iot_class": "cloud_polling"
 }
