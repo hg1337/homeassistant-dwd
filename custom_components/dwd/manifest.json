@@ -4,6 +4,7 @@
   "version": "2023.1.0",
   "config_flow": true,
   "documentation": "https://github.com/hg1337/homeassistant-dwd",
+  "issue_tracker": "https://github.com/hg1337/homeassistant-dwd/issues",
   "requirements": [],
   "codeowners": [
     "@hg1337"
