@@ -130,7 +130,7 @@ if __name__ == "__main__":
     result = sorted(result, key=lambda x: x["name"])
     print(f"done.")
 
-    filename = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "dwd", "stations.json")
+    filename = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "custom_components", "dwd", "stations.json")
     print(f"Writing stations to {filename}...", end="", flush=True)
     with open(filename, "wt", encoding="utf-8") as file:
         json.dump(result, file, ensure_ascii=False)
