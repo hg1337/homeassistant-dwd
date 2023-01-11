@@ -10,7 +10,7 @@
 - [References](#references)
 
 ## Introduction
-This custom component for [Home Assistant](https://www.home-assistant.io/) integrates weather data from the [Deutscher Wetterdienst Open Data](https://www.dwd.de/DE/leistungen/opendata/opendata.html) server into Home Assistant via weather entities.
+This custom component for [Home Assistant](https://www.home-assistant.io/) integrates weather data (measurements and forecasts) from the [Deutscher Wetterdienst Open Data](https://www.dwd.de/DE/leistungen/opendata/opendata.html) server into Home Assistant via weather entities.
 
 ### Legal Information
 
@@ -67,10 +67,14 @@ If you have access to your config folder of Home Assistant (e.g. if you have the
 ![Screenshot Installation Folder](./images/screenshot_installation-folder.png)
 4. Restart Home Assistant. If you see a warning "You are using a custom integration dwd which has not been tested by Home Assistant." (and no errors of course) in the log, everything went well.
 
-To add the actual weather entities, just add a new instance of the "Deutscher Wetterdienst" integration in the Home Assistant configuration menu:
+To add the actual weather entities, just add a new instance of the "Deutscher Wetterdienst" integration:
 
-1. Open "Configuration" from the main menu.
-2. Open "Integrations" from the main menu.
+[![Add Integration](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=dwd)
+
+If the button above does not work or you want to navigate on your own to the right place, follow these steps: 
+
+1. Open "Settings" from the main menu.
+2. Open "Devices & Services" from the main menu.
 3. Select "Add Integration"
 4. Search for "Deutscher Wetterdienst" and open it.
 ![Screenshot Search Integration](./images/screenshot_search-integration.png)
