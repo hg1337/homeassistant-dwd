@@ -13,14 +13,14 @@
                 "data": {
                     "station_id": "Station"
                 },
-                "description": "Diese Integration bezieht Wetterdaten from Open Data Server des Deutschen Wetterdienstes. Wenn du diese Integration verwendest, stimmst du den Bedingungen unter https://opendata.dwd.de/README.txt zu.\n\nBasierend auf der aktuellen Home Assistant Konfiguration wurde die am nächsten gelegene Wetterstation unten vorausgewählt, die sowohl Messdaten als auch Vorhersagen liefern sollte.\n\nFalls du eine Wetterstation manuell konfigurieren möchtest, wähle \"Custom...\" aus."
+                "description": "Diese Integration bezieht Wetterdaten vom Open Data Server des Deutschen Wetterdienstes. Wenn du diese Integration verwendest, stimmst du den Bedingungen unter https://opendata.dwd.de/README.txt zu.\n\nBasierend auf der aktuellen Home Assistant Konfiguration wurde die am nächsten gelegene Wetterstation unten vorausgewählt, die sowohl Messdaten als auch Vorhersagen liefern sollte.\n\nFalls du eine Wetterstation manuell konfigurieren möchtest, wähle \"Custom...\" aus."
             },
             "manual": {
                 "data": {
                     "station_id": "Stations-ID",
                     "name": "Name"
                 },
-                "description": "Diese Integration bezieht Wetterdaten from Open Data Server des Deutschen Wetterdienstes. Wenn du diese Integration verwendest, stimmst du den Bedingungen unter https://opendata.dwd.de/README.txt zu.\n\nFür eine Liste der Wetterstationen siehe https://github.com/hg1337/homeassistant-dwd/blob/main/stations.md."
+                "description": "Diese Integration bezieht Wetterdaten vom Open Data Server des Deutschen Wetterdienstes. Wenn du diese Integration verwendest, stimmst du den Bedingungen unter https://opendata.dwd.de/README.txt zu.\n\nFür eine Liste der Wetterstationen siehe https://github.com/hg1337/homeassistant-dwd/blob/main/stations.md."
             }
         }
     }
