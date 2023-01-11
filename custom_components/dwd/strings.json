@@ -5,15 +5,22 @@
     },
     "error": {
       "no_measurement": "Couldn't get measurement for the selected station. Either you selected an invalid station or the station does not provide measurements.",
-      "no_forecast": "Couldn't get forecast for the selected station. Either you selected an invalid station or the station does not provide forecasts."
+      "no_forecast": "Couldn't get forecast for the selected station. Either you selected an invalid station or the station does not provide forecasts.",
+      "no_station_name": "Name of the selected station not found."
     },
     "step": {
       "user": {
         "data": {
+          "station_id": "Station"
+        },
+        "description": "This integration fetches weather data from the Open Data server of Deutscher Wetterdienst. By using this integration, you agree to the terms at https://opendata.dwd.de/README.txt (German only).\n\nBased on your Home Assistant configuration, the nearest station that should provide measurement and forecast data was preselected below.\n\nIf you want to configuare a station manually, select \"Custom...\"."
+      },
+      "manual": {
+        "data": {
           "station_id": "Station ID",
           "name": "Name"
         },
-        "description": "This integration fetches weather data from the Open Data server of Deutscher Wetterdienst. By using this integration, you agree to the terms at https://opendata.dwd.de/README.txt (German only).\n\nBased on your Home Assistant configuration, the nearest station  that should provide measurement and forecast data was preselected below.\n\nFor a list of stations see https://github.com/hg1337/homeassistant-dwd/blob/main/stations.md."
+        "description": "This integration fetches weather data from the Open Data server of Deutscher Wetterdienst. By using this integration, you agree to the terms at https://opendata.dwd.de/README.txt (German only).\n\nFor a list of stations see https://github.com/hg1337/homeassistant-dwd/blob/main/stations.md."
       }
     }
   }

@@ -74,7 +74,7 @@ To add the actual weather entities, just add a new instance of the "Deutscher We
 3. Select "Add Integration"
 4. Search for "Deutscher Wetterdienst" and open it.
 ![Screenshot Search Integration](./images/screenshot_search-integration.png)
-5. Read the instructions, change the name and station ID if needed, and select "Submit".
+5. Read the instructions, select a different station or enter a custom one if needed, and select "Submit".
 
 After that, you should have two new weather entities, one with hourly forecast and one with daily forceast. Both have the same measurement data. You may repeat these steps if you want to add more stations.
 
