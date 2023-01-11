@@ -20,9 +20,6 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
     VERSION = 1
 
-    # Not completely sure, but the pure numeric stations seem to be the "good" ones that provide measured data.
-    _station_id_re = re.compile(r"^[0-9]{5}$")
-
     async def async_step_user(self, user_input=None):
         """Handle a flow initialized by the user."""
 
