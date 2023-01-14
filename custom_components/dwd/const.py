@@ -1,4 +1,4 @@
-"""Constants for Met component."""
+"""Constants for DWD component."""
 from datetime import timedelta
 import logging
 
@@ -25,6 +25,13 @@ DOMAIN = "dwd"
 ATTRIBUTION = "Quelle: Deutscher Wetterdienst"
 
 CONF_STATION_ID = "station_id"
+CONF_CURRENT_WEATHER = "current_weather"
+CONF_CURRENT_WEATHER_MEASUREMENT = "measurement"
+CONF_CURRENT_WEATHER_FORECAST = "forecast"
+CONF_CURRENT_WEATHER_HYBRID = "hybrid"
+CONF_CURRENT_WEATHER_DEFAULT = CONF_CURRENT_WEATHER_MEASUREMENT
+CONF_FORECAST = "forecast"
+CONF_FORECAST_DEFAULT = True
 
 URL_MEASUREMENT = (
     "https://opendata.dwd.de/weather/weather_reports/poi/{station_id:_<5}-BEOB.csv"

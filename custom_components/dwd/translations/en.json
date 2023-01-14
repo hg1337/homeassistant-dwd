@@ -4,8 +4,7 @@
             "already_configured": "Station is already configured."
         },
         "error": {
-            "no_measurement": "Couldn't get measurement for the selected station. Either you selected an invalid station or the station does not provide measurements.",
-            "no_forecast": "Couldn't get forecast for the selected station. Either you selected an invalid station or the station does not provide forecasts.",
+            "no_data": "Could get neither measurement nor forecast data for the selected station. Either you selected an invalid station or the station does not provide data.",
             "no_station_name": "Name of the selected station not found."
         },
         "step": {
@@ -21,6 +20,51 @@
                     "name": "Name"
                 },
                 "description": "This integration fetches weather data from the Open Data server of Deutscher Wetterdienst. By using this integration, you agree to the terms at https://opendata.dwd.de/README.txt (German only).\n\nFor a list of stations see https://github.com/hg1337/homeassistant-dwd/blob/main/stations.md."
+            },
+            "options": {
+                "data": {
+                    "current_weather": "Which data shall be used as the current weather?",
+                    "forecast": "Do you want to have forecast data (recommended)?"
+                },
+                "description": "You can change this later in the configuration dialog."
+            },
+            "options_no_measurement": {
+                "data": {
+                    "current_weather": "Which data shall be used as the current weather?",
+                    "forecast": "Do you want to have forecast data (recommended)?"
+                },
+                "description": "You can change this later in the configuration dialog.\n\nThis station does not provide measurement data, therefore your options are limited. You may still use this station, but real measurement data is usually better."
+            },
+            "options_no_forecast": {
+                "data": {
+                    "current_weather": "Which data shall be used as the current weather?",
+                    "forecast": "Do you want to have forecast data (recommended)?"
+                },
+                "description": "You can change this later in the configuration dialog.\n\nThis station does not provide forecast data, therefore your options are limited."
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "current_weather": "Which data shall be used as the current weather?",
+                    "forecast": "Do you want to have forecast data (recommended)?"
+                }
+            },
+            "init_no_measurement": {
+                "data": {
+                    "current_weather": "Which data shall be used as the current weather?",
+                    "forecast": "Do you want to have forecast data (recommended)?"
+                },
+                "description": "This station does not provide measurement data, therefore your options are limited."
+            },
+            "init_no_forecast": {
+                "data": {
+                    "current_weather": "Which data shall be used as the current weather?",
+                    "forecast": "Do you want to have forecast data (recommended)?"
+                },
+                "description": "This station does not provide forecast data, therefore your options are limited."
             }
         }
     }

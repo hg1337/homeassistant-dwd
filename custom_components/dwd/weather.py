@@ -20,6 +20,7 @@ from homeassistant.components.weather import (
     ATTR_CONDITION_WINDY_VARIANT,
     ATTR_FORECAST_CONDITION,
     ATTR_FORECAST_NATIVE_PRECIPITATION,
+    ATTR_FORECAST_NATIVE_PRESSURE,
     ATTR_FORECAST_PRECIPITATION_PROBABILITY,
     ATTR_FORECAST_NATIVE_TEMP,
     ATTR_FORECAST_NATIVE_TEMP_LOW,
@@ -46,6 +47,13 @@ from .const import (
     CONDITION_CLOUDY_THRESHOLD,
     CONDITION_PARTLYCLOUDY_THRESHOLD,
     CONDITIONS_MAP,
+    CONF_CURRENT_WEATHER,
+    CONF_CURRENT_WEATHER_DEFAULT,
+    CONF_CURRENT_WEATHER_FORECAST,
+    CONF_CURRENT_WEATHER_HYBRID,
+    CONF_CURRENT_WEATHER_MEASUREMENT,
+    CONF_FORECAST,
+    CONF_FORECAST_DEFAULT,
     DOMAIN,
     DWD_FORECAST,
     DWD_FORECAST_TIMESTAMP,
@@ -109,6 +117,9 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
         self._config = config
         self._forecast_mode = forecast_mode
         self._device = device
+        self._conf_current_weather = self._config.options.get(
+            CONF_CURRENT_WEATHER, CONF_CURRENT_WEATHER_DEFAULT
+        )
 
     @property
     def unique_id(self):
@@ -148,27 +159,42 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
     @property
     def condition(self):
         """Return the current condition."""
-        str_value = self.coordinator.data[DWD_MEASUREMENT].get(
-            DWD_MEASUREMENT_PRESENT_WEATHER, None
-        )
-        if str_value is None or str_value == "---":
-            return None
+        if (
+            self._conf_current_weather == CONF_CURRENT_WEATHER_MEASUREMENT
+            or self._conf_current_weather == CONF_CURRENT_WEATHER_HYBRID
+        ):
+            str_value = self.coordinator.data[DWD_MEASUREMENT].get(
+                DWD_MEASUREMENT_PRESENT_WEATHER, None
+            )
+            if str_value is None or str_value == "---":
+                if self._conf_current_weather == CONF_CURRENT_WEATHER_MEASUREMENT:
+                    return None
+                else:
+                    forecast = self._get_forecast(FORECAST_MODE_HOURLY, 1)
+                    if forecast is None or len(forecast) < 1:
+                        return None
+                    else:
+                        return forecast[0].get(ATTR_FORECAST_CONDITION)
+            else:
+                condition = CONDITIONS_MAP.get(int(str_value), "")
+                if condition == ATTR_CONDITION_SUNNY and not sun.is_up(self._hass):
+                    condition = ATTR_CONDITION_CLEAR_NIGHT
+                return condition
+        elif self._conf_current_weather == CONF_CURRENT_WEATHER_FORECAST:
+            forecast = self._get_forecast(FORECAST_MODE_HOURLY, 1)
+            if forecast is None or len(forecast) < 1:
+                return None
+            else:
+                return forecast[0].get(ATTR_FORECAST_CONDITION)
         else:
-            condition = CONDITIONS_MAP.get(int(str_value), "")
-            if condition == ATTR_CONDITION_SUNNY and not sun.is_up(self._hass):
-                condition = ATTR_CONDITION_CLEAR_NIGHT
-            return condition
+            return None
 
     @property
     def native_temperature(self):
         """Return the temperature."""
-        str_value = self.coordinator.data[DWD_MEASUREMENT].get(
-            DWD_MEASUREMENT_TEMPERATURE, None
+        return self._get_float_measurement_with_fallback(
+            DWD_MEASUREMENT_TEMPERATURE, ATTR_FORECAST_NATIVE_TEMP
         )
-        if str_value is None:
-            return None
-        else:
-            return DwdWeather._str_to_float(str_value)
 
     @property
     def native_temperature_unit(self) -> str:
@@ -178,13 +204,9 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
     @property
     def native_pressure(self):
         """Return the pressure."""
-        str_value = self.coordinator.data[DWD_MEASUREMENT].get(
-            DWD_MEASUREMENT_PRESSURE, None
+        return self._get_float_measurement_with_fallback(
+            DWD_MEASUREMENT_PRESSURE, ATTR_FORECAST_NATIVE_PRESSURE
         )
-        if str_value is None:
-            return None
-        else:
-            return DwdWeather._str_to_float(str_value)
 
     @property
     def native_pressure_unit(self) -> str:
@@ -193,24 +215,12 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
     @property
     def humidity(self):
         """Return the humidity."""
-        str_value = self.coordinator.data[DWD_MEASUREMENT].get(
-            DWD_MEASUREMENT_HUMIDITY, None
-        )
-        if str_value is None:
-            return None
-        else:
-            return DwdWeather._str_to_float(str_value)
+        return self._get_float_measurement_without_fallback(DWD_MEASUREMENT_HUMIDITY)
 
     @property
     def native_visibility(self):
         """Return the humidity."""
-        str_value = self.coordinator.data[DWD_MEASUREMENT].get(
-            DWD_MEASUREMENT_VISIBILITY, None
-        )
-        if str_value is None:
-            return None
-        else:
-            return DwdWeather._str_to_float(str_value)
+        return self._get_float_measurement_without_fallback(DWD_MEASUREMENT_VISIBILITY)
 
     @property
     def native_visibility_unit(self) -> str:
@@ -219,13 +229,9 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
     @property
     def native_wind_speed(self):
         """Return the wind speed."""
-        str_value = self.coordinator.data[DWD_MEASUREMENT].get(
-            DWD_MEASUREMENT_MEANWIND_SPEED, None
+        return self._get_float_measurement_with_fallback(
+            DWD_MEASUREMENT_MEANWIND_SPEED, ATTR_FORECAST_NATIVE_WIND_SPEED
         )
-        if str_value is None:
-            return None
-        else:
-            return DwdWeather._str_to_float(str_value)
 
     @property
     def native_wind_speed_unit(self) -> str:
@@ -238,13 +244,54 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
     @property
     def wind_bearing(self):
         """Return the wind direction."""
-        str_value = self.coordinator.data[DWD_MEASUREMENT].get(
-            DWD_MEASUREMENT_MEANWIND_DIRECTION, None
+        return self._get_float_measurement_with_fallback(
+            DWD_MEASUREMENT_MEANWIND_DIRECTION, ATTR_FORECAST_WIND_BEARING
         )
-        if str_value is None:
-            return None
+
+    def _get_float_measurement_with_fallback(
+        self, dwd_measurement, attr_forecast
+    ) -> float | None:
+        if (
+            self._conf_current_weather == CONF_CURRENT_WEATHER_MEASUREMENT
+            or self._conf_current_weather == CONF_CURRENT_WEATHER_HYBRID
+        ):
+            str_value = self.coordinator.data[DWD_MEASUREMENT].get(
+                dwd_measurement, None
+            )
+            if str_value is None or str_value == "---":
+                if self._conf_current_weather == CONF_CURRENT_WEATHER_MEASUREMENT:
+                    return None
+                else:
+                    forecast = self._get_forecast(FORECAST_MODE_HOURLY, 1)
+                    if forecast is None or len(forecast) < 1:
+                        return None
+                    else:
+                        return forecast[0].get(attr_forecast)
+            else:
+                return DwdWeather._str_to_float(str_value)
+        elif self._conf_current_weather == CONF_CURRENT_WEATHER_FORECAST:
+            forecast = self._get_forecast(FORECAST_MODE_HOURLY, 1)
+            if forecast is None or len(forecast) < 1:
+                return None
+            else:
+                return forecast[0].get(attr_forecast)
         else:
-            return DwdWeather._str_to_float(str_value)
+            return None
+
+    def _get_float_measurement_without_fallback(self, dwd_measurement) -> float | None:
+        if (
+            self._conf_current_weather == CONF_CURRENT_WEATHER_MEASUREMENT
+            or self._conf_current_weather == CONF_CURRENT_WEATHER_HYBRID
+        ):
+            str_value = self.coordinator.data[DWD_MEASUREMENT].get(
+                dwd_measurement, None
+            )
+            if str_value is None or str_value == "---":
+                return None
+            else:
+                return DwdWeather._str_to_float(str_value)
+        else:
+            return None
 
     @property
     def attribution(self):
@@ -254,6 +301,13 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
     @property
     def forecast(self):
         """Return the forecast array."""
+
+        if self._config.options.get(CONF_FORECAST, CONF_FORECAST_DEFAULT) == False:
+            return None
+
+        return self._get_forecast(self._forecast_mode)
+
+    def _get_forecast(self, forecast_mode, max_hours=0):
 
         # We build both lists in parallel and just return the needed one. Although it's a small
         # overhead, it still makes thinks easier, because there is still much in common, because to
@@ -267,12 +321,17 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
         # https://www.dwd.de/DE/leistungen/opendata/help/schluessel_datenformate/kml/mosmix_element_weather_xls.xlsx
 
         dwd_forecast = self.coordinator.data[DWD_FORECAST]
+
+        if dwd_forecast is None:
+            return None
+
         dwd_forecast_timestamp = dwd_forecast.get(DWD_FORECAST_TIMESTAMP, [])
         dwd_forecast_TTT = dwd_forecast.get("TTT", [])
         dwd_forecast_ww = dwd_forecast.get("ww", [])
         dwd_forecast_Neff = dwd_forecast.get("Neff", [])
         dwd_forecast_RR1c = dwd_forecast.get("RR1c", [])
         dwd_forecast_wwP = dwd_forecast.get("wwP", [])
+        dwd_forecast_PPPP = dwd_forecast.get("PPPP", [])
         dwd_forecast_DD = dwd_forecast.get("DD", [])
         dwd_forecast_FF = dwd_forecast.get("FF", [])
 
@@ -626,6 +685,15 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
                                 round(float(raw_value), 0)
                             )
 
+                    # PPPP is in Pa
+                    if i < len(dwd_forecast_PPPP):
+                        raw_value = dwd_forecast_PPPP[i]
+                        if raw_value != "-":
+
+                            hourly_item[ATTR_FORECAST_NATIVE_PRESSURE] = (
+                                float(raw_value) * 0.01
+                            )
+
                     # DD is in °
                     if i < len(dwd_forecast_DD):
                         raw_value = dwd_forecast_DD[i]
@@ -644,7 +712,10 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
 
                     hourly_list.append(hourly_item)
 
-        if self._forecast_mode == FORECAST_MODE_DAILY:
+                    if max_hours > 0 and len(hourly_list) >= max_hours:
+                        break
+
+        if forecast_mode == FORECAST_MODE_DAILY:
             result = []
             if len(daily_list) > 0:
                 # Always add current day:
@@ -654,7 +725,7 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
                     if daily_list[i].has_enough_hours:
                         result.append(daily_list[i].values)
             return result
-        if self._forecast_mode == FORECAST_MODE_HOURLY:
+        if forecast_mode == FORECAST_MODE_HOURLY:
             return hourly_list
 
     @staticmethod
@@ -712,6 +783,19 @@ class DwdWeatherDay:
         if len(values) > 0:
             precipitation = sum(values)
             result[ATTR_FORECAST_NATIVE_PRECIPITATION] = round(precipitation, 2)
+
+        values = list(
+            filter(
+                lambda x: x is not None,
+                map(
+                    lambda x: x.get(ATTR_FORECAST_NATIVE_PRESSURE, None),
+                    self._hours,
+                ),
+            )
+        )
+        if len(values) > 0:
+            pressure = sum(values) / len(values)
+            result[ATTR_FORECAST_NATIVE_PRESSURE] = round(pressure, 1)
 
         cloud_cover_sum = 0
         cloud_cover_items = 0

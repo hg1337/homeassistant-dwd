@@ -4,8 +4,7 @@
             "already_configured": "Wetterstation ist bereits konfiguriert."
         },
         "error": {
-            "no_measurement": "Messdaten für die gewählte Wetterstation konnten nicht abgerufen werden. Entweder wurde eine ungültige Wetterstation ausgewählt oder die gewählte Wetterstation liefert keine Messdaten.",
-            "no_forecast": "Vorhersage für die gewählte Wetterstation konnten nicht abgerufen werden. Entweder wurde eine ungültige Wetterstation ausgewählt oder die gewählte Wetterstation liefert keine Vorhersagen.",
+            "no_data": "Weder Vorhersagen noch Messdaten konnten für die gewählte Wetterstation abgerufen werden. Entweder wurde eine ungültige Wetterstation ausgewählt oder die gewählte Wetterstation liefert keine Daten.",
             "no_station_name": "Name der gewählten Wetterstation nicht gefunden."
         },
         "step": {
