@@ -30,6 +30,22 @@ from .const import (
 )
 
 
+# Translation workaround for selectors until they are supported by Home Assistant
+STRING_CUSTOM = {"en": "Custom...", "de": "Benutzerdefiniert..."}
+STRING_CURRENT_WEATHER_MEASUREMENT = {
+    "en": "Measurement data only (recommended)",
+    "de": "Nur Messdaten (empfohlen)",
+}
+STRING_CURRENT_WEATHER_HYBID = {
+    "en": "Measurement data with forecast data for current hour as fallback for attributes where no measurement data is available",
+    "de": "Messdaten mit Vorhersagedaten für die aktuelle Stunde für Attribute für die keine Messdaten verfügbar sind",
+}
+STRING_CURRENT_WEATHER_FORECAST = {
+    "en": "Forecast data only (recommended only for stations that do not provide measurement data at all)",
+    "de": "Nur Vorhersagedaten (nur für Stationen emfohlen, die über haupt keine Messdaten liefern)",
+}
+
+
 class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     """Config flow for DWD component."""
 
@@ -84,7 +100,14 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             self.hass.config.latitude, self.hass.config.longitude
         )
 
-        station_options = [{"label": "Custom...", "value": "-",}] + list(
+        station_options = [
+            {
+                "label": STRING_CUSTOM.get(
+                    self.hass.config.language, STRING_CUSTOM["en"]
+                ),
+                "value": "-",
+            }
+        ] + list(
             map(
                 lambda x: {
                     "label": f'{x["name"]} ({x["distance"]/1000:.0f} km)',
@@ -191,7 +214,10 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             self._forecast = CONF_FORECAST_DEFAULT
 
         schema = _create_schema(
-            self._available_data, self._current_weather, self._forecast
+            self._available_data,
+            self._current_weather,
+            self._forecast,
+            self.hass.config.language,
         )
 
         if (
@@ -292,6 +318,7 @@ class DwdOptionsFlowHandler(config_entries.OptionsFlow):
                 CONF_CURRENT_WEATHER, CONF_CURRENT_WEATHER_DEFAULT
             ),
             self.config_entry.options.get(CONF_FORECAST, CONF_FORECAST_DEFAULT),
+            self.hass.config.language,
         )
 
         if DWD_MEASUREMENT not in available_data and DWD_FORECAST in available_data:
@@ -305,7 +332,10 @@ class DwdOptionsFlowHandler(config_entries.OptionsFlow):
 
 
 def _create_schema(
-    available_data: list, suggested_current_weather: str, suggested_forecast: bool
+    available_data: list,
+    suggested_current_weather: str,
+    suggested_forecast: bool,
+    language: str,
 ):
     selector_dict = {
         "select": {
@@ -318,7 +348,9 @@ def _create_schema(
     if DWD_MEASUREMENT in available_data:
         selector_dict["select"]["options"].append(
             {
-                "label": "Measurement data only (recommended)",
+                "label": STRING_CURRENT_WEATHER_MEASUREMENT.get(
+                    language, STRING_CURRENT_WEATHER_MEASUREMENT["en"]
+                ),
                 "value": CONF_CURRENT_WEATHER_MEASUREMENT,
             }
         )
@@ -326,7 +358,9 @@ def _create_schema(
     if DWD_MEASUREMENT in available_data and DWD_FORECAST in available_data:
         selector_dict["select"]["options"].append(
             {
-                "label": "Measurement data with forecast data for current hour as fallback for attributes where no measurement data is available",
+                "label": STRING_CURRENT_WEATHER_HYBID.get(
+                    language, STRING_CURRENT_WEATHER_HYBID["en"]
+                ),
                 "value": CONF_CURRENT_WEATHER_HYBRID,
             },
         )
@@ -334,7 +368,9 @@ def _create_schema(
     if DWD_FORECAST in available_data:
         selector_dict["select"]["options"].append(
             {
-                "label": "Forecast data only (recommended only for stations that do not provide measurement data at all)",
+                "label": STRING_CURRENT_WEATHER_FORECAST.get(
+                    language, STRING_CURRENT_WEATHER_FORECAST["en"]
+                ),
                 "value": CONF_CURRENT_WEATHER_FORECAST,
             },
         )
