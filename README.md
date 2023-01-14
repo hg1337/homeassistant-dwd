@@ -78,7 +78,7 @@ If the button above does not work or you want to navigate on your own to the rig
 3. Select "Add Integration"
 4. Search for "Deutscher Wetterdienst" and open it.
 ![Screenshot Search Integration](./images/screenshot_search-integration.png)
-5. Read the instructions, select a different station or enter a custom one if needed, and select "Submit".
+5. Read the instructions, select a different station or enter a custom one if needed, e.g if you want to use a station that doesn't provide measurement data as only stations that provide measurement as well as forecast data are offered for direct selection.
 
 After that, you should have two new weather entities, one with hourly forecast and one with daily forceast. Both have the same measurement data. You may repeat these steps if you want to add more stations.
 
