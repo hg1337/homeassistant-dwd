@@ -96,9 +96,7 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 if not errors:
                     return await self.async_step_options()
 
-        stations = await DwdFlowHandler._async_get_nearest_stations(
-            self.hass.config.latitude, self.hass.config.longitude
-        )
+        stations = await self._async_get_nearest_stations()
 
         station_options = [
             {
@@ -110,7 +108,7 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         ] + list(
             map(
                 lambda x: {
-                    "label": f'{x["name"]} ({x["distance"]/1000:.0f} km)',
+                    "label": f'{x["name"]} ({x["distance"]:.0f} {self.hass.config.units.length_unit})',
                     "value": x["id"],
                 },
                 stations,
@@ -247,8 +245,7 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         """Create the options flow."""
         return DwdOptionsFlowHandler(config_entry)
 
-    @staticmethod
-    async def _async_get_nearest_stations(latitude: float, longitude: float):
+    async def _async_get_nearest_stations(self):
 
         with open(
             os.path.join(os.path.dirname(os.path.realpath(__file__)), "stations.json"),
@@ -258,8 +255,8 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             stations = json.load(file)
 
             for station in stations:
-                station["distance"] = loc_util.distance(
-                    station["latitude"], station["longitude"], latitude, longitude
+                station["distance"] = self.hass.config.distance(
+                    station["latitude"], station["longitude"]
                 )
 
             return sorted(stations, key=lambda x: x["distance"])
