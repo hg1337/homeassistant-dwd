@@ -4,8 +4,7 @@
 
 - [Introduction](#introduction)
 - [Main Features](#main-features)
-- [Installation and Configuration](#installation-and-configuration)
-- [Limitations and Known Issues](#limitations-and-known-issues)
+- [Quick Setup](#quick-setup)
 - [Bug Reports](#bug-reports)
 - [References](#references)
 
@@ -39,6 +38,7 @@ The conditions from Deutscher Wetterdienst (DWD) for using their data and access
   - cloud_cover
   - precipitation
   - precipitation_probability
+  - pressure
   - wind_bearing
   - wind_speed
 - Daily forecast data calculated by the component from the hourly forecast data. This is the most tricky part. I have compared the result of this with what the official Warnwetter app displays and the results seems to be very close.
@@ -47,6 +47,7 @@ The conditions from Deutscher Wetterdienst (DWD) for using their data and access
   - temperature (the maximum temperature for the day)
   - templow (the minimum temperature for the day)
   - cloud_cover
+  - pressure
   - precipitation
 - Uses the [HTTP ETag](https://en.wikipedia.org/wiki/HTTP_ETag) mechanism to only download new data if the data has changed. This allows more frequent polling (currently about every 10 minutes) while still keeping the load low.
 - Configuration via UI
@@ -57,40 +58,23 @@ Please notice that as usual, the "9 hours ago" in the screenshot refers to the l
 
 ![Screenshot History](./images/screenshot_history.png)
 
-## Installation and Configuration
+## Quick Setup
 
-If you have access to your config folder of Home Assistant (e.g. if you have the Samba share add-on installed in Supervisor), the installation is quite easy:
+This quick setup guide is based on [My Home Assistant](https://my.home-assistant.io/) links and the [Home Assistant Community Store (HACS)](https://hacs.xyz). For more details and other setup methods, see [setup.md](setup.md).
 
-1. Create a folder named "custom_components" within the config folder, if it doesn't already exist.
-2. Optional: If you have Python installed and if you like, you may run [tools/generate_stations/generate_stations.py](tools/generate_stations/generate_stations.py) to update the station list. However, it shouldn't change too often, that's why it is "pre-compiled".
-3. Copy the whole custom_components/dwd folder of this repository into the custom_components folder. I.e. your structure should in the end be /config/custom_components/dwd.
-![Screenshot Installation Folder](./images/screenshot_installation-folder.png)
-4. Restart Home Assistant. If you see a warning "You are using a custom integration dwd which has not been tested by Home Assistant." (and no errors of course) in the log, everything went well.
+As this integration is currently not part of Home Assistant Core, you have to download it first into your Home Assistant installation. To download it via HACS, click the following button to open the download page for this integration in HACS.
 
-To add the actual weather entities, just add a new instance of the "Deutscher Wetterdienst" integration:
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=hg1337&repository=homeassistant-dwd&category=integration)
 
-[![Add Integration](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=dwd)
+After a restart of Home Assistant, this integration is configurable by via "Add Integration" at "Devices & Services" as any core integration. Select "Deutscher Wetterdienst" and follow the instructions.
 
-If the button above does not work or you want to navigate on your own to the right place, follow these steps: 
-
-1. Open "Settings" from the main menu.
-2. Open "Devices & Services" from the main menu.
-3. Select "Add Integration"
-4. Search for "Deutscher Wetterdienst" and open it.
 ![Screenshot Search Integration](./images/screenshot_search-integration.png)
-5. Read the instructions, select a different station or enter a custom one if needed, e.g if you want to use a station that doesn't provide measurement data as only stations that provide measurement as well as forecast data are offered for direct selection.
 
-After that, you should have two new weather entities, one with hourly forecast and one with daily forceast. Both have the same measurement data. You may repeat these steps if you want to add more stations.
+Do get there in one click, use this button:
 
-![Screenshot Entities](./images/screenshot_entities.png)
+[![Open your Home Assistant instance and start setting up a new integration.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=dwd)
 
-You may use these entities with any component that supports weather entities, e.g. the standard Weather Forecast Card:
-
-![Screenshot Entities](./images/screenshot_weather-forecast-card-configuration.png)
-
-I can really recommend the custom weather card at https://github.com/bramkragten/weather-card, I started using that a long time ago, because it allows more customizations than the standard weather forecast card:
-
-![Screenshot Weather Card](./images/screenshot_bramkragten-weather-card.png)
+This adds one device and two entities (one with hourly forecast and one with daily forceast) for the select station. To add more stations, just repeat the "Add Integration" step.
 
 ## Limitations
 - This component only creates weather entities, no sensors. The main reason is that I didn't need it. ;) However, I also believe that this is actually the correct design, because all data is available via the weather entity. Additionally adding sensors with the same data to me seems like a workaround for limitations that are actually somewhere else.
@@ -105,7 +89,7 @@ I can really recommend the custom weather card at https://github.com/bramkragten
 - Because of the previous point, this component is not integrated as a core component yet.
 
 ## Bug Reports
-I cannot promise anything regarding fixing bugs, but it's always worth reporting them, if they haven't been reported yet and if they are not in the list of known issues above. When reporting a bug, please follow these guidelines.
+It's always worth reporting bugs, if they haven't been reported yet and if they are not in the list of known issues above. When reporting a bug, please follow these guidelines.
 
 ### Issues with Measurements
 For issues with measurement data (current condition, current temperature, ...), please include the following items in your bug report.
