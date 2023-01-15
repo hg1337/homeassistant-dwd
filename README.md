@@ -70,7 +70,7 @@ After a restart of Home Assistant, this integration is configurable by via "Add 
 
 ![Screenshot Search Integration](./images/screenshot_search-integration.png)
 
-Do get there in one click, use this button:
+To get there in one click, use this button:
 
 [![Open your Home Assistant instance and start setting up a new integration.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=dwd)
 
