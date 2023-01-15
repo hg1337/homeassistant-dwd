@@ -209,8 +209,11 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         self._forecast = None
 
         if user_input is not None:
+            # CONF_CURRENT_WEATHER is always set from the UI.
             self._current_weather = user_input[CONF_CURRENT_WEATHER]
-            self._forecast = user_input[CONF_FORECAST]
+            # CONF_FORECAST is not configurable in the UI if no forecast is
+            # available and has to default to False in this case.
+            self._forecast = user_input.get(CONF_FORECAST, False)
 
             return self.async_create_entry(
                 title=self._name,
@@ -321,8 +324,11 @@ class DwdOptionsFlowHandler(config_entries.OptionsFlow):
         if user_input is not None:
             return self.async_create_entry(
                 data={
+                    # CONF_CURRENT_WEATHER is always set from the UI.
                     CONF_CURRENT_WEATHER: user_input[CONF_CURRENT_WEATHER],
-                    CONF_FORECAST: user_input[CONF_FORECAST],
+                    # CONF_FORECAST is not configurable in the UI if no forecast is
+                    # available and has to default to False in this case.
+                    CONF_FORECAST: user_input.get(CONF_FORECAST, False),
                 }
             )
 
