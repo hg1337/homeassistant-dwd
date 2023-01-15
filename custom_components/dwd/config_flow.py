@@ -1,7 +1,9 @@
 """Config flow to configure DWD component."""
+from __future__ import annotations
 
 import json
 import os
+from typing import Any
 from aiohttp import ClientSession
 import voluptuous as vol
 
@@ -11,7 +13,6 @@ from homeassistant.core import callback
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.selector import selector
-from homeassistant.util import location as loc_util
 
 from .const import (
     CONF_CURRENT_WEATHER,
@@ -59,7 +60,9 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         self._current_weather = None
         self._forecast = None
 
-    async def async_step_user(self, user_input=None):
+    async def async_step_user(
+        self, user_input: dict[str, Any] | None = None
+    ) -> FlowResult:
         """Handle a flow initialized by the user."""
 
         errors = {}
@@ -136,7 +139,9 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             step_id="user", data_schema=schema, errors=errors, last_step=False
         )
 
-    async def async_step_manual(self, user_input=None):
+    async def async_step_manual(
+        self, user_input: dict[str, Any] | None = None
+    ) -> FlowResult:
         """Handle the step for manual station selection."""
 
         errors = {}
@@ -177,19 +182,27 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             step_id="manual", data_schema=schema, errors=errors, last_step=False
         )
 
-    async def async_step_options(self, user_input=None):
+    async def async_step_options(
+        self, user_input: dict[str, Any] | None = None
+    ) -> FlowResult:
         """Handle the step for manual station selection."""
         return await self._async_step_options(user_input)
 
-    async def async_step_options_no_measurement(self, user_input=None):
+    async def async_step_options_no_measurement(
+        self, user_input: dict[str, Any] | None = None
+    ) -> FlowResult:
         """Handle the step for manual station selection."""
         return await self._async_step_options(user_input)
 
-    async def async_step_options_no_forecast(self, user_input=None):
+    async def async_step_options_no_forecast(
+        self, user_input: dict[str, Any] | None = None
+    ) -> FlowResult:
         """Handle the step for manual station selection."""
         return await self._async_step_options(user_input)
 
-    async def _async_step_options(self, user_input):
+    async def _async_step_options(
+        self, user_input: dict[str, Any] | None
+    ) -> FlowResult:
         """Handle the step for manual station selection."""
 
         self._current_weather = None
@@ -279,24 +292,32 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
 
 class DwdOptionsFlowHandler(config_entries.OptionsFlow):
+    """Options flow for DWD component."""
+
     def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
         """Initialize options flow."""
         self.config_entry = config_entry
         self._available_data = None
 
-    async def async_step_init(self, user_input=None) -> FlowResult:
+    async def async_step_init(
+        self, user_input: dict[str, Any] | None = None
+    ) -> FlowResult:
         """Manage the options."""
         return await self._async_step_init(user_input)
 
-    async def async_step_init_no_measurement(self, user_input=None) -> FlowResult:
+    async def async_step_init_no_measurement(
+        self, user_input: dict[str, Any] | None = None
+    ) -> FlowResult:
         """Manage the options."""
         return await self._async_step_init(user_input)
 
-    async def async_step_init_no_forecast(self, user_input=None) -> FlowResult:
+    async def async_step_init_no_forecast(
+        self, user_input: dict[str, Any] | None = None
+    ) -> FlowResult:
         """Manage the options."""
         return await self._async_step_init(user_input)
 
-    async def _async_step_init(self, user_input) -> FlowResult:
+    async def _async_step_init(self, user_input: dict[str, Any] | None) -> FlowResult:
         if user_input is not None:
             return self.async_create_entry(
                 data={
@@ -333,7 +354,7 @@ def _create_schema(
     suggested_current_weather: str,
     suggested_forecast: bool,
     language: str,
-):
+) -> vol.Schema:
     selector_dict = {
         "select": {
             "options": [],
@@ -401,7 +422,9 @@ def _create_schema(
     return vol.Schema(schema_dict)
 
 
-async def _get_available_data(station_id: str, clientsession: ClientSession):
+async def _get_available_data(
+    station_id: str, clientsession: ClientSession
+) -> list[str]:
 
     result = []
 

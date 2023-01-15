@@ -1,7 +1,12 @@
 """Support for DWD weather service."""
+from __future__ import annotations
+
 from datetime import date, datetime, time, timedelta, timezone
 import logging
-from typing import Optional
+from typing import Any, Optional
+
+from homeassistant.helpers.entity import DeviceInfo
+from . import DwdDataUpdateCoordinator
 
 from homeassistant.components.weather import (
     ATTR_CONDITION_CLEAR_NIGHT,
@@ -29,14 +34,17 @@ from homeassistant.components.weather import (
     ATTR_FORECAST_NATIVE_WIND_SPEED,
     WeatherEntity,
 )
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     UnitOfTemperature,
     UnitOfLength,
     UnitOfSpeed,
     UnitOfPressure,
 )
+from homeassistant.core import HomeAssistant
 from homeassistant.helpers import sun
 from homeassistant.helpers.device_registry import DeviceEntryType
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.util import dt
 
@@ -72,9 +80,13 @@ from .const import (
 _LOGGER = logging.getLogger(__name__)
 
 
-async def async_setup_entry(hass, config_entry, async_add_entities):
+async def async_setup_entry(
+    hass: HomeAssistant,
+    config_entry: ConfigEntry,
+    async_add_entities: AddEntitiesCallback,
+):
     """Add a weather entity from a config_entry."""
-    coordinator = hass.data[DOMAIN][config_entry.entry_id]
+    coordinator: DwdDataUpdateCoordinator = hass.data[DOMAIN][config_entry.entry_id]
 
     device = {
         "identifiers": {(DOMAIN, config_entry.unique_id)},
@@ -109,25 +121,33 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
 class DwdWeather(CoordinatorEntity, WeatherEntity):
     """Implementation of a DWD weather condition."""
 
-    def __init__(self, hass, coordinator, unique_id, config, forecast_mode, device):
+    def __init__(
+        self,
+        hass: HomeAssistant,
+        coordinator: DwdDataUpdateCoordinator,
+        unique_id: str,
+        config: ConfigEntry,
+        forecast_mode: int,
+        device: DeviceInfo,
+    ) -> None:
         """Initialise the platform with a data instance and site."""
         super().__init__(coordinator)
-        self._hass = hass
-        self._unique_id = unique_id
-        self._config = config
-        self._forecast_mode = forecast_mode
-        self._device = device
-        self._conf_current_weather = self._config.options.get(
+        self._hass: HomeAssistant = hass
+        self._unique_id: str = unique_id
+        self._config: ConfigEntry = config
+        self._forecast_mode: int = forecast_mode
+        self._device: DeviceInfo = device
+        self._conf_current_weather: str = self._config.options.get(
             CONF_CURRENT_WEATHER, CONF_CURRENT_WEATHER_DEFAULT
         )
 
     @property
-    def unique_id(self):
+    def unique_id(self) -> str:
         """Return unique ID."""
         return self._unique_id
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Return the name of the sensor."""
 
         name = self._config.title
@@ -147,17 +167,17 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
         return f"{name}{name_appendix}"
 
     @property
-    def available(self):
+    def available(self) -> bool:
         """Return True if entity is available."""
         return self.coordinator.last_update_success
 
     @property
-    def device_info(self):
+    def device_info(self) -> DeviceInfo:
         """Device info."""
         return self._device
 
     @property
-    def condition(self):
+    def condition(self) -> str | None:
         """Return the current condition."""
         if (
             self._conf_current_weather == CONF_CURRENT_WEATHER_MEASUREMENT
@@ -190,7 +210,7 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
             return None
 
     @property
-    def native_temperature(self):
+    def native_temperature(self) -> float | None:
         """Return the temperature."""
         return self._get_float_measurement_with_fallback(
             DWD_MEASUREMENT_TEMPERATURE, ATTR_FORECAST_NATIVE_TEMP
@@ -202,7 +222,7 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
         return UnitOfTemperature.CELSIUS
 
     @property
-    def native_pressure(self):
+    def native_pressure(self) -> float | None:
         """Return the pressure."""
         return self._get_float_measurement_with_fallback(
             DWD_MEASUREMENT_PRESSURE, ATTR_FORECAST_NATIVE_PRESSURE
@@ -213,12 +233,12 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
         return UnitOfPressure.HPA
 
     @property
-    def humidity(self):
+    def humidity(self) -> float | None:
         """Return the humidity."""
         return self._get_float_measurement_without_fallback(DWD_MEASUREMENT_HUMIDITY)
 
     @property
-    def native_visibility(self):
+    def native_visibility(self) -> float | None:
         """Return the humidity."""
         return self._get_float_measurement_without_fallback(DWD_MEASUREMENT_VISIBILITY)
 
@@ -227,7 +247,7 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
         return UnitOfLength.KILOMETERS
 
     @property
-    def native_wind_speed(self):
+    def native_wind_speed(self) -> float | None:
         """Return the wind speed."""
         return self._get_float_measurement_with_fallback(
             DWD_MEASUREMENT_MEANWIND_SPEED, ATTR_FORECAST_NATIVE_WIND_SPEED
@@ -242,14 +262,14 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
         return UnitOfLength.MILLIMETERS
 
     @property
-    def wind_bearing(self):
+    def wind_bearing(self) -> float | None:
         """Return the wind direction."""
         return self._get_float_measurement_with_fallback(
             DWD_MEASUREMENT_MEANWIND_DIRECTION, ATTR_FORECAST_WIND_BEARING
         )
 
     def _get_float_measurement_with_fallback(
-        self, dwd_measurement, attr_forecast
+        self, dwd_measurement: str, attr_forecast: str
     ) -> float | None:
         if (
             self._conf_current_weather == CONF_CURRENT_WEATHER_MEASUREMENT
@@ -278,7 +298,9 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
         else:
             return None
 
-    def _get_float_measurement_without_fallback(self, dwd_measurement) -> float | None:
+    def _get_float_measurement_without_fallback(
+        self, dwd_measurement: str
+    ) -> float | None:
         if (
             self._conf_current_weather == CONF_CURRENT_WEATHER_MEASUREMENT
             or self._conf_current_weather == CONF_CURRENT_WEATHER_HYBRID
@@ -294,7 +316,7 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
             return None
 
     @property
-    def attribution(self):
+    def attribution(self) -> str:
         """Return the attribution."""
         return ATTRIBUTION
 
@@ -302,12 +324,12 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
     def forecast(self):
         """Return the forecast array."""
 
-        if self._config.options.get(CONF_FORECAST, CONF_FORECAST_DEFAULT) == False:
+        if not self._config.options.get(CONF_FORECAST, CONF_FORECAST_DEFAULT):
             return None
 
         return self._get_forecast(self._forecast_mode)
 
-    def _get_forecast(self, forecast_mode, max_hours=0):
+    def _get_forecast(self, forecast_mode: int, max_hours: int = 0):
 
         # We build both lists in parallel and just return the needed one. Although it's a small
         # overhead, it still makes thinks easier, because there is still much in common, because to
@@ -737,19 +759,24 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
 
 
 class DwdWeatherDay:
+    """Manages the weather data of a single day."""
+
     @property
     def day(self) -> date:
+        """Returns the date of the day"""
         return self._day
 
     @property
     def has_enough_hours(self) -> bool:
+        """Return True, if the day has data of enough hours, otherwise returns False."""
         # We do not insist on 24 hours,
         # 1. because the day might have 23 or 25 hours on DST changes.
         # 2. to be a bit robust in case data is missing for very few hours (although we didn't observe this yet).
         return len(self._hours) > 20
 
     @property
-    def values(self) -> dict:
+    def values(self) -> dict[str, Any]:
+        """Returns the value of the day as a dict."""
 
         result = {}
 
@@ -859,12 +886,13 @@ class DwdWeatherDay:
 
         return result
 
-    def __init__(self, day: date, dwd_forecast: dict) -> None:
-        self._day = day
-        self._dwd_forecast = dwd_forecast
-        self._hours = []
-        self._hour_indices = []
+    def __init__(self, day: date, dwd_forecast: dict[str, Any]) -> None:
+        self._day: date = day
+        self._dwd_forecast: dict[str, Any] = dwd_forecast
+        self._hours: list[dict[str, Any]] = []
+        self._hour_indices: list[int] = []
 
-    def add_hour(self, hour_item: dict, index: int) -> None:
+    def add_hour(self, hour_item: dict[str, Any], index: int) -> None:
+        """Adds hour information to this day."""
         self._hours.append(hour_item)
         self._hour_indices.append(index)

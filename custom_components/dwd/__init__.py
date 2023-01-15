@@ -1,9 +1,12 @@
 """The DWD component."""
+from __future__ import annotations
+
 import codecs
 from datetime import datetime, timezone
 from io import BytesIO
 import logging
 import zipfile
+from aiohttp import ClientSession
 
 from defusedxml import ElementTree
 from homeassistant.config_entries import ConfigEntry
@@ -79,16 +82,16 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
 class DwdDataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching DWD data."""
 
-    def __init__(self, hass, config_entry):
+    def __init__(self, hass: HomeAssistant, config_entry: ConfigEntry) -> None:
         """Initialize global DWD data updater."""
 
         self._config_entry: ConfigEntry = config_entry
-        self._clientsession = async_get_clientsession(hass)
+        self._clientsession: ClientSession = async_get_clientsession(hass)
 
-        self._last_measurement = None
-        self._last_forecast = None
-        self._last_measurement_etag = None
-        self._last_forecast_etag = None
+        self._last_measurement: dict | None = None
+        self._last_forecast: dict | None = None
+        self._last_measurement_etag: str | None = None
+        self._last_forecast_etag: str | None = None
 
         _LOGGER.debug(
             "Checking for new data for %s (%s) every %s",
@@ -99,7 +102,7 @@ class DwdDataUpdateCoordinator(DataUpdateCoordinator):
 
         super().__init__(hass, _LOGGER, name=DOMAIN, update_interval=UPDATE_INTERVAL)
 
-    async def _async_update_data(self):
+    async def _async_update_data(self) -> dict:
         """Fetch data from DWD."""
 
         try:
@@ -126,7 +129,7 @@ class DwdDataUpdateCoordinator(DataUpdateCoordinator):
                 response = await self._clientsession.get(url, headers=headers)
 
                 if response.status == 304:
-                    _LOGGER.debug("No new data from %s.", url)
+                    _LOGGER.debug("No new data from %s", url)
 
                 elif 200 <= response.status <= 299:
                     measurement = {}
@@ -195,7 +198,7 @@ class DwdDataUpdateCoordinator(DataUpdateCoordinator):
                 response = await self._clientsession.get(url, headers=headers)
 
                 if response.status == 304:
-                    _LOGGER.debug("No new data from %s.", url)
+                    _LOGGER.debug("No new data from %s", url)
 
                 elif 200 <= response.status <= 299:
 
