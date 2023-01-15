@@ -1,5 +1,7 @@
 # Deutscher Wetterdienst (DWD) Setup
 
+Please read [README.md](./README.md) first, if you haven't already.
+
 - [Download](#download)
     - [Donwload via HACS](#download-via-hacs)
     - [Manual Download](#manual-download)

@@ -5,6 +5,7 @@
 - [Introduction](#introduction)
 - [Main Features](#main-features)
 - [Quick Setup](#quick-setup)
+- [Questions & Answers](#questions--answers)
 - [Bug Reports](#bug-reports)
 - [References](#references)
 
@@ -76,20 +77,15 @@ To get there in one click, use this button:
 
 This adds one device and two entities (one with hourly forecast and one with daily forceast) for the selected station. To add more stations, just repeat the "Add Integration" step.
 
-## Limitations
-- This component only creates weather entities, no sensors. The main reason is that I didn't need it. ;) However, I also believe that this is actually the correct design, because all data is available via the weather entity. Additionally adding sensors with the same data to me seems like a workaround for limitations that are actually somewhere else.
-- The daily forecast only takes the future into account, which is a deviation from how e.g. the Warnwetter app behaves. There are two reasons for that:
-  - This was the easier and straight forward way during implementation. ;)
-  - From a user perspective, I find it quite useful that in a *forecast*, I only see what's coming up, not what happend already. For example, if it rained the whole morning and the sun is going to shine the whole afternoon, and it's already afternoon, it's more useful to see the sun icon and not the rain oder mixed icon to know what's coming up. If you are going to create a pull request to change this behavior, please add a configuration option in the user interface to allow the user to use the current behavior.
-- While this integration should follow the Home Assistant guidelines in most aspects, it doesn't in one aspect: It fetches the data directly from Deutscher Wetterdienst Open Data server instead of outsoucing the corresponding logic to a 3rd party component. This is probably also the main show-stopper for integrating this component directly into Home Assistant. Although I am a big fan of reuse and I understand the motivation, here is why I still haven't done it (yet):
-  - I didn't know about this point when I started, otherwise I maybe would have started differently. As it's now more or less finished, I'm not in the mood of a complete refactoring. ;)
-  - Most of the code deals with Home Assistant specific logic like integrating with the DataUpdateCoordinator of Home Assistant or mapping the data to values and structures Home Assistant expects (especially regarding the "condition" state attribute), which cannot be part of a generic component outside Home Assistant.
-  - Even the part where we calculate the daily forecast from the hourly forecast is actually Home Assistant specific, because it works on the Home Assissant specific representation, not the source values from DWD. So if this is moved somewhere to be reused, it should rather be moved to some shared logic within Home Assistant, not to an external DWD library. 
-  - What's really left that could be part of a separate component is only fetching the data itself, which are only simple HTTP Requests. The scheduling of the updates should however again be part of the Home Assistant component, because it needs close integration with the DataUpdateCoordinator.
-- Because of the previous point, this component is not integrated as a core component yet.
+## Questions & Answers
+
+If you have questions, they might already be answered at [questions_and_answers.md](./questions_and_answers.md).
 
 ## Bug Reports
-It's always worth reporting bugs, if they haven't been reported yet and if they are not in the list of known issues above. When reporting a bug, please follow these guidelines.
+
+It's always worth reporting bugs, if they haven't been reported yet and after having at look at [Questions & Answers](#questions--answers).
+
+When reporting a bug, please follow these guidelines.
 
 ### Issues with Measurements
 For issues with measurement data (current condition, current temperature, ...), please include the following items in your bug report.
