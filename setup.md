@@ -3,7 +3,7 @@
 Please read [README.md](./README.md) first, if you haven't already.
 
 - [Download](#download)
-    - [Donwload via HACS](#download-via-hacs)
+    - [Download via HACS](#download-via-hacs)
     - [Manual Download](#manual-download)
 - [Configuration](#configuration)
 
@@ -58,7 +58,8 @@ If you don't want to use the My Home Assistant button or if it doesn't work in y
 3. Select "Add Integration".
 4. Search for "Deutscher Wetterdienst" and select it.  
 ![Screenshot Search Integration](./images/screenshot_search-integration.png)
-5. Follow the instructions, select a different station or enter a custom one if needed, e.g if you want to use a station that doesn't provide measurement data as only stations that provide measurement as well as forecast data are offered for direct selection.
+
+Follow the instructions, select a different station or enter a custom one if needed, e.g if you want to use a station that doesn't provide measurement data as only stations that provide measurement as well as forecast data are offered for direct selection.
 
 After that, you should have one new device and two new weather entities for the selected station, one entity with hourly forecast and one entity with daily forceast. Both have the same measurement data. You may repeat these steps if you want to add more stations.
 
