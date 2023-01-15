@@ -66,7 +66,7 @@ As this integration is currently not part of Home Assistant Core, you have to do
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=hg1337&repository=homeassistant-dwd&category=integration)
 
-After a restart of Home Assistant, this integration is configurable by via "Add Integration" at "Devices & Services" as any core integration. Select "Deutscher Wetterdienst" and follow the instructions.
+After a restart of Home Assistant, this integration is configurable by via "Add Integration" at "Devices & Services" like any core integration. Select "Deutscher Wetterdienst" and follow the instructions.
 
 ![Screenshot Search Integration](./images/screenshot_search-integration.png)
 
