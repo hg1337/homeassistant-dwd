@@ -17,6 +17,7 @@ if __name__ == "__main__":
 
     measurement_href_pattern = re.compile(r"^(.*[^_])_*-BEOB\.csv$")
     forecast_href_pattern = re.compile(r"^(.+)/$")
+    mosmix_stationskatalog_pattern = re.compile(r"^([^ ]+)[ ]+([^ ]+)[ ]+(.+[^ ])[ ]+(-?[0-9]+\.[0-9]+)[ ]+(-?[0-9]+\.[0-9]+)[ ]+(-?[0-9]+?)$")
 
     class HtmlStationListParser(HTMLParser):
 
@@ -108,15 +109,18 @@ if __name__ == "__main__":
     with urllib.request.urlopen(url) as response:
         for line in response:
             line = codecs.decode(line, 'iso-8859-1')
-            if len(line) >= 76:
-                station_id = line[12:17].strip()
-                if station_id != "id" and station_id != "=====" and station_id in measurement_stations and station_id in forecast_stations:
+            match = mosmix_stationskatalog_pattern.match(line)
+            if match:
+                station_id = match.groups()[0]
+                station_measurement = (station_id in measurement_stations)
+                station_forecast = (station_id in forecast_stations)
+                if station_measurement and station_forecast:
                     data_from_stationslexikon = stationslexikon_stations.get(station_id, None)
                     if data_from_stationslexikon is None:
-                        station_name = line[23:44].strip()
-                        station_latitude = float(line[44:50])
-                        station_longitude = float(line[51:58])
-                        station_altitude = float(line[59:64])
+                        station_name = match.groups()[2]
+                        station_latitude = float(match.groups()[3])
+                        station_longitude = float(match.groups()[4])
+                        station_altitude = float(match.groups()[5])
                     else:
                         station_name = data_from_stationslexikon[0]
                         station_latitude = float(data_from_stationslexikon[1])
