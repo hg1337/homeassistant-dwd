@@ -111,7 +111,8 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         ] + list(
             map(
                 lambda x: {
-                    "label": f'{x["name"]} ({x["distance"]:.0f} {self.hass.config.units.length_unit})',
+                    # Elevation is always in m in Home Assistant
+                    "label": f'{x["name"]} ({x["distance"]:.0f} {self.hass.config.units.length_unit}, {x["altitude_delta"]:+.0f} m)',
                     "value": x["id"],
                 },
                 stations,
@@ -273,6 +274,10 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             for station in stations:
                 station["distance"] = self.hass.config.distance(
                     station["latitude"], station["longitude"]
+                )
+                # The elevation is always in m in Home Assistant same as the station altitude!
+                station["altitude_delta"] = (
+                    station["altitude"] - self.hass.config.elevation
                 )
 
             return sorted(stations, key=lambda x: x["distance"])

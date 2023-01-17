@@ -12,7 +12,7 @@
                 "data": {
                     "station_id": "Station"
                 },
-                "description": "Diese Integration bezieht Wetterdaten vom Open Data Server des Deutschen Wetterdienstes. Wenn du diese Integration verwendest, stimmst du den Bedingungen unter https://opendata.dwd.de/README.txt zu.\n\nBasierend auf der aktuellen Home Assistant Konfiguration wurde die am nächsten gelegene Wetterstation unten vorausgewählt, die sowohl Messdaten als auch Vorhersagen liefern sollte.\n\nFalls du eine Wetterstation manuell konfigurieren möchtest, wähle \"Benutzerdefiniert...\" aus."
+                "description": "Diese Integration bezieht Wetterdaten vom Open Data Server des Deutschen Wetterdienstes. Wenn du diese Integration verwendest, stimmst du den Bedingungen unter https://opendata.dwd.de/README.txt zu.\n\nBasierend auf der aktuellen Home Assistant Konfiguration wurde die am nächsten gelegene Wetterstation unten vorausgewählt, die sowohl Messdaten als auch Vorhersagen liefern sollte. Probiere gerne mehrere Wetterstationen aus, um die beste für dich zu finden. Entferung und Höhenunterscheid zu deinem Heimatort werden zu jeder Station angezeigt.\n\nFalls du eine Wetterstation manuell konfigurieren möchtest, wähle \"Benutzerdefiniert...\" aus."
             },
             "manual": {
                 "data": {

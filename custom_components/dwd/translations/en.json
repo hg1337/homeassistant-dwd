@@ -12,7 +12,7 @@
                 "data": {
                     "station_id": "Station"
                 },
-                "description": "This integration fetches weather data from the Open Data server of Deutscher Wetterdienst. By using this integration, you agree to the terms at https://opendata.dwd.de/README.txt.\n\nBased on your Home Assistant configuration, the nearest station that should provide measurement and forecast data was preselected below.\n\nIf you want to configuare a station manually, select \"Custom...\"."
+                "description": "This integration fetches weather data from the Open Data server of Deutscher Wetterdienst. By using this integration, you agree to the terms at https://opendata.dwd.de/README.txt.\n\nBased on your Home Assistant configuration, the nearest station that should provide measurement and forecast data was preselected below. Feel free to try out multiple ones until you find the best one for you. The distance and difference in elevation to your home location is displayed for each station.\n\nIf you want to configuare a station manually, select \"Custom...\"."
             },
             "manual": {
                 "data": {
