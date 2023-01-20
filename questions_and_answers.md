@@ -9,9 +9,7 @@ Please read [README.md](./README.md) first, if you haven't already.
 
 ## Why is the station that I would like to use not in the selection list when setting up the integration?
 
-For quality reasons, the selection list only contains stations that provide both measurement and forecast data, which are the same stations as listed at [stations.md](./stations.md). However, if you like, you can also use stations that have only measurement data or only forecast data. To do that, just select "Custom..." from the list and enter the ID of the station manually.
-
-If you find a station that provides both measurement and forecast data and is still not listed, please open an [issue](https://github.com/hg1337/homeassistant-dwd/issues), mentioning the station ID and name.
+In the selection list the same stations as listed at [stations.md](./stations.md) are listed, ordered by distance from your home location configured in Home Assistant. If your station is missing, first try adding it manually by selecting "Custom..." from the list and entering the ID of the station. If this works, probably the station list is outdated and will be updated with the next release. If it doesn't work and you believe it should, please open an [issue](https://github.com/hg1337/homeassistant-dwd/issues), mentioning the station ID and name.
 
 ## Can you add sensors?
 
