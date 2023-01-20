@@ -59,7 +59,7 @@ If you don't want to use the My Home Assistant button or if it doesn't work in y
 4. Search for "Deutscher Wetterdienst" and select it.  
 ![Screenshot Search Integration](./images/screenshot_search-integration.png)
 
-Follow the instructions, select a different station or enter a custom one if needed. By default, the closest station that provides measurement as well as forcast data is preselected, if it not more than 20 km away and if the difference in elevation is less than 500 m. Otherwise the closest available station is preselected.
+Follow the instructions, select a different station or enter a custom one if needed. By default, the closest station that provides measurement as well as forcast data is preselected, if it is not more than 20 km away and if the difference in elevation is less than 500 m. Otherwise the closest available station is preselected.
 
 After that, you should have one new device and two new weather entities for the selected station, one entity with hourly forecast and one entity with daily forceast. Both have the same measurement data. You may repeat these steps if you want to add more stations.
 
