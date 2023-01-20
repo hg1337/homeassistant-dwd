@@ -1,5 +1,6 @@
 """Config flow to configure DWD component."""
 from __future__ import annotations
+from itertools import chain, islice
 
 import json
 import os
@@ -8,11 +9,12 @@ from aiohttp import ClientSession
 import voluptuous as vol
 
 from homeassistant import config_entries
-from homeassistant.const import CONF_NAME
+from homeassistant.const import CONF_NAME, UnitOfLength
 from homeassistant.core import callback
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.selector import selector
+from homeassistant.util.unit_conversion import DistanceConverter
 
 from .const import (
     CONF_CURRENT_WEATHER,
@@ -26,6 +28,7 @@ from .const import (
     DOMAIN,
     DWD_FORECAST,
     DWD_MEASUREMENT,
+    SOURCE_STATIONSLEXIKON,
     URL_FORECAST,
     URL_MEASUREMENT,
 )
@@ -33,6 +36,12 @@ from .const import (
 
 # Translation workaround for selectors until they are supported by Home Assistant
 STRING_CUSTOM = {"en": "Custom...", "de": "Benutzerdefiniert..."}
+STRING_NO_MEASUREMENT = {"en": "[no measurement data]", "de": "[keine Messdaten]"}
+STRING_NO_FORECAST = {"en": "[no forecast data]", "de": "[keine Vorhersagedaten]"}
+STRING_ALL = {
+    "en": "Load all (might be slow)...",
+    "de": "Alle laden (könnte langsam sein)...",
+}
 STRING_CURRENT_WEATHER_MEASUREMENT = {
     "en": "Measurement data only (recommended)",
     "de": "Nur Messdaten (empfohlen)",
@@ -59,6 +68,10 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         self._available_data = None
         self._current_weather = None
         self._forecast = None
+        self._show_all = False
+
+    def _get_translation(self, translations: dict[str, str]) -> str:
+        return translations.get(self.hass.config.language, translations["en"])
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
@@ -76,6 +89,11 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             if self._station_id == "-":
 
                 return await self.async_step_manual()
+
+            elif self._station_id == "+":
+
+                self._show_all = True
+                return await self.async_step_user()
 
             else:
 
@@ -97,37 +115,66 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                         errors[CONF_STATION_ID] = "no_station_name"
 
                 if not errors:
-                    return await self.async_step_options()
+                    return await self.async_step_name()
 
-        stations = await self._async_get_nearest_stations()
+        stations = list(await self._async_get_nearest_stations())
 
-        station_options = [
-            {
-                "label": STRING_CUSTOM.get(
-                    self.hass.config.language, STRING_CUSTOM["en"]
-                ),
-                "value": "-",
-            }
-        ] + list(
+        station_options = chain(
+            [
+                {
+                    "label": self._get_translation(STRING_CUSTOM),
+                    "value": "-",
+                }
+            ],
             map(
                 lambda x: {
                     # Elevation is always in m in Home Assistant
-                    "label": f'{x["name"]} ({x["distance"]:.0f} {self.hass.config.units.length_unit}, {x["altitude_delta"]:+.0f} m)',
+                    "label": f'{x["name"]} ({"" if x["source"] == SOURCE_STATIONSLEXIKON else "~ "}{x["distance"]:.0f} {self.hass.config.units.length_unit}, {x["altitude_delta"]:+.0f} m) {self._get_translation(STRING_NO_MEASUREMENT) if not x["measurement"] else self._get_translation(STRING_NO_FORECAST) if not x["forecast"] else ""}',
                     "value": x["id"],
                 },
                 stations,
-            )
+            ),
         )
+
+        if not self._show_all:
+            station_options = chain(
+                station_options,
+                [
+                    {
+                        "label": self._get_translation(STRING_ALL),
+                        "value": "+",
+                    }
+                ],
+            )
+
+        suggested_station = next(
+            (
+                x
+                for x in stations
+                if x["measurement"] and x["forecast"] and abs(x["altitude_delta"]) < 500
+            ),
+            None,
+        )
+        if (
+            suggested_station is None
+            or DistanceConverter.convert(
+                suggested_station["distance"],
+                self.hass.config.units.length_unit,
+                UnitOfLength.KILOMETERS,
+            )
+            > 20
+        ):
+            suggested_station = stations[0]
 
         schema = vol.Schema(
             {
                 vol.Required(
                     CONF_STATION_ID,
-                    description={"suggested_value": station_options[1]["value"]},
+                    description={"suggested_value": suggested_station["id"]},
                 ): selector(
                     {
                         "select": {
-                            "options": station_options,
+                            "options": list(station_options),
                             "custom_value": False,
                             "mode": "dropdown",
                         }
@@ -139,6 +186,23 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         return self.async_show_form(
             step_id="user", data_schema=schema, errors=errors, last_step=False
         )
+
+    async def async_step_name(
+        self, user_input: dict[str, Any] | None = None
+    ) -> FlowResult:
+        """Handle the step to rename the station after selecting one from the list."""
+
+        if user_input is not None:
+            self._name = user_input[CONF_NAME]
+            return await self.async_step_options()
+
+        schema = vol.Schema(
+            {
+                vol.Required(CONF_NAME, default=self._name): str,
+            }
+        )
+
+        return self.async_show_form(step_id="name", data_schema=schema, last_step=False)
 
     async def async_step_manual(
         self, user_input: dict[str, Any] | None = None
@@ -280,7 +344,12 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     station["altitude"] - self.hass.config.elevation
                 )
 
-            return sorted(stations, key=lambda x: x["distance"])
+            sorted_startions = sorted(stations, key=lambda x: x["distance"])
+
+            if self._show_all:
+                return sorted_startions
+            else:
+                return islice(sorted_startions, 100)
 
     @staticmethod
     async def _async_get_station_name(station_id: str):
