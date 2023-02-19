@@ -19,19 +19,19 @@ This integration creates [Weather Entities](https://developers.home-assistant.io
 
 Sure. This accesses the minimum temperature in 3 days:
 
-```
+```javascript
 {{ state_attr("weather.stuttgart_echterdingen_daily", "forecast")[3].get("templow") }}
 ```
 
 `forecast` is an array starting at the current hour for the hourly entities and at the current day for daily entities, so for the daily entity, 0 is today, 1 is tomorrow etc. If you are unsure, you can also display the date/time:
 
-```
+```javascript
 {{ state_attr("weather.stuttgart_echterdingen_daily", "forecast")[3].get("datetime") }}
 ```
 
 To use this in an automation, you can use a value template, e.g. in a [template condition](https://www.home-assistant.io/docs/scripts/conditions/#template-condition):
 
-```
+```yaml
 condition: template
 value_template: '{{ state_attr("weather.stuttgart_echterdingen_daily", "forecast")[3].get("templow") > 10 }}'
 ```
