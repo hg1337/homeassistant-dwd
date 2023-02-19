@@ -72,3 +72,28 @@ You may use these entities with any component that supports weather entities, e.
 I can really recommend the custom weather card at https://github.com/bramkragten/weather-card, I started using that a long time ago, because it allows more customizations than the standard weather forecast card:
 
 ![Screenshot Weather Card](./images/screenshot_bramkragten-weather-card.png)
+
+The screenshot was taken using this configuration:
+
+```yaml
+type: horizontal-stack
+cards:
+  - type: custom:weather-card
+    entity: weather.stuttgart_echterdingen_hourly
+    hourly_forecast: true
+    details: true
+    forecast: false
+    number_of_forecasts: '5'
+  - type: custom:weather-card
+    entity: weather.stuttgart_echterdingen_hourly
+    hourly_forecast: true
+    details: false
+    number_of_forecasts: '5'
+    current: false
+  - type: custom:weather-card
+    entity: weather.stuttgart_echterdingen_daily
+    hourly_forecast: false
+    details: false
+    number_of_forecasts: '5'
+    current: false
+```
