@@ -50,7 +50,6 @@ from homeassistant.util import dt
 
 from .const import (
     ATTR_FORECAST_CLOUD_COVER,
-    ATTR_FORECAST_CUSTOM_DWD_WW,
     ATTRIBUTION,
     CONDITION_CLOUDY_THRESHOLD,
     CONDITION_PARTLYCLOUDY_THRESHOLD,
@@ -330,7 +329,6 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
         return self._get_forecast(self._forecast_mode)
 
     def _get_forecast(self, forecast_mode: int, max_hours: int = 0):
-
         # We build both lists in parallel and just return the needed one. Although it's a small
         # overhead, it still makes thinks easier, because there is still much in common, because to
         # calculate the days most of the hourly stuff has to be done again.
@@ -403,7 +401,6 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
                         raw_weather_value = dwd_forecast_ww[i]
                         if raw_weather_value != "-":
                             weather_value = int(round(float(raw_weather_value), 0))
-                            hourly_item[ATTR_FORECAST_CUSTOM_DWD_WW] = weather_value
                             if weather_value == 0:
                                 if sun.is_up(self._hass, timestamp):
                                     hourly_item[
@@ -711,7 +708,6 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
                     if i < len(dwd_forecast_PPPP):
                         raw_value = dwd_forecast_PPPP[i]
                         if raw_value != "-":
-
                             hourly_item[ATTR_FORECAST_NATIVE_PRESSURE] = (
                                 float(raw_value) * 0.01
                             )
@@ -720,7 +716,6 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
                     if i < len(dwd_forecast_DD):
                         raw_value = dwd_forecast_DD[i]
                         if raw_value != "-":
-
                             hourly_item[ATTR_FORECAST_WIND_BEARING] = float(raw_value)
 
                     # FF is in m/s
