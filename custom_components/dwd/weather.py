@@ -4,6 +4,7 @@ from __future__ import annotations
 from datetime import date, datetime, time, timedelta, timezone
 import logging
 from typing import Any, Optional
+from homeassistant.components.weather import WeatherEntityFeature
 
 from homeassistant.helpers.entity import DeviceInfo
 from . import DwdDataUpdateCoordinator
@@ -139,6 +140,13 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
         self._conf_current_weather: str = self._config.options.get(
             CONF_CURRENT_WEATHER, CONF_CURRENT_WEATHER_DEFAULT
         )
+
+        self._attr_supported_features = 0
+        if self._config.options.get(CONF_FORECAST, CONF_FORECAST_DEFAULT):
+            if self._forecast_mode == FORECAST_MODE_HOURLY:
+                self._attr_supported_features |= WeatherEntityFeature.FORECAST_HOURLY
+            if self._forecast_mode == FORECAST_MODE_DAILY:
+                self._attr_supported_features |= WeatherEntityFeature.FORECAST_DAILY
 
     @property
     def unique_id(self) -> str:
@@ -319,14 +327,21 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
         """Return the attribution."""
         return ATTRIBUTION
 
-    @property
-    def forecast(self):
-        """Return the forecast array."""
+    async def async_forecast_daily(self):
+        """Return the daily forecast."""
 
         if not self._config.options.get(CONF_FORECAST, CONF_FORECAST_DEFAULT):
             return None
 
-        return self._get_forecast(self._forecast_mode)
+        return self._get_forecast(FORECAST_MODE_DAILY)
+
+    async def async_forecast_hourly(self):
+        """Return the daily forecast."""
+
+        if not self._config.options.get(CONF_FORECAST, CONF_FORECAST_DEFAULT):
+            return None
+
+        return self._get_forecast(FORECAST_MODE_HOURLY)
 
     def _get_forecast(self, forecast_mode: int, max_hours: int = 0):
         # We build both lists in parallel and just return the needed one. Although it's a small
