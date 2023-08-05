@@ -72,7 +72,7 @@ You may use these entities with any component that supports weather entities, e.
 
 ![Screenshot Weather Forecast Card Configuration](./images/screenshot_weather-forecast-card-configuration.png)
 
-I can really recommend the custom weather card at https://github.com/bramkragten/weather-card, I started using that a long time ago, because it allows more customizations than the standard weather forecast card:
+I really like the custom weather card at https://github.com/bramkragten/weather-card. I started using that a long time ago, because it shows more information and allows more customizations than the standard Weather Forecast Card. However, it doesn't seem to be maintained any more and doesn't support the new forecast mechanism.
 
 ![Screenshot Weather Card](./images/screenshot_bramkragten-weather-card.png)
 
