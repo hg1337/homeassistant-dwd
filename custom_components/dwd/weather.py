@@ -327,6 +327,15 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
         """Return the attribution."""
         return ATTRIBUTION
 
+    @property
+    def forecast(self):
+        """Return the forecast array."""
+
+        if not self._config.options.get(CONF_FORECAST, CONF_FORECAST_DEFAULT):
+            return None
+
+        return self._get_forecast(self._forecast_mode)
+
     async def async_forecast_daily(self):
         """Return the daily forecast."""
 
