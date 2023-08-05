@@ -69,7 +69,7 @@ from .const import (
     DWD_FORECAST,
     DWD_FORECAST_TIMESTAMP,
     DWD_MEASUREMENT,
-    DWD_MEASUREMENT_CLOUD_COVER_TOTEL,
+    DWD_MEASUREMENT_CLOUD_COVER_TOTAL,
     DWD_MEASUREMENT_DEW_POINT,
     DWD_MEASUREMENT_HUMIDITY,
     DWD_MEASUREMENT_MEANWIND_DIRECTION,
@@ -284,7 +284,7 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
     def cloud_coverage(self) -> float | None:
         """Return the cloud coverage in %."""
         return self._get_float_measurement_with_fallback(
-            DWD_MEASUREMENT_CLOUD_COVER_TOTEL, ATTR_FORECAST_CLOUD_COVERAGE
+            DWD_MEASUREMENT_CLOUD_COVER_TOTAL, ATTR_FORECAST_CLOUD_COVERAGE
         )
 
     @property
