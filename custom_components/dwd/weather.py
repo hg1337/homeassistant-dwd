@@ -34,6 +34,7 @@ from homeassistant.components.weather import (
     ATTR_FORECAST_TIME,
     ATTR_FORECAST_WIND_BEARING,
     ATTR_FORECAST_NATIVE_WIND_SPEED,
+    ATTR_FORECAST_CLOUD_COVERAGE,
     WeatherEntity,
 )
 from homeassistant.config_entries import ConfigEntry
@@ -51,7 +52,6 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.util import dt
 
 from .const import (
-    ATTR_FORECAST_CLOUD_COVER,
     ATTRIBUTION,
     CONDITION_CLOUDY_THRESHOLD,
     CONDITION_PARTLYCLOUDY_THRESHOLD,
@@ -67,6 +67,7 @@ from .const import (
     DWD_FORECAST,
     DWD_FORECAST_TIMESTAMP,
     DWD_MEASUREMENT,
+    DWD_MEASUREMENT_CLOUD_COVER_TOTEL,
     DWD_MEASUREMENT_HUMIDITY,
     DWD_MEASUREMENT_MEANWIND_DIRECTION,
     DWD_MEASUREMENT_MEANWIND_SPEED,
@@ -267,6 +268,13 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
     def humidity(self) -> float | None:
         """Return the humidity."""
         return self._get_float_measurement_without_fallback(DWD_MEASUREMENT_HUMIDITY)
+
+    @property
+    def cloud_coverage(self) -> float | None:
+        """Return the cloud coverage in %."""
+        return self._get_float_measurement_with_fallback(
+            DWD_MEASUREMENT_CLOUD_COVER_TOTEL, ATTR_FORECAST_CLOUD_COVERAGE
+        )
 
     @property
     def native_visibility(self) -> float | None:
@@ -733,10 +741,12 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
 
                     # Neff is in %
                     if i < len(dwd_forecast_Neff):
-                        raw_cloud_cover_value = dwd_forecast_Neff[i]
-                        if raw_cloud_cover_value != "-":
-                            cloud_cover_value = float(raw_cloud_cover_value)
-                            hourly_item[ATTR_FORECAST_CLOUD_COVER] = cloud_cover_value
+                        raw_cloud_coverage_value = dwd_forecast_Neff[i]
+                        if raw_cloud_coverage_value != "-":
+                            cloud_coverage_value = float(raw_cloud_coverage_value)
+                            hourly_item[
+                                ATTR_FORECAST_CLOUD_COVERAGE
+                            ] = cloud_coverage_value
 
                     # RR1c is in kg/m2 which is equal to mm
                     if i < len(dwd_forecast_RR1c):
@@ -870,18 +880,18 @@ class DwdWeatherDay:
             pressure = sum(values) / len(values)
             result[ATTR_FORECAST_NATIVE_PRESSURE] = round(pressure, 1)
 
-        cloud_cover_sum = 0
-        cloud_cover_items = 0
-        cloud_cover_avg = 0
+        cloud_coverage_sum = 0
+        cloud_coverage_items = 0
+        cloud_coverage_avg = 0
         for hour in self._hours:
-            cloud_cover = hour.get(ATTR_FORECAST_CLOUD_COVER, None)
-            if cloud_cover is not None:
-                cloud_cover_sum += cloud_cover
-                cloud_cover_items += 1
+            cloud_coverage = hour.get(ATTR_FORECAST_CLOUD_COVERAGE, None)
+            if cloud_coverage is not None:
+                cloud_coverage_sum += cloud_coverage
+                cloud_coverage_items += 1
 
-        if cloud_cover_items > 0:
-            cloud_cover_avg = cloud_cover_sum / cloud_cover_items
-            result[ATTR_FORECAST_CLOUD_COVER] = round(cloud_cover_avg, 0)
+        if cloud_coverage_items > 0:
+            cloud_coverage_avg = cloud_coverage_sum / cloud_coverage_items
+            result[ATTR_FORECAST_CLOUD_COVERAGE] = round(cloud_coverage_avg, 0)
 
             condition_stats = {}
             for hour in self._hours:
@@ -915,9 +925,9 @@ class DwdWeatherDay:
                 > 0
             ):
                 result[ATTR_FORECAST_CONDITION] = ATTR_CONDITION_RAINY
-            elif cloud_cover_avg >= CONDITION_CLOUDY_THRESHOLD:
+            elif cloud_coverage_avg >= CONDITION_CLOUDY_THRESHOLD:
                 result[ATTR_FORECAST_CONDITION] = ATTR_CONDITION_CLOUDY
-            elif cloud_cover_avg >= CONDITION_PARTLYCLOUDY_THRESHOLD:
+            elif cloud_coverage_avg >= CONDITION_PARTLYCLOUDY_THRESHOLD:
                 result[ATTR_FORECAST_CONDITION] = ATTR_CONDITION_PARTLYCLOUDY
             elif condition_stats.get(ATTR_CONDITION_WINDY_VARIANT, 0) > 0:
                 result[ATTR_FORECAST_CONDITION] = ATTR_CONDITION_WINDY_VARIANT
