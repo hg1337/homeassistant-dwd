@@ -97,6 +97,7 @@ DWD_MEASUREMENT_MEANWIND_DIRECTION = (
     "mean_wind_direction_during_last_10 min_at_10_meters_above_ground"
 )
 DWD_MEASUREMENT_CLOUD_COVER_TOTEL = "cloud_cover_total"
+DWD_MEASUREMENT_DEW_POINT = "dew_point_temperature_at_2_meter_above_ground"
 
 DWD_FORECAST_TIMESTAMP = "timestamp"
 

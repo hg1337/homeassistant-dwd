@@ -35,6 +35,7 @@ from homeassistant.components.weather import (
     ATTR_FORECAST_WIND_BEARING,
     ATTR_FORECAST_NATIVE_WIND_SPEED,
     ATTR_FORECAST_CLOUD_COVERAGE,
+    ATTR_FORECAST_DEW_POINT,
     WeatherEntity,
 )
 from homeassistant.config_entries import ConfigEntry
@@ -68,6 +69,7 @@ from .const import (
     DWD_FORECAST_TIMESTAMP,
     DWD_MEASUREMENT,
     DWD_MEASUREMENT_CLOUD_COVER_TOTEL,
+    DWD_MEASUREMENT_DEW_POINT,
     DWD_MEASUREMENT_HUMIDITY,
     DWD_MEASUREMENT_MEANWIND_DIRECTION,
     DWD_MEASUREMENT_MEANWIND_SPEED,
@@ -254,6 +256,13 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
         return UnitOfTemperature.CELSIUS
 
     @property
+    def native_dew_point(self) -> float | None:
+        """Return the dew point temperature in native units."""
+        return self._get_float_measurement_with_fallback(
+            DWD_MEASUREMENT_DEW_POINT, ATTR_FORECAST_DEW_POINT
+        )
+
+    @property
     def native_pressure(self) -> float | None:
         """Return the pressure."""
         return self._get_float_measurement_with_fallback(
@@ -407,6 +416,7 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
         dwd_forecast_timestamp = dwd_forecast.get(DWD_FORECAST_TIMESTAMP, [])
         dwd_forecast_TTT = dwd_forecast.get("TTT", [])
         dwd_forecast_ww = dwd_forecast.get("ww", [])
+        dwd_forecast_Td = dwd_forecast.get("Td", [])
         dwd_forecast_Neff = dwd_forecast.get("Neff", [])
         dwd_forecast_RR1c = dwd_forecast.get("RR1c", [])
         dwd_forecast_wwP = dwd_forecast.get("wwP", [])
@@ -738,6 +748,15 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
                                 hourly_item[
                                     ATTR_FORECAST_CONDITION
                                 ] = ATTR_CONDITION_WINDY_VARIANT
+
+                    # Td is in K
+                    if i < len(dwd_forecast_Td):
+                        raw_dew_point_value = dwd_forecast_Td[i]
+                        if raw_dew_point_value != "-":
+                            dew_point_celcius = float(raw_dew_point_value) - 273.15
+                            hourly_item[ATTR_FORECAST_DEW_POINT] = round(
+                                dew_point_celcius, 1
+                            )
 
                     # Neff is in %
                     if i < len(dwd_forecast_Neff):
