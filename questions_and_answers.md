@@ -9,6 +9,7 @@ Please read [README.md](./README.md) first, if you haven't already.
 - [Can you add sensors?](#can-you-add-sensors)
 - [Do you have example templates how to access forecast data? ](#do-you-have-example-templates-how-to-access-forecast-data)
 - [Why does the daily forecast for the current day differ from the Warnwetter app?](#why-does-the-daily-forecast-for-the-current-day-differ-from-the-warnwetter-app)
+- [What is the difference to https://github.com/FL550/dwd_weather?](#what-is-the-difference-to-httpsgithubcomfl550dwd_weather)
 
 ## Why is the station that I would like to use not in the selection list when setting up the integration?
 
@@ -54,3 +55,11 @@ Currently, the daily forecast only takes the future into account which means for
 For example, if it rained the whole morning and the sun is going to shine the whole afternoon, and it's already afternoon, it's more useful to see the sun icon and not the rain oder mixed icon to know what's coming up.
 
 If this is an issue in your scenario, please open an [issue](https://github.com/hg1337/homeassistant-dwd/issues) so we can discuss this.
+
+## What is the difference to https://github.com/FL550/dwd_weather?
+
+The reason that both exist is mainly because the other one didn’t exist yet when this one was started, so they were more or less developed in parallel. This one was just added to HACS much much later, and it was running privately at home for some time, before it was even put on GitHub. So none of the two is a clone or fork of the other.
+
+That‘s why when you look at the two integrations, they are quite different in their approach. For example, this one from the beginning on focused much on real measurements while the other one only uses forecast data on purpose. However, while this one supports „only“ on the official Weather Entity, the other one provides additional sensors. There are many other differences, best you compare and decide for yourself, which one better fits your needs.
+
+Because of the differences, it would be a huge effort to unify the two, and the outcome would probably rather be a third one.
