@@ -64,7 +64,7 @@ If you don't want to use the My Home Assistant button or if it doesn't work in y
 
 Follow the instructions, select a different station or enter a custom one if needed. By default, the closest station that provides measurement as well as forcast data is preselected, if it is not more than 20 km away and if the difference in elevation is less than 500 m. Otherwise the closest available station is preselected.
 
-After that, you should have one new device and two new weather entities for the selected station, one entity with hourly forecast and one entity with daily forceast. Both have the same measurement data. You may repeat these steps if you want to add more stations.
+After that, you should have one new device and three new weather entities for the selected station. By default, only the entity that provides all forecasts in one entity is enabled. However, if you still need the weather entities with daily and houry forecasts separately or via the old mechanism, you can just enable them. All have the same measurement data. You may repeat these steps if you want to add more stations.
 
 ![Screenshot Entities](./images/screenshot_entities.png)
 

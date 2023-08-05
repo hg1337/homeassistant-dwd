@@ -78,7 +78,7 @@ To get there in one click, use this button:
 
 [![Open your Home Assistant instance and start setting up this integration.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=dwd)
 
-This adds one device and two entities (one with hourly forecast and one with daily forceast) for the selected station. To add more stations, just repeat the "Add Integration" step.
+This adds one device and three entities for the selected station. By default, only the entity that provides all forecasts in one entity is enabled. However, if you still need the weather entities with daily and houry forecasts separately or via the old mechanism, you can just enable them. To add more stations, just repeat the "Add Integration" step.
 
 ## Questions & Answers
 
@@ -97,13 +97,13 @@ For issues with measurement data (current condition, current temperature, ...), 
 - When the problem occurs, download immediately `https://opendata.dwd.de/weather/weather_reports/poi/{station_id}-BEOB.csv`. Replace `{station_id}` with your actual station ID. If your station ID has less than 5 characters, it has to be padded with trailing underscores, so e.g. "A191" becomes "A191_" here.
 
 ### Issues with Hourly Forecasts
-For issues with hourly forecasts (i.e. the forecasts of the entity ending with "\_hourly"), please include the following items in your bug report.
+For issues with hourly forecasts, please include the following items in your bug report.
 - Always include the station ID.
 - When the problem occurs, go to the Developer Tools and copy immediately all state attributes (YAML) of the hourly entity (the entity ending with "\_hourly").
 - When the problem occurs, download immediately `https://opendata.dwd.de/weather/local_forecasts/mos/MOSMIX_L/single_stations/{station_id}/kml/MOSMIX_L_LATEST_{station_id}.kmz`. Replace `{station_id}` with your actual station ID. No padding needed here.
 
 ### Issues with Daily Forecasts
-For issues with daily forecasts (i.e. the forecasts of the entity ending with "\_daily"), please include the following items in your bug report.
+For issues with daily forecasts, please include the following items in your bug report.
 - Always include the station ID.
 - When the problem occurs, go to the Developer Tools and copy immediately all state attributes (YAML) of the hourly entity (the entity ending with "\_hourly"). This is important, because the daily forecasts are calculated from hourly forecasts.
 - When the problem occurs, go to the Developer Tools and copy immediately all state attributes (YAML) of the daily entity (the entity ending with "\_daily").
