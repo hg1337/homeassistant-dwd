@@ -34,26 +34,9 @@ from .const import (
 )
 
 
-# Translation workaround for selectors until they are supported by Home Assistant
-STRING_CUSTOM = {"en": "Custom...", "de": "Benutzerdefiniert..."}
+# Translation workaround until there is someting better offered by Home Assistant
 STRING_NO_MEASUREMENT = {"en": "[no measurement data]", "de": "[keine Messdaten]"}
 STRING_NO_FORECAST = {"en": "[no forecast data]", "de": "[keine Vorhersagedaten]"}
-STRING_ALL = {
-    "en": "Load all (might be slow)...",
-    "de": "Alle laden (könnte langsam sein)...",
-}
-STRING_CURRENT_WEATHER_MEASUREMENT = {
-    "en": "Measurement data only (recommended)",
-    "de": "Nur Messdaten (empfohlen)",
-}
-STRING_CURRENT_WEATHER_HYBID = {
-    "en": "Measurement data with forecast data for current hour as fallback for attributes where no measurement data is available",
-    "de": "Messdaten mit Vorhersagedaten für die aktuelle Stunde für Attribute für die keine Messdaten verfügbar sind",
-}
-STRING_CURRENT_WEATHER_FORECAST = {
-    "en": "Forecast data only (recommended only for stations that do not provide measurement data at all)",
-    "de": "Nur Vorhersagedaten (nur für Stationen emfohlen, die über haupt keine Messdaten liefern)",
-}
 
 
 class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
@@ -83,20 +66,16 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         self._station_id = None
 
         if user_input is not None:
-
             self._station_id = user_input[CONF_STATION_ID]
 
             if self._station_id == "-":
-
                 return await self.async_step_manual()
 
             elif self._station_id == "+":
-
                 self._show_all = True
                 return await self.async_step_user()
 
             else:
-
                 await self.async_set_unique_id(self._station_id)
                 self._abort_if_unique_id_configured()
 
@@ -122,7 +101,7 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         station_options = chain(
             [
                 {
-                    "label": self._get_translation(STRING_CUSTOM),
+                    "label": "",
                     "value": "-",
                 }
             ],
@@ -141,7 +120,7 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 station_options,
                 [
                     {
-                        "label": self._get_translation(STRING_ALL),
+                        "label": "",
                         "value": "+",
                     }
                 ],
@@ -177,6 +156,7 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                             "options": list(station_options),
                             "custom_value": False,
                             "mode": "dropdown",
+                            "translation_key": "station",
                         }
                     }
                 )
@@ -215,7 +195,6 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         self._station_id = None
 
         if user_input is not None:
-
             self._name = user_input[CONF_NAME]
             self._station_id = user_input[CONF_STATION_ID]
 
@@ -327,7 +306,6 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         return DwdOptionsFlowHandler(config_entry)
 
     async def _async_get_nearest_stations(self):
-
         with open(
             os.path.join(os.path.dirname(os.path.realpath(__file__)), "stations.json"),
             "rt",
@@ -353,7 +331,6 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
     @staticmethod
     async def _async_get_station_name(station_id: str):
-
         with open(
             os.path.join(os.path.dirname(os.path.realpath(__file__)), "stations.json"),
             "rt",
@@ -440,15 +417,14 @@ def _create_schema(
             "options": [],
             "custom_value": False,
             "mode": "list",
+            "translation_key": "current_weather",
         }
     }
 
     if DWD_MEASUREMENT in available_data:
         selector_dict["select"]["options"].append(
             {
-                "label": STRING_CURRENT_WEATHER_MEASUREMENT.get(
-                    language, STRING_CURRENT_WEATHER_MEASUREMENT["en"]
-                ),
+                "label": "",
                 "value": CONF_CURRENT_WEATHER_MEASUREMENT,
             }
         )
@@ -456,9 +432,7 @@ def _create_schema(
     if DWD_MEASUREMENT in available_data and DWD_FORECAST in available_data:
         selector_dict["select"]["options"].append(
             {
-                "label": STRING_CURRENT_WEATHER_HYBID.get(
-                    language, STRING_CURRENT_WEATHER_HYBID["en"]
-                ),
+                "label": "",
                 "value": CONF_CURRENT_WEATHER_HYBRID,
             },
         )
@@ -466,9 +440,7 @@ def _create_schema(
     if DWD_FORECAST in available_data:
         selector_dict["select"]["options"].append(
             {
-                "label": STRING_CURRENT_WEATHER_FORECAST.get(
-                    language, STRING_CURRENT_WEATHER_FORECAST["en"]
-                ),
+                "label": "",
                 "value": CONF_CURRENT_WEATHER_FORECAST,
             },
         )
@@ -505,7 +477,6 @@ def _create_schema(
 async def _get_available_data(
     station_id: str, clientsession: ClientSession
 ) -> list[str]:
-
     result = []
 
     response = await clientsession.head(URL_MEASUREMENT.format(station_id=station_id))

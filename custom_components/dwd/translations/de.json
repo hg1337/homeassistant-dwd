@@ -73,5 +73,20 @@
                 "description": "Diese Station liefert keine Vorhersagen, daher sind deine Optionen eingeschränkt."
             }
         }
+    },
+    "selector": {
+        "station": {
+            "options": {
+                "-": "Benutzerdefiniert...",
+                "+": "Alle laden (könnte langsam sein)..."
+            }
+        },
+        "current_weather": {
+            "options": {
+                "measurement": "Nur Messdaten (empfohlen)",
+                "hybrid": "Messdaten mit Vorhersagedaten für die aktuelle Stunde für Attribute für die keine Messdaten verfügbar sind",
+                "forecast": "Nur Vorhersagedaten (nur für Stationen empfohlen, die über haupt keine Messdaten liefern)"
+            }
+        }
     }
 }

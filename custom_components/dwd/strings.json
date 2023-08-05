@@ -73,5 +73,20 @@
         "description": "This station does not provide forecast data, therefore your options are limited."
       }
     }
+  },
+  "selector": {
+    "station": {
+      "options": {
+        "-": "Custom...",
+        "+": "Load all (might be slow)..."
+      }
+    },
+    "current_weather": {
+      "options": {
+        "measurement": "Measurement data only (recommended)",
+        "hybrid": "Measurement data with forecast data for current hour as fallback for attributes where no measurement data is available",
+        "forecast": "Forecast data only (recommended only for stations that do not provide measurement data at all)"
+      }
+    }
   }
 }
