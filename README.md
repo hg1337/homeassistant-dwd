@@ -30,27 +30,32 @@ The conditions from Deutscher Wetterdienst (DWD) for using their data and access
 - Current measurement data from the weather stations from https://opendata.dwd.de/weather/weather_reports/poi/ as state attributes of a weather entity.
   - condition
   - temperature
+  - dew_point
+  - cloud_coverage
   - humidity
   - pressure
-  - wind_bearing
-  - wind_speed
   - visibility
+  - wind_gust_speed
+  - wind_speed
+  - wind_bearing
 - Hourly forecast data from the weather stations from https://opendata.dwd.de/weather/local_forecasts/mos/MOSMIX_L/single_stations/ in the forecast list of a weather entity.
   - datetime
   - condition
   - temperature
-  - cloud_cover
+  - dew_point
+  - cloud_coverage
   - precipitation
   - precipitation_probability
   - pressure
-  - wind_bearing
+  - wind_gust_speed
   - wind_speed
+  - wind_bearing
 - Daily forecast data calculated by the component from the hourly forecast data. This is the most tricky part. I have compared the result of this with what the official Warnwetter app displays and the results seems to be very close.
   - datetime
   - condition
   - temperature (the maximum temperature for the day)
   - templow (the minimum temperature for the day)
-  - cloud_cover
+  - cloud_coverage
   - precipitation
   - pressure
 - Uses the [HTTP ETag](https://en.wikipedia.org/wiki/HTTP_ETag) mechanism to only download new data if the data has changed. This allows more frequent polling (currently about every 10 minutes) while still keeping the load low.
