@@ -90,6 +90,7 @@ DWD_MEASUREMENT_TEMPERATURE = "dry_bulb_temperature_at_2_meter_above_ground"
 DWD_MEASUREMENT_PRESSURE = "pressure_reduced_to_mean_sea_level"
 DWD_MEASUREMENT_HUMIDITY = "relative_humidity"
 DWD_MEASUREMENT_VISIBILITY = "horizontal_visibility"
+DWD_MEASUREMENT_MAXIMUM_WIND_SPEED = "maximum_wind_speed_last_hour"
 DWD_MEASUREMENT_MEANWIND_SPEED = (
     "mean_wind_speed_during last_10_min_at_10_meters_above_ground"
 )

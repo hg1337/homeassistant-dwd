@@ -34,6 +34,7 @@ from homeassistant.components.weather import (
     ATTR_FORECAST_TIME,
     ATTR_FORECAST_WIND_BEARING,
     ATTR_FORECAST_NATIVE_WIND_SPEED,
+    ATTR_FORECAST_NATIVE_WIND_GUST_SPEED,
     ATTR_FORECAST_CLOUD_COVERAGE,
     ATTR_FORECAST_DEW_POINT,
     WeatherEntity,
@@ -73,6 +74,7 @@ from .const import (
     DWD_MEASUREMENT_HUMIDITY,
     DWD_MEASUREMENT_MEANWIND_DIRECTION,
     DWD_MEASUREMENT_MEANWIND_SPEED,
+    DWD_MEASUREMENT_MAXIMUM_WIND_SPEED,
     DWD_MEASUREMENT_PRESENT_WEATHER,
     DWD_MEASUREMENT_PRESSURE,
     DWD_MEASUREMENT_TEMPERATURE,
@@ -295,6 +297,13 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
         return UnitOfLength.KILOMETERS
 
     @property
+    def native_wind_gust_speed(self) -> float | None:
+        """Return the wind gust speed in native units."""
+        return self._get_float_measurement_with_fallback(
+            DWD_MEASUREMENT_MAXIMUM_WIND_SPEED, ATTR_FORECAST_NATIVE_WIND_GUST_SPEED
+        )
+
+    @property
     def native_wind_speed(self) -> float | None:
         """Return the wind speed."""
         return self._get_float_measurement_with_fallback(
@@ -423,6 +432,7 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
         dwd_forecast_PPPP = dwd_forecast.get("PPPP", [])
         dwd_forecast_DD = dwd_forecast.get("DD", [])
         dwd_forecast_FF = dwd_forecast.get("FF", [])
+        dwd_forecast_FX1 = dwd_forecast.get("FX1", [])
 
         current_day: DwdWeatherDay = None
 
@@ -805,6 +815,15 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
                             wind_speed_kmh = float(raw_value) * 3.6
                             hourly_item[ATTR_FORECAST_NATIVE_WIND_SPEED] = int(
                                 round(wind_speed_kmh, 0)
+                            )
+
+                    # FX1 is in m/s
+                    if i < len(dwd_forecast_FX1):
+                        raw_value = dwd_forecast_FX1[i]
+                        if raw_value != "-":
+                            wind_gust_speed_kmh = float(raw_value) * 3.6
+                            hourly_item[ATTR_FORECAST_NATIVE_WIND_GUST_SPEED] = int(
+                                round(wind_gust_speed_kmh, 0)
                             )
 
                     hourly_list.append(hourly_item)
