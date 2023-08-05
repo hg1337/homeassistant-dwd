@@ -70,7 +70,7 @@ After that, you should have one new device and three new weather entities for th
 
 You may use these entities with any component that supports weather entities, e.g. the standard Weather Forecast Card:
 
-![Screenshot Entities](./images/screenshot_weather-forecast-card-configuration.png)
+![Screenshot Weather Forecast Card Configuration](./images/screenshot_weather-forecast-card-configuration.png)
 
 I can really recommend the custom weather card at https://github.com/bramkragten/weather-card, I started using that a long time ago, because it allows more customizations than the standard weather forecast card:
 
