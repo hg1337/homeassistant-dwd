@@ -876,15 +876,10 @@ class DwdWeatherDay:
 
         result[ATTR_FORECAST_TIME] = datetime.combine(self._day, time(0, 0, 0))
 
-        values = list(
-            filter(
-                lambda x: x is not None,
-                map(lambda x: x.get(ATTR_FORECAST_NATIVE_TEMP, None), self._hours),
-            )
-        )
-        if len(values) > 0:
-            result[ATTR_FORECAST_NATIVE_TEMP] = max(values)
-            result[ATTR_FORECAST_NATIVE_TEMP_LOW] = min(values)
+        temperature_values = self._get_hourly_values(ATTR_FORECAST_NATIVE_TEMP)
+        if len(temperature_values) > 0:
+            result[ATTR_FORECAST_NATIVE_TEMP] = max(temperature_values)
+            result[ATTR_FORECAST_NATIVE_TEMP_LOW] = min(temperature_values)
 
         # Danger: The following has a slight ruonding error. You can easily see that because if you
         # sum up RR1c ("Total precipitation during the last hour consistent with significant weather"),
@@ -892,56 +887,28 @@ class DwdWeatherDay:
         # consistent with significant weather"). Usually this seems not to be too big, e.g. a sum of
         # 1.7 mm instead of 1.6 mm. Unfortunately, we can't use RRdc either, because it's not aligned
         # to days.
-        values = list(
-            filter(
-                lambda x: x is not None,
-                map(
-                    lambda x: x.get(ATTR_FORECAST_NATIVE_PRECIPITATION, None),
-                    self._hours,
-                ),
-            )
+        precipitation_values = self._get_hourly_values(
+            ATTR_FORECAST_NATIVE_PRECIPITATION
         )
-        if len(values) > 0:
-            precipitation = sum(values)
+        if len(precipitation_values) > 0:
+            precipitation = sum(precipitation_values)
             result[ATTR_FORECAST_NATIVE_PRECIPITATION] = round(precipitation, 2)
 
-        values = list(
-            filter(
-                lambda x: x is not None,
-                map(
-                    lambda x: x.get(ATTR_FORECAST_NATIVE_PRESSURE, None),
-                    self._hours,
-                ),
-            )
-        )
-        if len(values) > 0:
-            pressure = sum(values) / len(values)
+        pressure_values = self._get_hourly_values(ATTR_FORECAST_NATIVE_PRESSURE)
+        if len(pressure_values) > 0:
+            pressure = sum(pressure_values) / len(pressure_values)
             result[ATTR_FORECAST_NATIVE_PRESSURE] = round(pressure, 1)
 
-        values = list(
-            filter(
-                lambda x: x is not None,
-                map(
-                    lambda x: x.get(ATTR_FORECAST_NATIVE_WIND_GUST_SPEED, None),
-                    self._hours,
-                ),
-            )
+        wind_gust_speed_values = self._get_hourly_values(
+            ATTR_FORECAST_NATIVE_WIND_GUST_SPEED
         )
-        if len(values) > 0:
-            wind_gust_speed = max(values)
+        if len(wind_gust_speed_values) > 0:
+            wind_gust_speed = max(wind_gust_speed_values)
             result[ATTR_FORECAST_NATIVE_WIND_GUST_SPEED] = round(wind_gust_speed, 1)
 
-        values = list(
-            filter(
-                lambda x: x is not None,
-                map(
-                    lambda x: x.get(ATTR_FORECAST_NATIVE_WIND_SPEED, None),
-                    self._hours,
-                ),
-            )
-        )
-        if len(values) > 0:
-            wind_speed = sum(values) / len(values)
+        wind_speed_values = self._get_hourly_values(ATTR_FORECAST_NATIVE_WIND_SPEED)
+        if len(wind_speed_values) > 0:
+            wind_speed = sum(wind_speed_values) / len(wind_speed_values)
             result[ATTR_FORECAST_NATIVE_WIND_SPEED] = round(wind_speed, 1)
 
         cloud_coverage_sum = 0
@@ -1005,6 +972,14 @@ class DwdWeatherDay:
                 result[ATTR_FORECAST_CONDITION] = ATTR_CONDITION_SUNNY
 
         return result
+
+    def _get_hourly_values(self, key: str) -> list:
+        return list(
+            filter(
+                lambda x: x is not None,
+                map(lambda x: x.get(key, None), self._hours),
+            )
+        )
 
     def __init__(self, day: date, dwd_forecast: dict[str, Any]) -> None:
         self._day: date = day
