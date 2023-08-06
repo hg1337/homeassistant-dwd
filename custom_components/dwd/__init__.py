@@ -10,6 +10,7 @@ from aiohttp import ClientSession
 
 from defusedxml import ElementTree
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import Platform
 
 from homeassistant.core import Config, HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
@@ -59,7 +60,7 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
     hass.data[DOMAIN][config_entry.entry_id] = coordinator
 
     hass.async_create_task(
-        hass.config_entries.async_forward_entry_setup(config_entry, "weather")
+        hass.config_entries.async_forward_entry_setup(config_entry, Platform.WEATHER)
     )
 
     return True
@@ -73,7 +74,7 @@ async def update_listener(hass: HomeAssistant, entry: ConfigEntry) -> None:
 
 async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
     """Unload a config entry."""
-    await hass.config_entries.async_forward_entry_unload(config_entry, "weather")
+    await hass.config_entries.async_forward_entry_unload(config_entry, Platform.WEATHER)
     hass.data[DOMAIN].pop(config_entry.entry_id)
 
     return True
@@ -106,7 +107,6 @@ class DwdDataUpdateCoordinator(DataUpdateCoordinator):
         """Fetch data from DWD."""
 
         try:
-
             conf_current_weather = self._config_entry.options.get(
                 CONF_CURRENT_WEATHER, CONF_CURRENT_WEATHER_DEFAULT
             )
@@ -201,7 +201,6 @@ class DwdDataUpdateCoordinator(DataUpdateCoordinator):
                     _LOGGER.debug("No new data from %s", url)
 
                 elif 200 <= response.status <= 299:
-
                     forecast = {}
                     forecast_etag = response.headers.get("ETag", None)
 
