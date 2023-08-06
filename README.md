@@ -55,9 +55,9 @@ The conditions from Deutscher Wetterdienst (DWD) for using their data and access
   - condition
   - temperature (the maximum temperature for the day)
   - templow (the minimum temperature for the day)
-  - cloud_coverage
-  - precipitation
-  - pressure
+  - cloud_coverage (arithmetic average over the day)
+  - precipitation (sum over the day)
+  - pressure (arithmetic average over the day)
 - Uses the [HTTP ETag](https://en.wikipedia.org/wiki/HTTP_ETag) mechanism to only download new data if the data has changed. This allows more frequent polling (currently about every 10 minutes) while still keeping the load low.
 - Configuration via UI
 
