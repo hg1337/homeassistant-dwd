@@ -77,8 +77,8 @@
     "selector": {
         "station": {
             "options": {
-                "NOSTATION_CUSTOM": "Benutzerdefiniert...",
-                "NOSTATION_LOAD_ALL": "Alle laden (könnte langsam sein)..."
+                "nostation_custom": "Benutzerdefiniert...",
+                "nostation_load_all": "Alle laden (könnte langsam sein)..."
             }
         },
         "current_weather": {

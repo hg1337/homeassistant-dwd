@@ -68,10 +68,10 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             self._station_id = user_input[CONF_STATION_ID]
 
-            if self._station_id == "NOSTATION_CUSTOM":
+            if self._station_id == "nostation_custom":
                 return await self.async_step_manual()
 
-            elif self._station_id == "NOSTATION_LOAD_ALL":
+            elif self._station_id == "nostation_load_all":
                 self._show_all = True
                 return await self.async_step_user()
 
@@ -102,7 +102,7 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             [
                 {
                     "label": "",
-                    "value": "NOSTATION_CUSTOM",
+                    "value": "nostation_custom",
                 }
             ],
             map(
@@ -121,7 +121,7 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 [
                     {
                         "label": "",
-                        "value": "NOSTATION_LOAD_ALL",
+                        "value": "nostation_load_all",
                     }
                 ],
             )
