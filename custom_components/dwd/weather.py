@@ -931,6 +931,19 @@ class DwdWeatherDay:
             wind_gust_speed = max(values)
             result[ATTR_FORECAST_NATIVE_WIND_GUST_SPEED] = round(wind_gust_speed, 1)
 
+        values = list(
+            filter(
+                lambda x: x is not None,
+                map(
+                    lambda x: x.get(ATTR_FORECAST_NATIVE_WIND_SPEED, None),
+                    self._hours,
+                ),
+            )
+        )
+        if len(values) > 0:
+            wind_speed = sum(values) / len(values)
+            result[ATTR_FORECAST_NATIVE_WIND_SPEED] = round(wind_speed, 1)
+
         cloud_coverage_sum = 0
         cloud_coverage_items = 0
         cloud_coverage_avg = 0
