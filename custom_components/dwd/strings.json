@@ -77,8 +77,8 @@
   "selector": {
     "station": {
       "options": {
-        "-": "Custom...",
-        "+": "Load all (might be slow)..."
+        "NOSTATION_CUSTOM": "Custom...",
+        "NOSTATION_LOAD_ALL": "Load all (might be slow)..."
       }
     },
     "current_weather": {
