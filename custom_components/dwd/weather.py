@@ -904,12 +904,12 @@ class DwdWeatherDay:
         )
         if len(wind_gust_speed_values) > 0:
             wind_gust_speed = max(wind_gust_speed_values)
-            result[ATTR_FORECAST_NATIVE_WIND_GUST_SPEED] = round(wind_gust_speed, 1)
+            result[ATTR_FORECAST_NATIVE_WIND_GUST_SPEED] = round(wind_gust_speed, 0)
 
         wind_speed_values = self._get_hourly_values(ATTR_FORECAST_NATIVE_WIND_SPEED)
         if len(wind_speed_values) > 0:
             wind_speed = sum(wind_speed_values) / len(wind_speed_values)
-            result[ATTR_FORECAST_NATIVE_WIND_SPEED] = round(wind_speed, 1)
+            result[ATTR_FORECAST_NATIVE_WIND_SPEED] = round(wind_speed, 0)
 
         cloud_coverage_sum = 0
         cloud_coverage_items = 0
