@@ -874,7 +874,9 @@ class DwdWeatherDay:
 
         result = {}
 
-        result[ATTR_FORECAST_TIME] = datetime.combine(self._day, time(0, 0, 0))
+        result[ATTR_FORECAST_TIME] = datetime.combine(
+            self._day, time(0, 0, 0)
+        ).isoformat()
 
         temperature_values = self._get_hourly_values(ATTR_FORECAST_NATIVE_TEMP)
         if len(temperature_values) > 0:
