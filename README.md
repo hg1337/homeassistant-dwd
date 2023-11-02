@@ -63,11 +63,7 @@ The conditions from Deutscher Wetterdienst (DWD) for using their data and access
 - Uses the [HTTP ETag](https://en.wikipedia.org/wiki/HTTP_ETag) mechanism to only download new data if the data has changed. This allows more frequent polling (currently about every 10 minutes) while still keeping the load low.
 - Configuration via UI
 
-![Screenshot Hourly](./images/screenshot_hourly.png) ![Screenshot Daily](./images/screenshot_daily.png)
-
-Please notice that as usual, the "9 hours ago" in the screenshot refers to the last change of the state value of the entity, in this case when the condition (which is the state of weather entities) changed from "Party Cloudy" to "Sunny". Of course the values are updated much more often, but that's not reflected there. This has nothing to do with this integration but this is how it generally works, because only the state value is currently reflected in the entity history.
-
-![Screenshot History](./images/screenshot_history.png)
+![Screenshot Entity](./images/screenshot_entity.png)
 
 ## Quick Setup
 
@@ -85,7 +81,7 @@ To get there in one click, use this button:
 
 [![Open your Home Assistant instance and start setting up this integration.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=dwd)
 
-This adds one device and three entities for the selected station. By default, only the entity that provides all forecasts in one entity is enabled. However, if you still need the weather entities with daily and houry forecasts separately or via the old mechanism, you can just enable them. To add more stations, just repeat the "Add Integration" step.
+This adds one device and three entities for the selected station. By default, only the entity that provides all forecasts in one entity is enabled. If you still need the deprecated weather entities with daily and houry forecasts separately or via the old mechanism, you can still enable them for now, but you should really switch to the new entity now. To add more stations, just repeat the "Add Integration" step.
 
 ## Questions & Answers
 

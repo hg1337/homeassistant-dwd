@@ -6,8 +6,8 @@
 Please read [README.md](./README.md) first, if you haven't already.
 
 - [Why is the station that I would like to use not in the selection list when setting up the integration?](#why-is-the-station-that-i-would-like-to-use-not-in-the-selection-list-when-setting-up-the-integration)
-- [Can you add sensors?](#can-you-add-sensors)
-- [Do you have example templates how to access forecast data? ](#do-you-have-example-templates-how-to-access-forecast-data)
+- [How can I access forecast data from templates?](#how-can-i-access-forecast-data-from-templates)
+- [I'm using a third party weather card that doesn't support the new forecast mechanism. Can I continue using it?](#im-using-a-third-party-weather-card-that-doesnt-support-the-new-forecast-mechanism-can-i-continue-using-it)
 - [Why does the daily forecast for the current day differ from the Warnwetter app?](#why-does-the-daily-forecast-for-the-current-day-differ-from-the-warnwetter-app)
 - [What is the difference to https://github.com/FL550/dwd_weather?](#what-is-the-difference-to-httpsgithubcomfl550dwd_weather)
 
@@ -15,38 +15,172 @@ Please read [README.md](./README.md) first, if you haven't already.
 
 In the selection list the same stations as listed at [stations.md](./stations.md) are listed, ordered by distance from your home location configured in Home Assistant. If your station is missing, first try adding it manually by selecting "Custom..." from the list and entering the ID of the station. If this works, probably the station list is outdated and will be updated with the next release. If it doesn't work and you believe it should, please open an [issue](https://github.com/hg1337/homeassistant-dwd/issues), mentioning the station ID and name.
 
-## Can you add sensors?
+## How can I access forecast data from templates?
 
-This integration creates [Weather Entities](https://developers.home-assistant.io/docs/core/entity/weather/) for each weather station which basically is like a (complex) sensor and is even displayed as sensors in the UI. If you are thinking about having one sensor entity per value, this would not be the correct design for weather data and also leads to problems when it comes to forecast data which is an array of forecast objects. Everything that is possible with simple sensors should also be possible with Weather Entities. In the worst case you have to use templates, but in most places you can now directly access state attributes.
+Accessing forecast data is basically done by calling the `weather.get_forecast` service, so wherever you want to access forecast data, you need to be able to call services. This is easily possible in automation actions where you can call services, but if you e.g. need it in a template condition, you need a different approach. The most universally applicable way is to create a template sensor that provides the information you need.
 
-## Do you have example templates how to access forecast data?
+For more information on template sensors see https://www.home-assistant.io/integrations/template/
 
-Sure. This accesses the minimum temperature in 3 days:
+To create a template sensor that can call services, you need access to the config folder of Home Assistant as this is not possible with Helpers yet. How to access the config folder depends on how you have installed Home Assistant. If you are using the Home Assistant Operating System, you may e.g. use the "Studio Code Server" or "Samba share" add-on.
 
-```javascript
-{{ state_attr("weather.stuttgart_echterdingen_daily", "forecast")[3].get("templow") }}
+If your config folder doesn't contain a `templates.yaml` file yet, create an empty one and include it from the `configuration.yaml` by adding this line:
+
+```yaml
+template: !include templates.yaml
 ```
 
-`forecast` is an array starting at the current hour for the hourly entities and at the current day for daily entities, so for the daily entity, 0 is today, 1 is tomorrow etc. If you are unsure, you can also display the date/time:
+After doing this, go in the Developer Tools to the YAML tab and select "Check Configuration" to make sure you didn't break the configuration.
 
-```javascript
-{{ state_attr("weather.stuttgart_echterdingen_daily", "forecast")[3].get("datetime") }}
+Then you can create your template sensor in the `templates.yaml` file. The following example shows a templates sensor that provides the precipitation for the next 3 hours:
+
+```yaml
+- trigger:
+    - platform: time_pattern
+      minutes: "*"
+    - platform: homeassistant
+      event: start
+    - platform: event
+      event_type: event_template_reloaded
+  action:
+    - service: weather.get_forecast
+      target:
+        entity_id: weather.stuttgart_echterdingen
+      data:
+        type: hourly
+      response_variable: forecast
+  sensor:
+    - name: "Precipitation next 3 hours"
+      unique_id: precipitation_next_3_hours
+      state: >
+        {{
+          forecast.forecast[0].precipitation 
+          + forecast.forecast[1].precipitation 
+          + forecast.forecast[2].precipitation
+        }}
 ```
 
-To use this in an automation, you can use a value template, e.g. in a [template condition](https://www.home-assistant.io/docs/scripts/conditions/#template-condition):
+After making changes to your template sensors, you can reload them in the YAML tab of the Developer Tools by selecting to reload the Template Entities.
+
+If everything went fine, you should see your new sensor in the States tab of the Developer Tools. You can now use it in any template, e.g.:
+
+```yaml
+{{ states("sensor.precipitation_next_3_hours") }}
+```
+
+Or in a [template condition](https://www.home-assistant.io/docs/scripts/conditions/#template-condition) in an automation:
 
 ```yaml
 condition: template
-value_template: '{{ state_attr("weather.stuttgart_echterdingen_daily", "forecast")[3].get("templow") > 10 }}'
+value_template: 'states("sensor.precipitation_next_3_hours") > 10 }}'
 ```
 
-Try it out with your entities:
+## I'm using a third party weather card that doesn't support the new forecast mechanism. Can I continue using it?
 
-[![Open your Home Assistant instance and show your template developer tools.](https://my.home-assistant.io/badges/developer_template.svg)](https://my.home-assistant.io/redirect/developer_template/)
+There are many nice third party weather cards out there like https://github.com/bramkragten/weather-card that unfortunately haven't switched to the new forecast mechanism yet. The good news is, you can most likely continue using it by creating a template sensor. The approach is basically to call the `weather.get_forecast` service to get the hourly or daily forecast and provide the result in a state attribute.
 
-To explore what's available, it's best to have a look at the entities themselves:
+**Before you continue: This is only a workaround. The correct way is to do the necessary changes in the third party weather cards to work with the new forecast mechanism.**
 
-[![Open your Home Assistant instance and show your state developer tools.](https://my.home-assistant.io/badges/developer_states.svg)](https://my.home-assistant.io/redirect/developer_states/)
+For more information on template sensors and to create them see also [How can I access forecast data from templates?](#how-can-i-access-forecast-data-from-templates) above.
+
+You can use the following code as a starting point for your own template sensors. Change all occurrences of `stuttgart_echterdingen` to the Entity ID of your station. Also change the `name` and `unique_id` of the new sensors accordingly.
+
+```yaml
+- trigger:
+    - platform: time_pattern
+      minutes: "*"
+    - platform: homeassistant
+      event: start
+    - platform: event
+      event_type: event_template_reloaded
+  action:
+    - service: weather.get_forecast
+      target:
+        entity_id: weather.stuttgart_echterdingen
+      data:
+        type: hourly
+      response_variable: hourly_forecast
+    - service: weather.get_forecast
+      target:
+        entity_id: weather.stuttgart_echterdingen
+      data:
+        type: daily
+      response_variable: daily_forecast
+  sensor:
+    - name: "Stuttgart-Echterdingen Hourly"
+      unique_id: stuttgart_echterdingen_hourly
+      state: "{{ states('weather.stuttgart_echterdingen') }}"
+      attributes:
+        temperature: "{{ state_attr('weather.stuttgart_echterdingen', 'temperature') }}"
+        dew_point: "{{ state_attr('weather.stuttgart_echterdingen', 'dew_point') }}"
+        temperature_unit: "{{ state_attr('weather.stuttgart_echterdingen', 'temperature_unit') }}"
+        humidity: "{{ state_attr('weather.stuttgart_echterdingen', 'humidity') }}"
+        cloud_coverage: "{{ state_attr('weather.stuttgart_echterdingen', 'cloud_coverage') }}"
+        pressure: "{{ state_attr('weather.stuttgart_echterdingen', 'pressure') }}"
+        pressure_unit: "{{ state_attr('weather.stuttgart_echterdingen', 'pressure_unit') }}"
+        wind_bearing: "{{ state_attr('weather.stuttgart_echterdingen', 'wind_bearing') }}"
+        wind_gust_speed: "{{ state_attr('weather.stuttgart_echterdingen', 'wind_gust_speed') }}"
+        wind_speed: "{{ state_attr('weather.stuttgart_echterdingen', 'wind_speed') }}"
+        wind_speed_unit: "{{ state_attr('weather.stuttgart_echterdingen', 'wind_speed_unit') }}"
+        visibility: "{{ state_attr('weather.stuttgart_echterdingen', 'visibility') }}"
+        visibility_unit: "{{ state_attr('weather.stuttgart_echterdingen', 'visibility_unit') }}"
+        precipitation: "{{ state_attr('weather.stuttgart_echterdingen', 'precipitation') }}"
+        precipitation_unit: "{{ state_attr('weather.stuttgart_echterdingen', 'precipitation_unit') }}"
+        forecast: "{{ hourly_forecast.forecast[:5] }}"
+    - name: "Stuttgart-Echterdingen Daily"
+      unique_id: stuttgart_echterdingen_daily
+      state: "{{ states('weather.stuttgart_echterdingen') }}"
+      attributes:
+        temperature: "{{ state_attr('weather.stuttgart_echterdingen', 'temperature') }}"
+        dew_point: "{{ state_attr('weather.stuttgart_echterdingen', 'dew_point') }}"
+        temperature_unit: "{{ state_attr('weather.stuttgart_echterdingen', 'temperature_unit') }}"
+        humidity: "{{ state_attr('weather.stuttgart_echterdingen', 'humidity') }}"
+        cloud_coverage: "{{ state_attr('weather.stuttgart_echterdingen', 'cloud_coverage') }}"
+        pressure: "{{ state_attr('weather.stuttgart_echterdingen', 'pressure') }}"
+        pressure_unit: "{{ state_attr('weather.stuttgart_echterdingen', 'pressure_unit') }}"
+        wind_bearing: "{{ state_attr('weather.stuttgart_echterdingen', 'wind_bearing') }}"
+        wind_gust_speed: "{{ state_attr('weather.stuttgart_echterdingen', 'wind_gust_speed') }}"
+        wind_speed: "{{ state_attr('weather.stuttgart_echterdingen', 'wind_speed') }}"
+        wind_speed_unit: "{{ state_attr('weather.stuttgart_echterdingen', 'wind_speed_unit') }}"
+        visibility: "{{ state_attr('weather.stuttgart_echterdingen', 'visibility') }}"
+        visibility_unit: "{{ state_attr('weather.stuttgart_echterdingen', 'visibility_unit') }}"
+        precipitation: "{{ state_attr('weather.stuttgart_echterdingen', 'precipitation') }}"
+        precipitation_unit: "{{ state_attr('weather.stuttgart_echterdingen', 'precipitation_unit') }}"
+        forecast: "{{ daily_forecast.forecast[:5] }}"
+```
+
+To save resources, the template sensors above limit the forecasts to 5 items. If you need more, just change the `5` in `forecast[:5]` to a greater number. If the forecast array gets to large, you will see warnings from the Recorder in the logs that the state is too large to be stored in the history.
+
+After making changes to your template sensors, you can reload them in the YAML tab of the Developer Tools by selecting to reload the Template Entities.
+
+If everything went fine, you should find the two new senors in the States tab of the Developer Tools. They look pretty much like Weather entities, just that they are sensors with the "sensor" prefix instead of the "weather" prefix. Usually that doesn't disturb weather cards. They might just not show the entities in the selection list, but you can usually enter the ID manually.
+
+You can now e.g. configure the weather card from https://github.com/bramkragten/weather-card using the template entities to create a layout that that:
+
+![Screenshot Weather Card](./images/screenshot_bramkragten-weather-card.png)
+
+```yaml
+type: horizontal-stack
+cards:
+  - type: custom:weather-card
+    entity: weather.stuttgart_echterdingen
+    current: true
+    details: true
+    forecast: false
+  - type: custom:weather-card
+    entity: sensor.stuttgart_echterdingen_hourly
+    current: false
+    details: false
+    forecast: true
+    hourly_forecast: true
+    number_of_forecasts: '5'
+  - type: custom:weather-card
+    entity: sensor.stuttgart_echterdingen_daily
+    current: false
+    details: false
+    forecast: true
+    hourly_forecast: false
+    number_of_forecasts: '5'
+```
 
 ## Why does the daily forecast for the current day differ from the Warnwetter app?
 
