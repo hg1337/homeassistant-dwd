@@ -8,6 +8,8 @@
   "documentation": "https://github.com/hg1337/homeassistant-dwd",
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/hg1337/homeassistant-dwd/issues",
-  "requirements": [],
+  "requirements": [
+    "defusedxml==0.7.1"
+  ],
   "version": "2024.1.0b0"
 }
