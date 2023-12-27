@@ -42,7 +42,7 @@ Then you can create your template sensor in the `templates.yaml` file. The follo
     - platform: event
       event_type: event_template_reloaded
   action:
-    - service: weather.get_forecast
+    - service: weather.get_forecasts
       target:
         entity_id: weather.stuttgart_echterdingen
       data:
@@ -53,9 +53,9 @@ Then you can create your template sensor in the `templates.yaml` file. The follo
       unique_id: precipitation_next_3_hours
       state: >
         {{
-          forecast.forecast[0].precipitation 
-          + forecast.forecast[1].precipitation 
-          + forecast.forecast[2].precipitation
+          forecast['weather.stuttgart_echterdingen'].forecast[0].precipitation
+          + forecast['weather.stuttgart_echterdingen'].forecast[1].precipitation
+          + forecast['weather.stuttgart_echterdingen'].forecast[2].precipitation
         }}
 ```
 
@@ -93,13 +93,13 @@ You can use the following code as a starting point for your own template sensors
     - platform: event
       event_type: event_template_reloaded
   action:
-    - service: weather.get_forecast
+    - service: weather.get_forecasts
       target:
         entity_id: weather.stuttgart_echterdingen
       data:
         type: hourly
       response_variable: hourly_forecast
-    - service: weather.get_forecast
+    - service: weather.get_forecasts
       target:
         entity_id: weather.stuttgart_echterdingen
       data:
@@ -125,7 +125,7 @@ You can use the following code as a starting point for your own template sensors
         visibility_unit: "{{ state_attr('weather.stuttgart_echterdingen', 'visibility_unit') }}"
         precipitation: "{{ state_attr('weather.stuttgart_echterdingen', 'precipitation') }}"
         precipitation_unit: "{{ state_attr('weather.stuttgart_echterdingen', 'precipitation_unit') }}"
-        forecast: "{{ hourly_forecast.forecast[:5] }}"
+        forecast: "{{ hourly_forecast['weather.stuttgart_echterdingen'].forecast[:5] }}"
     - name: "Stuttgart-Echterdingen Daily"
       unique_id: stuttgart_echterdingen_daily
       state: "{{ states('weather.stuttgart_echterdingen') }}"
@@ -145,7 +145,7 @@ You can use the following code as a starting point for your own template sensors
         visibility_unit: "{{ state_attr('weather.stuttgart_echterdingen', 'visibility_unit') }}"
         precipitation: "{{ state_attr('weather.stuttgart_echterdingen', 'precipitation') }}"
         precipitation_unit: "{{ state_attr('weather.stuttgart_echterdingen', 'precipitation_unit') }}"
-        forecast: "{{ daily_forecast.forecast[:5] }}"
+        forecast: "{{ daily_forecast['weather.stuttgart_echterdingen'].forecast[:5] }}"
 ```
 
 To save resources, the template sensors above limit the forecasts to 5 items. If you need more, just change the `5` in `forecast[:5]` to a greater number. If the forecast array gets to large, you will see warnings from the Recorder in the logs that the state is too large to be stored in the history.
