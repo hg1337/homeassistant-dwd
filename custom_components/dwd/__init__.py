@@ -2,19 +2,19 @@
 from __future__ import annotations
 
 import codecs
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from io import BytesIO
 import logging
 import zipfile
-from aiohttp import ClientSession
 
+from aiohttp import ClientSession
 from defusedxml import ElementTree
+
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
-
 from homeassistant.core import Config, HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
-from homeassistant.helpers import config_validation
+from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
@@ -40,7 +40,7 @@ from .const import (
 
 _LOGGER = logging.getLogger(__name__)
 
-CONFIG_SCHEMA = config_validation.empty_config_schema(DOMAIN)
+CONFIG_SCHEMA = cv.empty_config_schema(DOMAIN)
 
 
 async def async_setup(hass: HomeAssistant, config: Config) -> bool:
@@ -117,9 +117,9 @@ class DwdDataUpdateCoordinator(DataUpdateCoordinator):
                 CONF_FORECAST, CONF_FORECAST_DEFAULT
             )
 
-            if (
-                conf_current_weather == CONF_CURRENT_WEATHER_MEASUREMENT
-                or conf_current_weather == CONF_CURRENT_WEATHER_HYBRID
+            if conf_current_weather in (
+                CONF_CURRENT_WEATHER_MEASUREMENT,
+                CONF_CURRENT_WEATHER_HYBRID,
             ):
                 # Fetch measurement, if new data is available (using ETag header).
 
@@ -158,7 +158,7 @@ class DwdDataUpdateCoordinator(DataUpdateCoordinator):
                             DWD_MEASUREMENT_DATETIME,
                             datetime.strptime(
                                 f"{fields[0]} {fields[1]}", r"%d.%m.%y %H:%M"
-                            ).replace(tzinfo=timezone.utc),
+                            ).replace(tzinfo=UTC),
                         )
                         for i in range(2, min(len(column_names), len(fields))):
                             if fields[i] and fields[i] != "---":
@@ -215,20 +215,18 @@ class DwdDataUpdateCoordinator(DataUpdateCoordinator):
                                 with dwd_zip_file.open(kml_file_name) as kml_file:
                                     # For a description of all elements see https://opendata.dwd.de/weather/lib/MetElementDefinition.xml
                                     elementTree = ElementTree.parse(kml_file)
-                                    timestamps = list(
-                                        map(
-                                            lambda x: datetime.strptime(
-                                                x.text, "%Y-%m-%dT%H:%M:%S.%f%z"
-                                            ),
-                                            elementTree.findall(
-                                                "./kml:Document/kml:ExtendedData/dwd:ProductDefinition/dwd:ForecastTimeSteps/dwd:TimeStep",
-                                                {
-                                                    "kml": "http://www.opengis.net/kml/2.2",
-                                                    "dwd": "https://opendata.dwd.de/weather/lib/pointforecast_dwd_extension_V1_0.xsd",
-                                                },
-                                            ),
+                                    timestamps = [
+                                        datetime.strptime(
+                                            x.text, "%Y-%m-%dT%H:%M:%S.%f%z"
                                         )
-                                    )
+                                        for x in elementTree.findall(
+                                            "./kml:Document/kml:ExtendedData/dwd:ProductDefinition/dwd:ForecastTimeSteps/dwd:TimeStep",
+                                            {
+                                                "kml": "http://www.opengis.net/kml/2.2",
+                                                "dwd": "https://opendata.dwd.de/weather/lib/pointforecast_dwd_extension_V1_0.xsd",
+                                            },
+                                        )
+                                    ]
                                     forecast[DWD_FORECAST_TIMESTAMP] = timestamps
                                     forecastElements = elementTree.findall(
                                         "./kml:Document/kml:Placemark/kml:ExtendedData/dwd:Forecast",

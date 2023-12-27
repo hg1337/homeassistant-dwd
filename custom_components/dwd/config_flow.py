@@ -1,10 +1,11 @@
 """Config flow to configure DWD component."""
 from __future__ import annotations
-from itertools import chain, islice
 
+from itertools import chain, islice
 import json
 import os
 from typing import Any
+
 from aiohttp import ClientSession
 import voluptuous as vol
 
@@ -32,7 +33,6 @@ from .const import (
     URL_FORECAST,
     URL_MEASUREMENT,
 )
-
 
 # Translation workaround until there is someting better offered by Home Assistant
 STRING_NO_MEASUREMENT = {"en": "[no measurement data]", "de": "[keine Messdaten]"}
@@ -105,13 +105,13 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     "value": "nostation_custom",
                 }
             ],
-            map(
-                lambda x: {
+            (
+                {
                     # Elevation is always in m in Home Assistant
                     "label": f'{x["name"]} ({"" if x["source"] == SOURCE_STATIONSLEXIKON else "~ "}{x["distance"]:.0f} {self.hass.config.units.length_unit}, {x["altitude_delta"]:+.0f} m) {self._get_translation(STRING_NO_MEASUREMENT) if not x["measurement"] else self._get_translation(STRING_NO_FORECAST) if not x["forecast"] else ""}',
                     "value": x["id"],
-                },
-                stations,
+                }
+                for x in stations
             ),
         )
 
@@ -308,7 +308,6 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     async def _async_get_nearest_stations(self):
         with open(
             os.path.join(os.path.dirname(os.path.realpath(__file__)), "stations.json"),
-            "rt",
             encoding="utf-8",
         ) as file:
             stations = json.load(file)
@@ -333,7 +332,6 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     async def _async_get_station_name(station_id: str):
         with open(
             os.path.join(os.path.dirname(os.path.realpath(__file__)), "stations.json"),
-            "rt",
             encoding="utf-8",
         ) as file:
             stations = json.load(file)
@@ -446,7 +444,7 @@ def _create_schema(
         )
 
     # Overwrite suggested values if some data is not available
-    if DWD_MEASUREMENT in available_data and not DWD_FORECAST in available_data:
+    if DWD_MEASUREMENT in available_data and DWD_FORECAST not in available_data:
         suggested_current_weather = CONF_CURRENT_WEATHER_MEASUREMENT
         suggested_forecast = None
     elif DWD_MEASUREMENT not in available_data and DWD_FORECAST in available_data:
