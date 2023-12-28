@@ -9,7 +9,6 @@
 - [Main Features](#main-features)
 - [Quick Setup](#quick-setup)
 - [Questions & Answers](#questions--answers)
-- [Bug Reports](#bug-reports)
 - [References](#references)
 
 ## Introduction
@@ -86,31 +85,6 @@ This adds one device and three entities for the selected station. By default, on
 ## Questions & Answers
 
 If you have questions, they might already be answered at [questions_and_answers.md](./questions_and_answers.md).
-
-## Bug Reports
-
-It's always worth reporting bugs, if they haven't been reported yet and after having at look at [Questions & Answers](#questions--answers).
-
-When reporting a bug, please follow these guidelines.
-
-### Issues with Measurements
-For issues with measurement data (current condition, current temperature, ...), please include the following items in your bug report.
-- Always include the station ID.
-- When the problem occurs, go to the Developer Tools and copy immediately the state value + all state attributes (YAML) of entity where the issue occurs. You could skip the forecast part, but to be safe, just copy the whole YAML.
-- When the problem occurs, download immediately `https://opendata.dwd.de/weather/weather_reports/poi/{station_id}-BEOB.csv`. Replace `{station_id}` with your actual station ID. If your station ID has less than 5 characters, it has to be padded with trailing underscores, so e.g. "A191" becomes "A191_" here.
-
-### Issues with Hourly Forecasts
-For issues with hourly forecasts, please include the following items in your bug report.
-- Always include the station ID.
-- When the problem occurs, go to the Developer Tools and copy immediately all state attributes (YAML) of the hourly entity (the entity ending with "\_hourly").
-- When the problem occurs, download immediately `https://opendata.dwd.de/weather/local_forecasts/mos/MOSMIX_L/single_stations/{station_id}/kml/MOSMIX_L_LATEST_{station_id}.kmz`. Replace `{station_id}` with your actual station ID. No padding needed here.
-
-### Issues with Daily Forecasts
-For issues with daily forecasts, please include the following items in your bug report.
-- Always include the station ID.
-- When the problem occurs, go to the Developer Tools and copy immediately all state attributes (YAML) of the hourly entity (the entity ending with "\_hourly"). This is important, because the daily forecasts are calculated from hourly forecasts.
-- When the problem occurs, go to the Developer Tools and copy immediately all state attributes (YAML) of the daily entity (the entity ending with "\_daily").
-- When the problem occurs, download immediately `https://opendata.dwd.de/weather/local_forecasts/mos/MOSMIX_L/single_stations/{station_id}/kml/MOSMIX_L_LATEST_{station_id}.kmz`. Replace `{station_id}` with your actual station ID. No padding needed here.
 
 ## References
 Unfortunately, most of the following documentation is only available in German.
