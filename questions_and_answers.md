@@ -76,7 +76,7 @@ value_template: 'states("sensor.precipitation_next_3_hours") > 10 }}'
 
 ## I'm using a third party weather card that doesn't support the new forecast mechanism. Can I continue using it?
 
-There are many nice third party weather cards out there like https://github.com/bramkragten/weather-card that unfortunately haven't switched to the new forecast mechanism yet. The good news is, you can most likely continue using it by creating a template sensor. The approach is basically to call the `weather.get_forecast` service to get the hourly or daily forecast and provide the result in a state attribute.
+More and more third party weather cards are being updated for new the forecast mechanism, but there might still be some that have not switched yet. The good news is, you can most likely continue using them by creating a template sensor. The approach is basically to call the `weather.get_forecast` service to get the hourly or daily forecast and provide the result in a state attribute.
 
 **Before you continue: This is only a workaround. The correct way is to do the necessary changes in the third party weather cards to work with the new forecast mechanism.**
 
@@ -153,34 +153,6 @@ To save resources, the template sensors above limit the forecasts to 5 items. If
 After making changes to your template sensors, you can reload them in the YAML tab of the Developer Tools by selecting to reload the Template Entities.
 
 If everything went fine, you should find the two new senors in the States tab of the Developer Tools. They look pretty much like Weather entities, just that they are sensors with the "sensor" prefix instead of the "weather" prefix. Usually that doesn't disturb weather cards. They might just not show the entities in the selection list, but you can usually enter the ID manually.
-
-You can now e.g. configure the weather card from https://github.com/bramkragten/weather-card using the template entities to create a layout that that:
-
-![Screenshot Weather Card](./images/screenshot_bramkragten-weather-card.png)
-
-```yaml
-type: horizontal-stack
-cards:
-  - type: custom:weather-card
-    entity: weather.stuttgart_echterdingen
-    current: true
-    details: true
-    forecast: false
-  - type: custom:weather-card
-    entity: sensor.stuttgart_echterdingen_hourly
-    current: false
-    details: false
-    forecast: true
-    hourly_forecast: true
-    number_of_forecasts: '5'
-  - type: custom:weather-card
-    entity: sensor.stuttgart_echterdingen_daily
-    current: false
-    details: false
-    forecast: true
-    hourly_forecast: false
-    number_of_forecasts: '5'
-```
 
 ## Why does the daily forecast for the current day differ from the Warnwetter app?
 
