@@ -24,11 +24,8 @@ If you don't want to use the My Home Assistant button or if it doesn't work in y
 
 1. Open "HACS" from the Home Assistant main menu.
 2. Select "Integrations".
-3. Add this repository as a custom repository. (It might be available as a default repository soon. Then this step can be skipped.) To do this, click on the 3 dots and select "Custom repositories". Use this information:
-    - Repository: https://github.com/hg1337/homeassistant-dwd
-    - Category: Integration
-4. Select "Explore & Dowload Repositories".
-5. Search for "Deutscher Wetterdienst (by hg1337)" and select it.  
+3. Select "Explore & Dowload Repositories".
+4. Search for "Deutscher Wetterdienst (by hg1337)" and select it.  
 ![Screenshot Add Repository](./images/screenshot_hacs_add-repository.png)  
 There is another integration named "Deutscher Wetterdienst" available, that's not this one. However, feel free to try out both. ;)
 
