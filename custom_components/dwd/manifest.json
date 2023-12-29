@@ -5,7 +5,7 @@
     "@hg1337"
   ],
   "config_flow": true,
-  "documentation": "https://github.com/hg1337/homeassistant-dwd",
+  "documentation": "https://github.com/hg1337/homeassistant-dwd#readme",
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/hg1337/homeassistant-dwd/issues",
   "requirements": [
