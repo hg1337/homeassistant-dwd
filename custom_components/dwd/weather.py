@@ -151,29 +151,13 @@ class DwdWeather(SingleCoordinatorWeatherEntity[DwdDataUpdateCoordinator]):
         """Initialize."""
         super().__init__(coordinator)
         self._hass: HomeAssistant = hass
-        self._unique_id: str = unique_id
+        self._attr_unique_id = unique_id
         self._config: ConfigEntry = config
         self._forecast_mode: ForecastMode = forecast_mode
-        self._device: DeviceInfo = device
+        self._attr_device_info = device
         self._conf_current_weather: str = self._config.options.get(
             CONF_CURRENT_WEATHER, CONF_CURRENT_WEATHER_DEFAULT
         )
-
-        self._attr_supported_features = 0
-        if self._config.options.get(CONF_FORECAST, CONF_FORECAST_DEFAULT):
-            if self._forecast_mode in (ForecastMode.STANDARD, ForecastMode.DAILY):
-                self._attr_supported_features |= WeatherEntityFeature.FORECAST_DAILY
-            if self._forecast_mode in (ForecastMode.STANDARD, ForecastMode.HOURLY):
-                self._attr_supported_features |= WeatherEntityFeature.FORECAST_HOURLY
-
-    @property
-    def unique_id(self) -> str:
-        """Return unique ID."""
-        return self._unique_id
-
-    @property
-    def name(self) -> str:
-        """Return the name of the sensor."""
 
         name = self._config.title
         name_appendix = ""
@@ -189,22 +173,31 @@ class DwdWeather(SingleCoordinatorWeatherEntity[DwdDataUpdateCoordinator]):
         if name is None:
             name = "DWD"
 
-        return f"{name}{name_appendix}"
+        self._attr_name = f"{name}{name_appendix}"
+
+        self._attr_entity_registry_enabled_default = (
+            self._forecast_mode == ForecastMode.STANDARD
+        )
+
+        self._attr_supported_features = 0
+        if self._config.options.get(CONF_FORECAST, CONF_FORECAST_DEFAULT):
+            if self._forecast_mode in (ForecastMode.STANDARD, ForecastMode.DAILY):
+                self._attr_supported_features |= WeatherEntityFeature.FORECAST_DAILY
+            if self._forecast_mode in (ForecastMode.STANDARD, ForecastMode.HOURLY):
+                self._attr_supported_features |= WeatherEntityFeature.FORECAST_HOURLY
+
+        self._attr_native_temperature_unit = UnitOfTemperature.CELSIUS
+        self._attr_native_pressure_unit = UnitOfPressure.HPA
+        self._attr_native_visibility_unit = UnitOfLength.KILOMETERS
+        self._attr_native_wind_speed_unit = UnitOfSpeed.KILOMETERS_PER_HOUR
+        self._attr_native_precipitation_unit = UnitOfLength.MILLIMETERS
+
+        self._attr_attribution = ATTRIBUTION
 
     @property
     def available(self) -> bool:
         """Return True if entity is available."""
         return self.coordinator.last_update_success
-
-    @property
-    def device_info(self) -> DeviceInfo:
-        """Device info."""
-        return self._device
-
-    @property
-    def entity_registry_enabled_default(self) -> bool:
-        """Return if the entity should be enabled when first added to the entity registry."""
-        return self._forecast_mode == ForecastMode.STANDARD
 
     @property
     def condition(self) -> str | None:
@@ -247,11 +240,6 @@ class DwdWeather(SingleCoordinatorWeatherEntity[DwdDataUpdateCoordinator]):
         )
 
     @property
-    def native_temperature_unit(self) -> str:
-        """Return the native unit of measurement for temperature."""
-        return UnitOfTemperature.CELSIUS
-
-    @property
     def native_dew_point(self) -> float | None:
         """Return the dew point temperature in native units."""
         return self._get_float_measurement_with_fallback(
@@ -264,11 +252,6 @@ class DwdWeather(SingleCoordinatorWeatherEntity[DwdDataUpdateCoordinator]):
         return self._get_float_measurement_with_fallback(
             DWD_MEASUREMENT_PRESSURE, ATTR_FORECAST_NATIVE_PRESSURE
         )
-
-    @property
-    def native_pressure_unit(self) -> str:
-        """Return the native unit of measurement for pressure."""
-        return UnitOfPressure.HPA
 
     @property
     def humidity(self) -> float | None:
@@ -288,11 +271,6 @@ class DwdWeather(SingleCoordinatorWeatherEntity[DwdDataUpdateCoordinator]):
         return self._get_float_measurement_without_fallback(DWD_MEASUREMENT_VISIBILITY)
 
     @property
-    def native_visibility_unit(self) -> str:
-        """Return the native unit of measurement for visibility."""
-        return UnitOfLength.KILOMETERS
-
-    @property
     def native_wind_gust_speed(self) -> float | None:
         """Return the wind gust speed in native units."""
         return self._get_float_measurement_with_fallback(
@@ -305,16 +283,6 @@ class DwdWeather(SingleCoordinatorWeatherEntity[DwdDataUpdateCoordinator]):
         return self._get_float_measurement_with_fallback(
             DWD_MEASUREMENT_MEANWIND_SPEED, ATTR_FORECAST_NATIVE_WIND_SPEED
         )
-
-    @property
-    def native_wind_speed_unit(self) -> str:
-        """Return the native unit of measurement for wind speed."""
-        return UnitOfSpeed.KILOMETERS_PER_HOUR
-
-    @property
-    def native_precipitation_unit(self) -> str:
-        """Return the native unit of measurement for accumulated precipitation."""
-        return UnitOfLength.MILLIMETERS
 
     @property
     def wind_bearing(self) -> float | None:
@@ -369,11 +337,6 @@ class DwdWeather(SingleCoordinatorWeatherEntity[DwdDataUpdateCoordinator]):
                 return DwdWeather._str_to_float(str_value)
         else:
             return None
-
-    @property
-    def attribution(self) -> str:
-        """Return the attribution."""
-        return ATTRIBUTION
 
     @property
     def forecast(self):
