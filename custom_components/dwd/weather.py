@@ -33,7 +33,7 @@ from homeassistant.components.weather import (
     ATTR_FORECAST_PRECIPITATION_PROBABILITY,
     ATTR_FORECAST_TIME,
     ATTR_FORECAST_WIND_BEARING,
-    WeatherEntity,
+    SingleCoordinatorWeatherEntity,
     WeatherEntityFeature,
 )
 from homeassistant.config_entries import ConfigEntry
@@ -43,12 +43,11 @@ from homeassistant.const import (
     UnitOfSpeed,
     UnitOfTemperature,
 )
-from homeassistant.core import HomeAssistant
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers import sun
 from homeassistant.helpers.device_registry import DeviceEntryType
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.util import dt as dt_util
 
 from . import DwdDataUpdateCoordinator
@@ -137,7 +136,7 @@ async def async_setup_entry(
     )
 
 
-class DwdWeather(CoordinatorEntity, WeatherEntity):
+class DwdWeather(SingleCoordinatorWeatherEntity[DwdDataUpdateCoordinator]):
     """Implementation of a DWD weather condition."""
 
     def __init__(
@@ -388,7 +387,8 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
 
         return self._get_forecast(self._forecast_mode)
 
-    async def async_forecast_daily(self):
+    @callback
+    def _async_forecast_daily(self):
         """Return the daily forecast in native units."""
 
         if not self._config.options.get(CONF_FORECAST, CONF_FORECAST_DEFAULT):
@@ -396,7 +396,8 @@ class DwdWeather(CoordinatorEntity, WeatherEntity):
 
         return self._get_forecast(ForecastMode.DAILY)
 
-    async def async_forecast_hourly(self):
+    @callback
+    def _async_forecast_hourly(self):
         """Return the hourly forecast in native units."""
 
         if not self._config.options.get(CONF_FORECAST, CONF_FORECAST_DEFAULT):
