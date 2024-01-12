@@ -13,7 +13,7 @@ Currently, this integration provides both mechnisms in parallel via three differ
 
 ![Screenshot Entities](./images/screenshot_entities.png)
 
-If you only use the built-in Weather Forecard Card from Home Assistant, the migration is usually as easy as removing the `_daily` or `_hourly` suffix from the Entity ID in the configuration of the Weather Forecast Card and selecting the desired forecast type (daily or hourly).
+If you only use the built-in Weather Forecast Card from Home Assistant or a third party weather card like the one at https://github.com/bramkragten/weather-card, the migration is usually as easy as removing the `_daily` or `_hourly` suffix from the Entity ID in the configuration of the weather card and selecting the desired forecast type (daily or hourly).
 
 ![Screenshot Weather Forecast Card Configuration](./images/screenshot_weather-forecast-card-configuration.png)
 
