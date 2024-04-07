@@ -1,4 +1,5 @@
 """Constants for DWD component."""
+
 from datetime import timedelta
 import logging
 
