@@ -17,7 +17,7 @@ In the selection list the same stations as listed at [stations.md](./stations.md
 
 ## How can I access forecast data from templates?
 
-Accessing forecast data is basically done by calling the `weather.get_forecast` service, so wherever you want to access forecast data, you need to be able to call services. This is easily possible in automation actions where you can call services, but if you e.g. need it in a template condition, you need a different approach. The most universally applicable way is to create a template sensor that provides the information you need.
+Accessing forecast data is basically done by calling the `weather.get_forecasts` service, so wherever you want to access forecast data, you need to be able to call services. This is easily possible in automation actions where you can call services, but if you e.g. need it in a template condition, you need a different approach. The most universally applicable way is to create a template sensor that provides the information you need.
 
 For more information on template sensors see https://www.home-assistant.io/integrations/template/
 
@@ -76,7 +76,7 @@ value_template: 'states("sensor.precipitation_next_3_hours") > 10 }}'
 
 ## I'm using a third party weather card that doesn't support the new forecast mechanism. Can I continue using it?
 
-More and more third party weather cards are being updated for new the forecast mechanism, but there might still be some that have not switched yet. The good news is, you can most likely continue using them by creating a template sensor. The approach is basically to call the `weather.get_forecast` service to get the hourly or daily forecast and provide the result in a state attribute.
+More and more third party weather cards are being updated for new the forecast mechanism, but there might still be some that have not switched yet. The good news is, you can most likely continue using them by creating a template sensor. The approach is basically to call the `weather.get_forecasts` service to get the hourly or daily forecast and provide the result in a state attribute.
 
 **Before you continue: This is only a workaround. The correct way is to do the necessary changes in the third party weather cards to work with the new forecast mechanism.**
 
