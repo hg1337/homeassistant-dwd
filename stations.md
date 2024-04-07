@@ -154,7 +154,7 @@ M357     | Alperstedt                  | 51.06       | 11.03       | 158.0    | 
 11138    | Alpinzentrum Rudol.         | 47.08       | 12.38       | 2317.0   | no measurement data | MOSMIX Stationskatalog
 L353     | Alsfeld                     | 50.45       | 9.15        | 304.0    | no measurement data | MOSMIX Stationskatalog
 L463     | Alsfeld                     | 50.756      | 9.258       | 305.0    | no measurement data | Stationslexikon
-L464     | Alsfeld-Eifa                | 50.745      | 9.345       | 300.0    |                     | Stationslexikon
+L464     | Alsfeld-Eifa                | 50.745      | 9.345       | 304.0    |                     | Stationslexikon
 82965    | Alta Floresta               | -9.52       | -56.06      | 288.0    | no measurement data | MOSMIX Stationskatalog
 01049    | Alta Lufthavn               | 69.59       | 23.22       | 3.0      |                     | MOSMIX Stationskatalog
 82353    | Altamira                    | -3.13       | -52.13      | 74.0     | no measurement data | MOSMIX Stationskatalog
@@ -193,7 +193,7 @@ L442     | Amoeneburg-Ruedighei        | 50.47       | 8.57        | 210.0    | 
 N4005    | Amorbach                    | 49.39       | 9.14        | 183.0    | no measurement data | MOSMIX Stationskatalog
 P208     | Amorbach-Neudorf            | 49.655      | 9.261       | 420.0    | no measurement data | Stationslexikon
 97240    | Ampenan                     | -8.32       | 116.04      | 3.0      | no measurement data | MOSMIX Stationskatalog
-P781     | Ampfing (Kläranlage)        | 48.261      | 12.429      | 400.0    | no measurement data | Stationslexikon
+P781     | Ampfing                     | 48.261      | 12.429      | 400.0    | no measurement data | Stationslexikon
 P0449    | Ampugnano                   | 43.15       | 11.15       | 194.0    | no measurement data | MOSMIX Stationskatalog
 06240    | Amsterdam                   | 52.18       | 4.46        | -4.0     |                     | MOSMIX Stationskatalog
 11018    | Amstetten                   | 48.07       | 14.54       | 266.0    | no measurement data | MOSMIX Stationskatalog
@@ -841,7 +841,7 @@ G318     | Burgheim                    | 48.42       | 11.01       | 390.0    | 
 P068     | Burgkunstadt                | 50.08       | 11.14       | 276.0    | no measurement data | MOSMIX Stationskatalog
 08075    | Burgos-Villafria            | 42.22       | -3.38       | 894.0    |                     | MOSMIX Stationskatalog
 N3778    | Burgsinn                    | 50.09       | 9.39        | 235.0    | no measurement data | MOSMIX Stationskatalog
-L217     | Burgwald-Bottendorf         | 51.031      | 8.815       | 293.0    |                     | Stationslexikon
+L217     | Burgwald-Bottendorf         | 51.031      | 8.815       | 296.0    |                     | Stationslexikon
 O372     | Burkauer Berg               | 51.1        | 14.07       | 328.0    | no measurement data | MOSMIX Stationskatalog
 G403     | Burkersdorf                 | 50.65       | 11.881      | 441.0    | no measurement data | Stationslexikon
 Q655     | Burladingen-Hausen          | 48.18       | 9.04        | 682.0    | no measurement data | MOSMIX Stationskatalog
@@ -1612,7 +1612,7 @@ F9752    | Fujairah Intl               | 25.07       | 56.19       | 47.0     | 
 47808    | Fukuoka Airport             | 33.35       | 130.27      | 9.0      | no measurement data | MOSMIX Stationskatalog
 47595    | Fukushima                   | 37.45       | 140.28      | 69.0     | no measurement data | MOSMIX Stationskatalog
 10536    | Fulda                       | 50.33       | 9.39        | 305.0    | no measurement data | MOSMIX Stationskatalog
-L585     | Fulda-Horas                 | 50.567      | 9.653       | 242.0    |                     | Stationslexikon
+L585     | Fulda-Horas                 | 50.567      | 9.653       | 245.0    |                     | Stationslexikon
 P0387    | Fulpmes                     | 47.09       | 11.2        | 937.0    | no measurement data | MOSMIX Stationskatalog
 P0398    | Funaesdalen                 | 62.3        | 12.36       | 582.0    | no measurement data | MOSMIX Stationskatalog
 08521    | Funchal                     | 32.41       | -16.46      | 58.0     |                     | MOSMIX Stationskatalog
@@ -1641,7 +1641,7 @@ P0641    | Gambella                    | 9.51        | 34.35       | 526.0    | 
 P0261    | Gammertingen                | 48.08       | 9.07        | 659.0    | no measurement data | MOSMIX Stationskatalog
 43599    | Gan                         | -0.41       | 73.09       | 2.0      | no measurement data | MOSMIX Stationskatalog
 71803    | Gander                      | 48.57       | -54.34      | 151.0    | no measurement data | MOSMIX Stationskatalog
-P668     | Gangkofen (Kläranlage)      | 48.433      | 12.571      | 498.0    | no measurement data | Stationslexikon
+P668     | Gangkofen (Kläranlage)      | 48.433      | 12.571      | 437.0    | no measurement data | Stationslexikon
 58040    | Ganyu                       | 34.51       | 119.08      | 10.0     | no measurement data | MOSMIX Stationskatalog
 61226    | Gao                         | 16.16       | -0.03       | 265.0    | no measurement data | MOSMIX Stationskatalog
 59554    | Gaoxiong                    | 22.37       | 120.16      | 33.0     | no measurement data | MOSMIX Stationskatalog
@@ -1719,7 +1719,7 @@ F9526    | Geyen (Pulheim)             | 50.59       | 6.48        | 56.0     | 
 N4068    | Gifhorn                     | 52.29       | 10.33       | 51.0     | no measurement data | MOSMIX Stationskatalog
 08014    | Gijon                       | 43.32       | -5.38       | 3.0      | no measurement data | MOSMIX Stationskatalog
 94461    | Giles (M.O.)                | -25.02      | 128.18      | 580.0    | no measurement data | MOSMIX Stationskatalog
-L340     | Gilserberg-Moischeid        | 50.966      | 9.05        | 340.0    |                     | Stationslexikon
+L340     | Gilserberg-Moischeid        | 50.966      | 9.05        | 327.0    |                     | Stationslexikon
 06350    | Gilze Rijen                 | 51.34       | 4.56        | 11.0     | no measurement data | MOSMIX Stationskatalog
 06657    | Giswil                      | 46.5        | 8.11        | 471.0    | no measurement data | MOSMIX Stationskatalog
 P0602    | Gladbeck                    | 51.35       | 6.58        | 64.0     | no measurement data | MOSMIX Stationskatalog
@@ -1762,7 +1762,7 @@ E2835    | Golf Akaba-S                | 28.25       | 34.35       | 0.0      | 
 W4402    | Golf Biarritz               | 44.0        | -2.12       | 0.0      | no measurement data | MOSMIX Stationskatalog
 E4513    | Golf-Venedig                | 45.0        | 13.0        | 0.0      | no measurement data | MOSMIX Stationskatalog
 E4204    | Golfe-Lion                  | 42.1        | 4.28        | 0.0      | no measurement data | MOSMIX Stationskatalog
-P238     | Gollhofen                   | 49.34       | 10.11       | 308.0    |                     | MOSMIX Stationskatalog
+P238     | Gollhofen                   | 49.568      | 10.197      | 318.0    |                     | Stationslexikon
 33041    | Gomel                       | 52.24       | 30.57       | 125.0    |                     | MOSMIX Stationskatalog
 P0340    | Gonaives                    | 19.27       | -72.41      | 6.0      | no measurement data | MOSMIX Stationskatalog
 K376     | Gondershausen               | 50.159      | 7.497       | 388.0    | no measurement data | Stationslexikon
@@ -1855,7 +1855,7 @@ N2132    | Gruenstadt                  | 49.34       | 8.1         | 200.0    | 
 P0435    | Grueppenbuehren             | 53.04       | 8.33        | 33.0     | no measurement data | MOSMIX Stationskatalog
 88903    | Grytviken                   | -54.17      | -36.3       | 3.0      | no measurement data | MOSMIX Stationskatalog
 P265     | Gräfenberg-Kasberg          | 49.664      | 11.224      | 506.0    |                     | Stationslexikon
-P120     | Gräfendorf,Kr.Main-Spessart (Kläranlage)| 50.114      | 9.735       | 160.0    | no measurement data | Stationslexikon
+P120     | Gräfendorf,Kr.Main-Spessart | 50.114      | 9.735       | 160.0    | no measurement data | Stationslexikon
 L543     | Grünberg                    | 50.35       | 8.59        | 314.0    | no measurement data | MOSMIX Stationskatalog
 L771     | Gründau-Breitenborn         | 50.267      | 9.185       | 258.0    |                     | Stationslexikon
 10289    | Grünow                      | 53.3154     | 13.9339     | 56.0     |                     | Stationslexikon
@@ -2052,7 +2052,7 @@ N9030    | Herne                       | 51.32       | 7.13        | 63.0     | 
 Q327     | Herrenalb, Bad/Therme       | 48.804      | 8.443       | 351.0    | no measurement data | Stationslexikon
 K2920    | Herrenberg                  | 48.36       | 8.53        | 431.0    | no measurement data | MOSMIX Stationskatalog
 Q713     | Herrenberg                  | 48.35       | 8.51        | 430.0    | no measurement data | MOSMIX Stationskatalog
-P318     | Herrieden (Kläranlage)      | 49.229      | 10.504      | 420.0    | no measurement data | Stationslexikon
+P318     | Herrieden                   | 49.229      | 10.504      | 420.0    | no measurement data | Stationslexikon
 N3303    | Hersbruck                   | 49.3        | 11.24       | 332.0    | no measurement data | MOSMIX Stationskatalog
 10542    | Hersfeld, Bad               | 50.852      | 9.7377      | 272.0    |                     | Stationslexikon
 K880     | Herxheimweyher              | 49.158      | 8.254       | 127.0    | no measurement data | Stationslexikon
@@ -2219,7 +2219,7 @@ P0001    | Insel Boracay               | 11.59       | 121.55      | 4.0      | 
 71957    | Inuvik                      | 68.18       | -133.29     | 59.0     | no measurement data | MOSMIX Stationskatalog
 93845    | Invercargill                | -46.25      | 168.19      | 2.0      | no measurement data | MOSMIX Stationskatalog
 03059    | Inverness                   | 57.32       | -4.03       | 9.0      | no measurement data | MOSMIX Stationskatalog
-P986     | Inzell                      | 47.759      | 12.75       | 690.0    | no measurement data | Stationslexikon
+P986     | Inzell                      | 47.776      | 12.724      | 683.0    | no measurement data | Stationslexikon
 16642    | Ioannina National           | 39.42       | 20.49       | 483.0    | no measurement data | MOSMIX Stationskatalog
 E3719    | Ion.Meer                    | 37.22       | 19.1        | 0.0      | no measurement data | MOSMIX Stationskatalog
 E3920    | Ion.Meer-N.                 | 39.0        | 19.31       | 0.0      | no measurement data | MOSMIX Stationskatalog
@@ -2479,7 +2479,7 @@ G417     | Kindelbrück                 | 51.251      | 11.099      | 190.0    |
 64220    | Kinshasa                    | -4.22       | 15.15       | 445.0    | no measurement data | MOSMIX Stationskatalog
 64210    | Kinshasa/Ndjili             | -4.23       | 15.26       | 309.0    | no measurement data | MOSMIX Stationskatalog
 G337     | Kinzesberg                  | 48.35       | 13.41       | 564.0    | no measurement data | MOSMIX Stationskatalog
-G303     | Kirchberg im Wald           | 48.896      | 13.19       | 624.0    | no measurement data | Stationslexikon
+G303     | Kirchberg Im Wald           | 48.54       | 13.11       | 624.0    | no measurement data | MOSMIX Stationskatalog
 K501     | Kirchberg, Rhein-Hunsrück-Kreis| 49.932      | 7.388       | 393.0    | no measurement data | Stationslexikon
 Q292     | Kirchberg/Jagst-Herboldshausen| 49.18       | 9.98        | 432.0    |                     | Stationslexikon
 P581     | Kirchberg/Niederbaye        | 48.54       | 13.08       | 683.0    | no measurement data | MOSMIX Stationskatalog
@@ -2673,7 +2673,7 @@ G419     | Kutzleben                   | 51.2        | 10.865      | 216.0    | 
 16743    | Kythira                     | 36.17       | 23.01       | 167.0    |                     | MOSMIX Stationskatalog
 38062    | Kyzyl-Orda                  | 44.51       | 65.3        | 129.0    | no measurement data | MOSMIX Stationskatalog
 H744     | Köln-Stammheim              | 50.989      | 6.978       | 43.0     |                     | Stationslexikon
-10513    | Köln/Bonn                   | 50.8645     | 7.1575      | 92.0     |                     | Stationslexikon
+10513    | Köln/Bonn                   | 50.8645     | 7.1575      | 91.0     |                     | Stationslexikon
 Q222     | Königsbach-Stein, Enzkreis  | 48.96       | 8.591       | 160.0    | no measurement data | Stationslexikon
 Q732     | Königsfeld/Schwarzwald      | 48.141      | 8.429       | 730.0    | no measurement data | Stationslexikon
 P033     | Königshofen, Bad            | 50.284      | 10.446      | 289.0    |                     | Stationslexikon
@@ -2841,7 +2841,7 @@ K1171    | Leverkusen                  | 51.01       | 6.59        | 44.0     | 
 11603    | Liberec                     | 50.46       | 15.01       | 405.0    |                     | MOSMIX Stationskatalog
 78774    | Liberia                     | 10.36       | -85.32      | 80.0     | no measurement data | MOSMIX Stationskatalog
 64500    | Libreville                  | 0.27        | 9.25        | 12.0     | no measurement data | MOSMIX Stationskatalog
-H375     | Lichtenau-Ebbinghausen (HRB)| 51.605      | 8.818       | 304.0    | no measurement data | Stationslexikon
+H375     | Lichtenau-Ebbinghausen      | 51.605      | 8.818       | 304.0    | no measurement data | Stationslexikon
 P0301    | Lichtenberg                 | 48.25       | 14.15       | 926.0    | no measurement data | MOSMIX Stationskatalog
 N3041    | Lichtenfels/Ofr.            | 50.06       | 11.1        | 375.0    | no measurement data | MOSMIX Stationskatalog
 10591    | Lichtenhain-Mittelndorf     | 50.9383     | 14.2094     | 321.0    |                     | Stationslexikon
@@ -3260,7 +3260,7 @@ E972     | Mollenfelde                 | 51.25       | 9.51        | 265.0    | 
 N0121    | Monschau                    | 50.32       | 6.15        | 542.0    | no measurement data | MOSMIX Stationskatalog
 H908     | Monschau-Kalterherbe        | 50.31       | 6.13        | 535.0    | no measurement data | MOSMIX Stationskatalog
 78388    | Mont.Bay-Sangster           | 18.3        | -77.55      | 1.0      | no measurement data | MOSMIX Stationskatalog
-K282     | Montabaur                   | 50.26       | 7.49        | 253.0    |                     | MOSMIX Stationskatalog
+K282     | Montabaur                   | 50.438      | 7.806       | 265.0    |                     | Stationslexikon
 06724    | Montana                     | 46.17       | 7.27        | 1423.0   | no measurement data | MOSMIX Stationskatalog
 16072    | Monte Bisbino               | 45.52       | 9.04        | 1319.0   | no measurement data | MOSMIX Stationskatalog
 08540    | Monte Real                  | 39.5        | -8.53       | 52.0     |                     | MOSMIX Stationskatalog
@@ -3493,7 +3493,7 @@ F9705    | Newquay                     | 50.26       | -5.0        | 119.0    | 
 17610    | Nicosia                     | 35.09       | 33.17       | 224.0    |                     | MOSMIX Stationskatalog
 26603    | Nida                        | 55.18       | 21.0        | 2.0      | no measurement data | MOSMIX Stationskatalog
 P0019    | Nidda                       | 50.25       | 9.01        | 190.0    | no measurement data | MOSMIX Stationskatalog
-L643     | Nidda/Wetterau (Kläranlage) | 50.401      | 8.988       | 132.0    | no measurement data | Stationslexikon
+L643     | Nidda/Wetterau              | 50.401      | 8.988       | 132.0    | no measurement data | Stationslexikon
 L751     | Nidderau-Erbstadt           | 50.16       | 8.52        | 162.0    | no measurement data | MOSMIX Stationskatalog
 H827     | Nideggen-Schmidt            | 50.674      | 6.424       | 350.0    |                     | Stationslexikon
 P0413    | Nieder Kostenz              | 49.56       | 7.22        | 364.0    | no measurement data | MOSMIX Stationskatalog
@@ -3679,7 +3679,7 @@ A492     | Oldenburg I.H.              | 54.16       | 10.53       | 0.0      | 
 24125    | Olenek                      | 68.3        | 112.26      | 220.0    | no measurement data | MOSMIX Stationskatalog
 H333     | Olfen                       | 51.43       | 7.22        | 49.0     | no measurement data | MOSMIX Stationskatalog
 N8777    | Olpe                        | 51.02       | 7.51        | 305.0    | no measurement data | MOSMIX Stationskatalog
-K419     | Olsdorf                     | 49.945      | 6.382       | 328.0    |                     | Stationslexikon
+K419     | Olsdorf                     | 49.56       | 6.23        | 305.0    |                     | MOSMIX Stationskatalog
 72554    | Omaha/Offutt Afb.           | 41.07       | -95.54      | 315.0    | no measurement data | MOSMIX Stationskatalog
 28698    | Omsk                        | 55.01       | 73.23       | 122.0    | no measurement data | MOSMIX Stationskatalog
 47598    | Onahama                     | 36.57       | 140.54      | 3.0      | no measurement data | MOSMIX Stationskatalog
@@ -4444,7 +4444,7 @@ K4181    | Schliersee                  | 47.44       | 11.51       | 780.0    | 
 E923     | Schlochau                   | 51.43       | 9.56        | 145.0    | no measurement data | MOSMIX Stationskatalog
 G422     | Schloßvippach, Kreis Sömmerda| 51.1        | 11.15       | 174.0    | no measurement data | Stationslexikon
 K2630    | Schluechtern                | 50.21       | 9.31        | 212.0    | no measurement data | MOSMIX Stationskatalog
-L678     | Schlüchtern-Herolz          | 50.345      | 9.553       | 230.0    |                     | Stationslexikon
+L678     | Schlüchtern-Herolz          | 50.345      | 9.553       | 232.0    |                     | Stationslexikon
 P243     | Schlüsselfeld (Kläranlage)  | 49.745      | 10.643      | 290.0    | no measurement data | Stationslexikon
 M721     | Schmalkalden                | 50.44       | 10.28       | 330.0    | no measurement data | MOSMIX Stationskatalog
 P0606    | Schmallenberg               | 51.09       | 8.17        | 381.0    | no measurement data | MOSMIX Stationskatalog
@@ -4615,7 +4615,7 @@ P0328    | Siedlinghausen              | 51.15       | 8.28        | 364.0    | 
 N8128    | Siegburg                    | 50.48       | 7.12        | 63.0     | no measurement data | MOSMIX Stationskatalog
 K2601    | Siegen                      | 50.52       | 8.01        | 263.0    | no measurement data | MOSMIX Stationskatalog
 H883     | Siegen (Kläranlage)         | 50.51       | 8.0         | 263.0    | no measurement data | MOSMIX Stationskatalog
-P546     | Siegenburg (Kläranlage)     | 48.763      | 11.843      | 380.0    | no measurement data | Stationslexikon
+P546     | Siegenburg                  | 48.763      | 11.843      | 380.0    | no measurement data | Stationslexikon
 P904     | Siegsdorf-Höll              | 47.835      | 12.655      | 719.0    |                     | Stationslexikon
 48966    | Siemreap                    | 13.22       | 103.51      | 15.0     | no measurement data | MOSMIX Stationskatalog
 10828    | Sigmaringen                 | 48.06       | 9.15        | 645.0    | no measurement data | MOSMIX Stationskatalog
@@ -5482,7 +5482,7 @@ P0199    | Uetersen                    | 53.41       | 9.39        | 5.0      | 
 E688     | Uetze                       | 52.28       | 10.11       | 60.0     | no measurement data | MOSMIX Stationskatalog
 28722    | Ufa                         | 54.43       | 55.5        | 104.0    | no measurement data | MOSMIX Stationskatalog
 K4091    | Uffenheim                   | 49.32       | 10.14       | 340.0    | no measurement data | MOSMIX Stationskatalog
-10007    | Ufs Deutsche Bucht          | 54.1        | 7.27        | 0.0      |                     | MOSMIX Stationskatalog
+10007    | UFS Deutsche Bucht          | 54.1796     | 7.4587      | 0.0      |                     | Stationslexikon
 10004    | UFS TW Ems                  | 54.1651     | 6.346       | 0.0      |                     | Stationslexikon
 97180    | Ujung Pandang/Hasan.        | -5.04       | 119.33      | 14.0     | no measurement data | MOSMIX Stationskatalog
 44292    | Ulaan-Baator                | 47.55       | 106.52      | 1307.0   | no measurement data | MOSMIX Stationskatalog
@@ -5725,7 +5725,7 @@ K886     | Weierhof                    | 49.633      | 8.028       | 194.0    | 
 10863    | Weihenstephan-Dürnast       | 48.4024     | 11.6946     | 477.0    |                     | Stationslexikon
 P317     | Weihenzell-Grueb            | 49.2        | 10.37       | 474.0    | no measurement data | MOSMIX Stationskatalog
 N3924    | Weikersheim                 | 49.28       | 9.57        | 370.0    | no measurement data | MOSMIX Stationskatalog
-P905     | Weiler-Simmerberg (Kläranlage)| 47.574      | 9.903       | 600.0    | no measurement data | Stationslexikon
+P905     | Weiler-Simmerberg           | 47.574      | 9.903       | 600.0    | no measurement data | Stationslexikon
 02226    | Weilerswist-Lommersum       | 50.712      | 6.791       | 147.0    |                     | Stationslexikon
 H932     | Weilerswist-Lommersum       | 50.712      | 6.791       | 147.0    |                     | Stationslexikon
 N2117    | Weilheim                    | 47.51       | 11.09       | 568.0    | no measurement data | MOSMIX Stationskatalog
@@ -5773,7 +5773,7 @@ N3951    | Wertheim-Eichel             | 49.46       | 9.33        | 140.0    | 
 N0474    | Wertingen                   | 48.34       | 10.41       | 430.0    | no measurement data | MOSMIX Stationskatalog
 P611     | Wertingen                   | 48.57       | 10.699      | 420.0    | no measurement data | Stationslexikon
 N9607    | Wesel-Flueren               | 51.42       | 6.35        | 25.0     | no measurement data | MOSMIX Stationskatalog
-L031     | Wesertal-Lippoldsberg       | 51.619      | 9.575       | 176.0    |                     | Stationslexikon
+L031     | Wesertal-Lippoldsberg       | 51.619      | 9.575       | 167.0    |                     | Stationslexikon
 P0353    | Wesselburen                 | 54.13       | 8.55        | 5.0      | no measurement data | MOSMIX Stationskatalog
 E3624    | West Cretan                 | 36.0        | 24.29       | 0.0      | no measurement data | MOSMIX Stationskatalog
 03132    | West Freugh                 | 54.52       | -4.56       | 11.0     |                     | MOSMIX Stationskatalog
@@ -5886,7 +5886,7 @@ N2171    | Wolfhagen                   | 51.18       | 9.09        | 310.0    | 
 P0262    | Wolfratshausen              | 47.5        | 11.25       | 577.0    | no measurement data | MOSMIX Stationskatalog
 P0395    | Wolfsberg                   | 46.47       | 14.59       | 463.0    | no measurement data | MOSMIX Stationskatalog
 K3910    | Wolfsburg                   | 52.27       | 10.46       | 56.0     | no measurement data | MOSMIX Stationskatalog
-E790     | Wolfsburg (Südwest)         | 52.396      | 10.689      | 82.0     |                     | Stationslexikon
+E790     | Wolfsburg (Suedwest)        | 52.24       | 10.41       | 82.0     |                     | MOSMIX Stationskatalog
 11001    | Wolfsegg                    | 48.06       | 13.4        | 660.0    | no measurement data | MOSMIX Stationskatalog
 Q290     | Wolfskopf                   | 49.11       | 10.03       | 440.0    | no measurement data | MOSMIX Stationskatalog
 K2286    | Wolfstein/Pfalz             | 49.35       | 7.37        | 200.0    | no measurement data | MOSMIX Stationskatalog
