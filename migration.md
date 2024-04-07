@@ -9,15 +9,13 @@ With release 2023.8, Home Assistant has switched to a new mechanism how weather 
 
 Since Home Assistant 2023.8, all forecasts are provdided by a single entity (per station) and are retrieved by the [weather.get_forecasts service](https://www.home-assistant.io/integrations/weather/#service-weatherget_forecasts).
 
-Currently, this integration provides both mechnisms in parallel via three different entities, the old ones with the `_daily` and `_hourly` suffix (disabled by default for new stations), and the new one without suffix, see screenshot below. But as the old mechism is deprecated by Home Assistant, it will eventually go away, [probably around Home Assistant 2024.3](https://developers.home-assistant.io/blog/2023/08/07/weather_entity_forecast_types/). So you should migrate to the new entities and the new mechanism now.
-
-![Screenshot Entities](./images/screenshot_entities.png)
+With release 2024.4 Home Assistant has removed the previously deprecated state attribute from the weather entities. Therefore, from version 2024.4 on, this integration does not provide the old entities with the `_daily` and `_hourly` suffix any more. If you are still using them, you have to migrate to the new entities and the new mechanism now.
 
 If you only use the built-in Weather Forecast Card from Home Assistant or a third party weather card like the one at https://github.com/bramkragten/weather-card, the migration is usually as easy as removing the `_daily` or `_hourly` suffix from the Entity ID in the configuration of the weather card and selecting the desired forecast type (daily or hourly).
 
 ![Screenshot Weather Forecast Card Configuration](./images/screenshot_weather-forecast-card-configuration.png)
 
-You should also disable the daily and hourly entities afterwards to make sure you don't use them any more.
+You should delete the remainders of the old unavailable entities afterwards.
 
 [![Open your Home Assistant instance and show your entities.](https://my.home-assistant.io/badges/entities.svg)](https://my.home-assistant.io/redirect/entities/)
 
