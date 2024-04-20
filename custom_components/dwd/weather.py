@@ -34,6 +34,7 @@ from homeassistant.components.weather import (
     ATTR_FORECAST_PRECIPITATION_PROBABILITY,
     ATTR_FORECAST_TIME,
     ATTR_FORECAST_WIND_BEARING,
+    DOMAIN as WEATHER_DOMAIN,
     SingleCoordinatorWeatherEntity,
     WeatherEntityFeature,
 )
@@ -45,7 +46,7 @@ from homeassistant.const import (
     UnitOfTemperature,
 )
 from homeassistant.core import HomeAssistant, callback
-from homeassistant.helpers import sun
+from homeassistant.helpers import entity_registry as er, sun
 from homeassistant.helpers.device_registry import DeviceEntryType
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -97,6 +98,7 @@ async def async_setup_entry(
 ):
     """Add a weather entity from a config_entry."""
     coordinator: DwdDataUpdateCoordinator = hass.data[DOMAIN][config_entry.entry_id]
+    entity_registry = er.async_get(hass)
 
     device = {
         "identifiers": {(DOMAIN, config_entry.unique_id)},
@@ -105,6 +107,22 @@ async def async_setup_entry(
         "model": f"Station {config_entry.unique_id}",
         "entry_type": DeviceEntryType.SERVICE,
     }
+
+    # Remove hourly entity from legacy config entries
+    if hourly_entity_id := entity_registry.async_get_entity_id(
+        WEATHER_DOMAIN,
+        DOMAIN,
+        f"{config_entry.unique_id}-hourly",
+    ):
+        entity_registry.async_remove(hourly_entity_id)
+
+    # Remove daily entity from legacy config entries
+    if daily_entity_id := entity_registry.async_get_entity_id(
+        WEATHER_DOMAIN,
+        DOMAIN,
+        f"{config_entry.unique_id}-daily",
+    ):
+        entity_registry.async_remove(daily_entity_id)
 
     async_add_entities(
         [

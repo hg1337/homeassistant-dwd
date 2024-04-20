@@ -15,10 +15,6 @@ If you only use the built-in Weather Forecast Card from Home Assistant or a thir
 
 ![Screenshot Weather Forecast Card Configuration](./images/screenshot_weather-forecast-card-configuration.png)
 
-You should delete the remainders of the old unavailable entities afterwards.
-
-[![Open your Home Assistant instance and show your entities.](https://my.home-assistant.io/badges/entities.svg)](https://my.home-assistant.io/redirect/entities/)
-
 If you use the forecasts from the state attribute in a template sensor or automation, or if you are using a third party weather card that has not been adapted yet, there is a bit more work to do. For that, you may find these resources helpful:
 
 - [Examples](https://www.home-assistant.io/integrations/weather/#examples) in the Home Assistant documentation.
