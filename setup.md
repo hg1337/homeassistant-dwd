@@ -102,3 +102,92 @@ cards:
     hourly_forecast: false
     number_of_forecasts: '5'
 ```
+
+This integration also works well with the weather chart card from https://github.com/mlamberts78/weather-chart-card.
+
+![Screenshot Weather Chart Card](./images/screenshot_mlamberts78-weather-chart-card.png)
+
+This is the configuration I used for the screenshot above:
+
+```yaml
+type: vertical-stack
+cards:
+  - type: custom:weather-chart-card
+    entity: weather.stuttgart_echterdingen
+    show_main: true
+    show_temperature: true
+    show_current_condition: true
+    show_attributes: true
+    show_time: false
+    show_time_seconds: false
+    show_day: false
+    show_date: false
+    show_humidity: true
+    show_pressure: true
+    show_wind_direction: true
+    show_wind_speed: true
+    show_sun: true
+    show_feels_like: false
+    show_dew_point: true
+    show_wind_gust_speed: true
+    show_visibility: true
+    show_last_changed: false
+    use_12hour_format: false
+    icons_size: 25
+    animated_icons: false
+    icon_style: style1
+    forecast:
+      precipitation_type: rainfall
+      show_probability: true
+      labels_font_size: '11'
+      precip_bar_size: '100'
+      style: style1
+      show_wind_forecast: true
+      condition_icons: true
+      round_temp: false
+      type: hourly
+      number_of_forecasts: '0'
+      disable_animation: false
+    units:
+      pressure: ''
+      speed: ''
+  - type: custom:weather-chart-card
+    entity: weather.stuttgart_echterdingen
+    show_main: false
+    show_temperature: false
+    show_current_condition: false
+    show_attributes: false
+    show_time: false
+    show_time_seconds: false
+    show_day: false
+    show_date: false
+    show_humidity: false
+    show_pressure: false
+    show_wind_direction: false
+    show_wind_speed: false
+    show_sun: false
+    show_feels_like: false
+    show_dew_point: false
+    show_wind_gust_speed: false
+    show_visibility: false
+    show_last_changed: false
+    use_12hour_format: false
+    icons_size: 25
+    animated_icons: false
+    icon_style: style1
+    forecast:
+      precipitation_type: rainfall
+      show_probability: false
+      labels_font_size: '11'
+      precip_bar_size: '100'
+      style: style1
+      show_wind_forecast: true
+      condition_icons: true
+      round_temp: false
+      type: daily
+      number_of_forecasts: '0'
+      disable_animation: false
+    units:
+      pressure: ''
+      speed: ''
+```
