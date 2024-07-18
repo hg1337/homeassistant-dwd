@@ -42,7 +42,7 @@ from .const import (
 _LOGGER = logging.getLogger(__name__)
 
 CONFIG_SCHEMA = cv.empty_config_schema(DOMAIN)
-
+PLATFORMS = [Platform.WEATHER]
 
 async def async_setup(hass: HomeAssistant, config: Config) -> bool:
     """Set up configured DWD."""
@@ -63,10 +63,7 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
 
     hass.data[DOMAIN][config_entry.entry_id] = coordinator
 
-    hass.async_create_task(
-        hass.config_entries.async_forward_entry_setup(config_entry, Platform.WEATHER)
-    )
-
+    await hass.config_entries.async_forward_entry_setups(config_entry, PLATFORMS)
     return True
 
 
@@ -75,14 +72,10 @@ async def update_listener(hass: HomeAssistant, entry: ConfigEntry) -> None:
 
     await hass.config_entries.async_reload(entry.entry_id)
 
-
-async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
+async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
-    await hass.config_entries.async_forward_entry_unload(config_entry, Platform.WEATHER)
-    hass.data[DOMAIN].pop(config_entry.entry_id)
-
-    return True
-
+    unload_ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
+    return unload_ok
 
 class DwdDataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching DWD data."""
