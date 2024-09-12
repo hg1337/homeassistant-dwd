@@ -44,6 +44,7 @@ _LOGGER = logging.getLogger(__name__)
 CONFIG_SCHEMA = cv.empty_config_schema(DOMAIN)
 PLATFORMS = [Platform.WEATHER]
 
+
 async def async_setup(hass: HomeAssistant, config: Config) -> bool:
     """Set up configured DWD."""
     hass.data.setdefault(DOMAIN, {})
@@ -72,10 +73,11 @@ async def update_listener(hass: HomeAssistant, config_entry: ConfigEntry) -> Non
 
     await hass.config_entries.async_reload(config_entry.entry_id)
 
+
 async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
     """Unload a config entry."""
-    unload_ok = await hass.config_entries.async_unload_platforms(config_entry, PLATFORMS)
-    return unload_ok
+    return await hass.config_entries.async_unload_platforms(config_entry, PLATFORMS)
+
 
 class DwdDataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching DWD data."""
