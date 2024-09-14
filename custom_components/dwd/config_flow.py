@@ -88,8 +88,8 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                         errors[CONF_STATION_ID] = "no_data"
 
                 if not errors:
-                    self._name = await DwdFlowHandler._async_get_station_name(
-                        self._station_id
+                    self._name = await self.hass.async_add_executor_job(
+                        DwdFlowHandler._get_station_name, self._station_id
                     )
                     if self._name is None:
                         errors[CONF_STATION_ID] = "no_station_name"
@@ -97,7 +97,9 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 if not errors:
                     return await self.async_step_name()
 
-        stations = list(await self._async_get_nearest_stations())
+        stations = list(
+            await self.hass.async_add_executor_job(self._get_nearest_stations)
+        )
 
         station_options = chain(
             [
@@ -306,7 +308,7 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         """Create the options flow."""
         return DwdOptionsFlowHandler(config_entry)
 
-    async def _async_get_nearest_stations(self):
+    def _get_nearest_stations(self):
         with open(
             os.path.join(os.path.dirname(os.path.realpath(__file__)), "stations.json"),
             encoding="utf-8",
@@ -330,7 +332,7 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 return islice(sorted_startions, 100)
 
     @staticmethod
-    async def _async_get_station_name(station_id: str):
+    def _get_station_name(station_id: str):
         with open(
             os.path.join(os.path.dirname(os.path.realpath(__file__)), "stations.json"),
             encoding="utf-8",

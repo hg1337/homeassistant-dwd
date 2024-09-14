@@ -785,7 +785,7 @@ class DwdWeather(SingleCoordinatorWeatherEntity[DwdDataUpdateCoordinator]):
             return hourly_list
 
     @staticmethod
-    def _str_to_float(value: str) -> Optional[float]:
+    def _str_to_float(value: str) -> float | None:
         if value == "---":
             return None
         else:
