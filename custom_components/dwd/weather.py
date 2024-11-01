@@ -5,7 +5,7 @@ from __future__ import annotations
 from datetime import UTC, date, datetime, time, timedelta
 from enum import Enum
 import logging
-from typing import Any, Optional
+from typing import Any
 
 from homeassistant.components.weather import (
     ATTR_CONDITION_CLEAR_NIGHT,
