@@ -66,7 +66,7 @@ The conditions from Deutscher Wetterdienst (DWD) for using their data and access
 
 ## Quick Setup
 
-This quick setup guide is based on [My Home Assistant](https://my.home-assistant.io/) links and the [Home Assistant Community Store (HACS)](https://hacs.xyz). For more details and other setup methods, see [setup.md](setup.md).
+This quick setup guide is based on [My Home Assistant](https://my.home-assistant.io) links and the [Home Assistant Community Store (HACS)](https://hacs.xyz). For more details and other setup methods, see [setup.md](setup.md).
 
 As this integration is currently not part of Home Assistant Core, you have to download it first into your Home Assistant installation. To download it via HACS, click the following button to open the download page for this integration in HACS.
 
