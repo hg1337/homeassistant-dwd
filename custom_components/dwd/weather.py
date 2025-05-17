@@ -52,7 +52,6 @@ from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.util import dt as dt_util
 
-from . import DwdDataUpdateCoordinator
 from .const import (
     ATTRIBUTION,
     CONDITION_CLOUDY_THRESHOLD,
@@ -80,6 +79,7 @@ from .const import (
     DWD_MEASUREMENT_TEMPERATURE,
     DWD_MEASUREMENT_VISIBILITY,
 )
+from .coordinator import DwdDataUpdateCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -97,7 +97,7 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ):
     """Add a weather entity from a config_entry."""
-    coordinator: DwdDataUpdateCoordinator = hass.data[DOMAIN][config_entry.entry_id]
+    coordinator: DwdDataUpdateCoordinator = config_entry.runtime_data
     entity_registry = er.async_get(hass)
 
     device = {
