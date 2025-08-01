@@ -58,7 +58,7 @@ class DwdDataUpdateCoordinator(DataUpdateCoordinator):
             UPDATE_INTERVAL,
         )
 
-        super().__init__(hass, _LOGGER, name=DOMAIN, update_interval=UPDATE_INTERVAL)
+        super().__init__(hass, _LOGGER, name=DOMAIN, config_entry=config_entry, update_interval=UPDATE_INTERVAL)
 
     async def _async_update_data(self) -> dict:
         """Fetch data from DWD."""
