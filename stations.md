@@ -5765,7 +5765,7 @@ E298     | Wendisch Evern              | 53.214      | 10.47       | 62.0     | 
 P0121    | Wennigsen                   | 52.16       | 9.39        | 30.0     | no measurement data | MOSMIX Stationskatalog
 P0431    | Werbig                      | 51.56       | 13.12       | 110.0    | no measurement data | MOSMIX Stationskatalog
 P0503    | Werder                      | 53.3        | 12.0        | 59.0     | no measurement data | MOSMIX Stationskatalog
-10424    | Werl                        | 51.5763     | 7.8879      | 85.0     |                     | Stationslexikon
+10424    | Werl                        | 51.5763     | 7.8879      | 85.0     | no measurement data | Stationslexikon
 N8349    | Wermelskirchen              | 51.08       | 7.14        | 280.0    | no measurement data | MOSMIX Stationskatalog
 10454    | Wernigerode                 | 51.8454     | 10.7686     | 233.0    |                     | Stationslexikon
 N601     | Wernigerode-Schierke        | 51.766      | 10.653      | 609.0    |                     | Stationslexikon
