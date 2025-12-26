@@ -784,6 +784,8 @@ class DwdWeather(SingleCoordinatorWeatherEntity[DwdDataUpdateCoordinator]):
         if forecast_mode == ForecastMode.HOURLY:
             return hourly_list
 
+        return None
+
     @staticmethod
     def _str_to_float(value: str) -> float | None:
         if value == "---":
