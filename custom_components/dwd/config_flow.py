@@ -306,7 +306,7 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         config_entry: config_entries.ConfigEntry,
     ) -> config_entries.OptionsFlow:
         """Create the options flow."""
-        return DwdOptionsFlowHandler(config_entry)
+        return DwdOptionsFlowHandler()
 
     def _get_nearest_stations(self):
         with open(
@@ -349,9 +349,8 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 class DwdOptionsFlowHandler(config_entries.OptionsFlow):
     """Options flow for DWD component."""
 
-    def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
+    def __init__(self) -> None:
         """Initialize options flow."""
-        self.config_entry = config_entry
         self._available_data = None
 
     async def async_step_init(
