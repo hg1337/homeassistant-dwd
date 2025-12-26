@@ -111,7 +111,7 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             (
                 {
                     # Elevation is always in m in Home Assistant
-                    "label": f'{x["name"]} ({"" if x["source"] == SOURCE_STATIONSLEXIKON else "~ "}{x["distance"]:.0f} {self.hass.config.units.length_unit}, {x["altitude_delta"]:+.0f} m) {self._get_translation(STRING_NO_MEASUREMENT) if not x["measurement"] else self._get_translation(STRING_NO_FORECAST) if not x["forecast"] else ""}',
+                    "label": f"{x['name']} ({'' if x['source'] == SOURCE_STATIONSLEXIKON else '~ '}{x['distance']:.0f} {self.hass.config.units.length_unit}, {x['altitude_delta']:+.0f} m) {self._get_translation(STRING_NO_MEASUREMENT) if not x['measurement'] else self._get_translation(STRING_NO_FORECAST) if not x['forecast'] else ''}",
                     "value": x["id"],
                 }
                 for x in stations
