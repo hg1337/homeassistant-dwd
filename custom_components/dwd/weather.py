@@ -379,9 +379,7 @@ class DwdWeather(SingleCoordinatorWeatherEntity[DwdDataUpdateCoordinator]):
         # Timestamp and temperature are mandatory attributes of the forcast entity,
         # see https://developers.home-assistant.io/docs/core/entity/weather/
         for i in range(min(len(dwd_forecast_timestamp), len(dwd_forecast_TTT))):
-            # We have to subsctract one hour, because all forecast values are for the last hour
-            # and we are interested in the timestamp at the beginning of the hour, not at the end.
-            timestamp = dwd_forecast_timestamp[i] - timedelta(hours=1)
+            timestamp = dwd_forecast_timestamp[i]
 
             # The forcast contains data from a few hour back. However, the earlist we want to return
             # is from the current hour (i.e. at most one hour back), because that's what other
@@ -783,6 +781,8 @@ class DwdWeather(SingleCoordinatorWeatherEntity[DwdDataUpdateCoordinator]):
             return result
         if forecast_mode == ForecastMode.HOURLY:
             return hourly_list
+
+        return None
 
     @staticmethod
     def _str_to_float(value: str) -> float | None:
