@@ -31,6 +31,9 @@ CONF_CURRENT_WEATHER_DEFAULT = CONF_CURRENT_WEATHER_MEASUREMENT
 CONF_FORECAST = "forecast"
 CONF_FORECAST_DEFAULT = True
 
+URL_DWD_TERMS = "https://opendata.dwd.de/README.txt"
+URL_STATIONS_MD = "https://github.com/hg1337/homeassistant-dwd/blob/main/stations.md"
+
 URL_MEASUREMENT = (
     "https://opendata.dwd.de/weather/weather_reports/poi/{station_id:_<5}-BEOB.csv"
 )
