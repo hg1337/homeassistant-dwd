@@ -12,7 +12,7 @@
                 "data": {
                     "station_id": "Station"
                 },
-                "description": "Diese Integration bezieht Wetterdaten vom Open Data Server des Deutschen Wetterdienstes. Wenn du diese Integration verwendest, stimmst du den Bedingungen unter https://opendata.dwd.de/README.txt zu.\n\nBasierend auf der aktuellen Home Assistant Konfiguration wurde unten eine Wetterstation vorgeschlagen. Probiere gerne verschiedene Wetterstationen aus, um die beste für dich zu finden. Entferung und Höhenunterscheid zu deinem Heimatort werden zu jeder Station angezeigt.\n\nFalls du eine Wetterstation manuell konfigurieren möchtest, wähle \"Benutzerdefiniert...\" aus."
+                "description": "Diese Integration bezieht Wetterdaten vom Open Data Server des Deutschen Wetterdienstes. Wenn du diese Integration verwendest, stimmst du den Bedingungen unter {dwd_terms} zu.\n\nBasierend auf der aktuellen Home Assistant Konfiguration wurde unten eine Wetterstation vorgeschlagen. Probiere gerne verschiedene Wetterstationen aus, um die beste für dich zu finden. Entferung und Höhenunterscheid zu deinem Heimatort werden zu jeder Station angezeigt.\n\nFalls du eine Wetterstation manuell konfigurieren möchtest, wähle \"Benutzerdefiniert...\" aus."
             },
             "name": {
                 "data": {
@@ -25,7 +25,7 @@
                     "station_id": "Stations-ID",
                     "name": "Name"
                 },
-                "description": "Diese Integration bezieht Wetterdaten vom Open Data Server des Deutschen Wetterdienstes. Wenn du diese Integration verwendest, stimmst du den Bedingungen unter https://opendata.dwd.de/README.txt zu.\n\nFür eine Liste der Wetterstationen siehe https://github.com/hg1337/homeassistant-dwd/blob/main/stations.md."
+                "description": "Diese Integration bezieht Wetterdaten vom Open Data Server des Deutschen Wetterdienstes. Wenn du diese Integration verwendest, stimmst du den Bedingungen unter {dwd_terms} zu.\n\nFür eine Liste der Wetterstationen siehe {stations_md}."
             },
             "options": {
                 "data": {

@@ -31,6 +31,8 @@ from .const import (
     DWD_FORECAST,
     DWD_MEASUREMENT,
     SOURCE_STATIONSLEXIKON,
+    URL_DWD_TERMS,
+    URL_STATIONS_MD,
     URL_FORECAST,
     URL_MEASUREMENT,
 )
@@ -167,7 +169,11 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         )
 
         return self.async_show_form(
-            step_id="user", data_schema=schema, errors=errors, last_step=False
+            step_id="user",
+            data_schema=schema,
+            errors=errors,
+            last_step=False,
+            description_placeholders={"dwd_terms": URL_DWD_TERMS},
         )
 
     async def async_step_name(
@@ -226,7 +232,14 @@ class DwdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         )
 
         return self.async_show_form(
-            step_id="manual", data_schema=schema, errors=errors, last_step=False
+            step_id="manual",
+            data_schema=schema,
+            errors=errors,
+            last_step=False,
+            description_placeholders={
+                "dwd_terms": URL_DWD_TERMS,
+                "stations_md": URL_STATIONS_MD,
+            },
         )
 
     async def async_step_options(
