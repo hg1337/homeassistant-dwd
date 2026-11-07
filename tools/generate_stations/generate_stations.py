@@ -25,7 +25,7 @@ if __name__ == "__main__":
 
     measurement_href_pattern = re.compile(r"^(.*[^_])_*-BEOB\.csv$")
     forecast_href_pattern = re.compile(r"^(.+)/$")
-    mosmix_stationskatalog_pattern = re.compile(r"^([^ ]+)[ ]+([^ ]+)[ ]+(.+[^ ])[ ]+(-?[0-9]+\.[0-9]+)[ ]+(-?[0-9]+\.[0-9]+)[ ]+(-?[0-9]+?)$")
+    mosmix_stationskatalog_pattern = re.compile(r"^[ ]*([^ ]+)[ ]+([^ ]+)[ ]+(.+[^ ])[ ]+(-?[0-9]+\.[0-9]+)[ ]+(-?[0-9]+\.[0-9]+)[ ]+(-?[0-9]+?)$")
 
     class HtmlStationListParser(HTMLParser):
 
