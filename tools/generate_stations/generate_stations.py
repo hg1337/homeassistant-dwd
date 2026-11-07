@@ -21,6 +21,12 @@ NAME_RE = re.compile("[A-ZÄÖÜ]{2,}")
 def beautify_name(name: str) -> str:
     return NAME_RE.sub(lambda x: x.group()[0] + x.group()[1:].lower(), name)
 
+def degrees_minutes_to_decimal(value: str) -> float:
+    # The MOSMIX Stationskatalog gives coordinates as degrees.minutes, e.g. 48.22 for 48°22' (= 48.3667°).
+    sign = -1 if value.startswith("-") else 1
+    degrees, minutes = value.lstrip("-").split(".")
+    return round(sign * (int(degrees) + int(minutes) / 60), 4)
+
 if __name__ == "__main__":
 
     measurement_href_pattern = re.compile(r"^(.*[^_])_*-BEOB\.csv$")
@@ -126,8 +132,8 @@ if __name__ == "__main__":
                     data_from_stationslexikon = stationslexikon_stations.get(station_id, None)
                     if data_from_stationslexikon is None:
                         station_name = beautify_name(match.groups()[2])
-                        station_latitude = float(match.groups()[3])
-                        station_longitude = float(match.groups()[4])
+                        station_latitude = degrees_minutes_to_decimal(match.groups()[3])
+                        station_longitude = degrees_minutes_to_decimal(match.groups()[4])
                         station_altitude = float(match.groups()[5])
                         station_source = SOURCE_MOSMIX_STATIONSKATALOG
                     else:
